@@ -4,7 +4,7 @@ output/browser-cache/
 node_modules/
 *.log
 
-# Modular persona application (original offline releases remain tracked).
+# Current persona application.
 backend/target/
 frontend/dist/
 frontend/.pnpm-store/
