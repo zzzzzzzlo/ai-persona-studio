@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<!-- Browser-only single-file offline preview. Builder Hub must use the separate ZIP with external scripts. -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F5F7FC">
+  <title>AI心动人格测试</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJ0aWxlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iI0ZCRTVFRiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0U3RURGRiIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJoZWFydCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiNGMEE2QzUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNERjg3QUQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KICA8cmVjdCB4PSI5IiB5PSI5IiB3aWR0aD0iMTQyIiBoZWlnaHQ9IjE0MiIgcng9IjQzIiBmaWxsPSJ1cmwoI3RpbGUpIi8+CiAgPHBhdGggZD0iTTQ2IDM3SDExNEMxMjYgMzcgMTMzIDQ1IDEzMyA1N1Y5OUMxMzMgMTExIDEyNSAxMTkgMTEzIDExOUg2OUw0NyAxMzNWMTE4QzM1IDExNyAyOCAxMDkgMjggOTdWNTdDMjggNDUgMzUgMzcgNDYgMzdaIiBmaWxsPSIjQ0ZEOEY1IiBvcGFjaXR5PSIuNTUiLz4KICA8cGF0aCBkPSJNNDQgMzJIMTEyQzEyNCAzMiAxMzEgNDAgMTMxIDUyVjk0QzEzMSAxMDYgMTIzIDExNCAxMTEgMTE0SDY3TDQ1IDEyOFYxMTNDMzMgMTEyIDI2IDEwNCAyNiA5MlY1MkMyNiA0MCAzMyAzMiA0NCAzMloiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0MyQ0JFQSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0iTTc5IDk0QzcwIDg3IDU1IDc3IDU1IDY1QzU1IDU3IDYxIDUyIDY4IDUyQzczIDUyIDc3IDU1IDc5IDU5QzgyIDU1IDg1IDUyIDkwIDUyQzk4IDUyIDEwMyA1OCAxMDMgNjVDMTAzIDc3IDg5IDg4IDc5IDk0WiIgZmlsbD0idXJsKCNoZWFydCkiLz4KPC9zdmc+Cg==" type="image/svg+xml">
+  <style>
+:root{--paper:#f5f7fc;--surface:#fff;--ink:#30374d;--accent:#626db2;--muted:#7b8399;--line:#e7ebf4;--mist:#efb9cf;--pink:#fff0f6;--blue:#edf2ff;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;--serif:var(--sans);--ease:cubic-bezier(.23,1,.32,1)}
+
+</style>
+  <style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}html{touch-action:manipulation}body{font-family:var(--sans);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}button,input,select{font:inherit}button{color:inherit;cursor:pointer;touch-action:manipulation}button:disabled{cursor:default}button:focus,input:focus,select:focus{outline:2px solid var(--accent);outline-offset:4px}html.using-pointer button:focus{outline:none}h1,h2,p{margin:0}img{max-width:100%}[hidden]{display:none!important}
+.app{max-width:430px;margin:auto;min-height:100vh;min-height:var(--app-height,100vh);padding:0 20px;background:var(--paper)}.screen{animation:enter 180ms var(--ease);padding-bottom:24px;padding-bottom:calc(24px + var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px)))}.masthead{min-height:84px;display:flex;align-items:center;justify-content:space-between;padding-top:0;padding-top:var(--safe-area-inset-top,env(safe-area-inset-top,0px))}.brand{font-size:13px;font-weight:600;display:flex;align-items:center;letter-spacing:.2px;white-space:nowrap}.brand img{width:30px;height:30px;margin-right:8px}.edition{font-size:10px;color:var(--muted)}.eyebrow{font-size:12px;letter-spacing:.5px;color:var(--accent)}
+.primary{width:100%;min-height:58px;padding:12px 42px;border:1px solid #cbd3ed;border-radius:18px;background:#dce4fc;color:#414e8e;font-size:16px;font-weight:600;letter-spacing:1px;display:flex;align-items:center;justify-content:center;position:relative;transition:transform 140ms var(--ease),background 140ms}.primary .arrow{position:absolute;right:22px;font-size:21px;font-weight:400}.primary:active,.answer:active{transform:scale(.985)}.secondary-button{width:100%;min-height:52px;border:1px solid var(--line);border-radius:16px;background:var(--surface);font-size:14px;font-weight:500}.text-button{min-height:44px;padding:8px 14px;border:0;background:none;color:var(--muted);font-size:12px}.smallprint{font-size:11px;line-height:1.9;color:var(--muted);text-align:center}.nav-back{width:42px;height:42px;border:1px solid var(--line);border-radius:14px;background:var(--surface);font-size:26px;line-height:1}.toast{position:fixed;z-index:30;left:50%;bottom:28px;transform:translateX(-50%);max-width:calc(100% - 40px);width:340px;background:var(--ink);color:var(--surface);padding:14px 18px;font-size:13px;line-height:1.6;text-align:center;border-radius:16px;box-shadow:0 5px 24px #34405b12}
+.home{min-height:100vh;min-height:var(--app-height,100vh);display:flex;flex-direction:column}.home-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px 0 12px}.home .eyebrow{display:inline-block;background:var(--pink);border:1px solid #f4dfe9;color:#9f6885;border-radius:30px;padding:8px 14px;font-size:11px;letter-spacing:.5px;margin-bottom:22px}.home-title{font-size:32px;font-weight:700;line-height:1.5;letter-spacing:-.8px}.home-title em{font-style:normal;color:var(--accent)}.encounter{margin:24px 0 19px;text-align:center}.encounter img{display:block;width:154px;height:154px;object-fit:contain}.home-copy{font-size:13px;line-height:2;color:var(--muted)}.home-copy strong{font-weight:500;color:var(--ink)}.home-action{margin:25px 6px 20px}.duration{font-size:11px;color:var(--muted);text-align:center;margin-bottom:14px;letter-spacing:.4px}.home-action .text-button{display:block;margin:4px auto -12px}.home footer{padding:4px 0 4px}.home footer p+p{margin-top:2px}
+@keyframes enter{from{opacity:0}to{opacity:1}}@media(hover:hover) and (pointer:fine){.primary:hover{background:#d1dcfa}.answer:hover{border-color:#c7d0eb;background:#f0f3fc}.secondary-button:hover{background:var(--blue)}}@media(max-width:359px){.app{padding:0 16px}.home-title{font-size:28px}.brand{font-size:12px}.brand img{width:28px;height:28px}.home-copy{font-size:12px}.masthead{min-height:76px}.encounter img{width:136px;height:136px}}
+@media(max-height:740px){.home-content{padding-top:6px}.home .eyebrow{margin-bottom:15px}.home-title{font-size:29px}.encounter{margin:17px 0 13px}.encounter img{width:120px;height:120px}.home-action{margin-top:18px;margin-bottom:14px}.masthead{min-height:74px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.primary:active,.answer:active{transform:none}}
+
+</style>
+  <style>
+.quiz-nav .brand{font-size:12px}.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-top:15px;margin-bottom:13px}.counter{font-size:18px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}.counter span{font-size:12px;font-weight:400;color:var(--muted);margin-left:5px}.progress-caption{font-size:11px;color:var(--muted)}.progress-track{height:6px;background:#e4e9f5;border-radius:6px;width:100%;overflow:hidden}.progress-fill{height:100%;background:#a1b0e2;border-radius:6px;transition:width 180ms var(--ease)}
+.question-body{margin-top:28px;padding:24px 22px 25px;background:var(--surface);border:1px solid #edf0f7;border-radius:28px;box-shadow:0 8px 30px rgba(75,89,135,.035)}.question-label{display:inline-block;font-size:11px;font-weight:600;color:var(--accent);background:var(--blue);border-radius:9px;padding:6px 10px;margin-bottom:20px;letter-spacing:.5px}.question-title{font-size:23px;font-weight:650;line-height:1.55;letter-spacing:-.4px;margin-bottom:24px;overflow-wrap:break-word}.answers{display:flex;flex-direction:column}.answer{display:flex;align-items:center;width:100%;min-height:76px;text-align:left;padding:14px 13px;border:1px solid #e5e9f3;border-radius:18px;background:#f7f9fe;transition:transform 140ms var(--ease),background 140ms,border-color 140ms}.answer+.answer{margin-top:11px}.answer-letter{flex-shrink:0;font-size:12px;font-weight:600;color:#7480b4;width:28px;height:28px;line-height:28px;text-align:center;border-radius:9px;background:#eaf0fc;margin-right:11px}.answer-copy{font-size:14px;line-height:1.75;min-width:0}.answer.selected{background:#edf1ff;border-color:#929fd7}.answer.selected .answer-letter{background:#a1ade0;color:#fff}.quiz-hint{font-size:11px;color:var(--muted);text-align:center;padding:21px 0 6px;line-height:1.8}
+.final-question .question-body{margin-top:23px;padding-top:22px}.final-question .question-label{margin-bottom:14px}.final-subtitle{font-size:12px;color:var(--muted);margin-bottom:16px}.final-question .question-title{font-size:20px;line-height:1.6;margin-bottom:22px}.final-question .answer{min-height:61px;padding:12px}.final-question .answer+.answer{margin-top:9px}.final-question .answer-copy{font-size:13px}@media(max-height:740px){.progress-meta{margin-top:10px}.question-body{margin-top:22px}.question-title{font-size:22px}}
+@media(max-width:359px){.question-body{padding:22px 16px}.question-title{font-size:21px;letter-spacing:-.5px}.answer{padding:13px 10px}.answer-copy{font-size:13px}.answer-letter{width:25px;height:25px;line-height:25px;margin-right:9px}.final-question .question-body{padding:20px 16px}.final-question .question-title{font-size:19px}.final-question .answer{padding:11px 10px}.quiz-nav .brand{font-size:11px}}
+
+</style>
+  <style>
+.analysis{min-height:100vh;min-height:var(--app-height,100vh);display:flex;flex-direction:column}.analysis-content{flex:1;margin:20px 0 25px;padding:34px 26px 30px;border-radius:28px;background:var(--surface);border:1px solid var(--line)}.analysis-symbol{width:104px;height:104px;margin:0 auto 28px;animation:breathe 1.8s ease-in-out infinite}.analysis-symbol img{display:block}.analysis .eyebrow{text-align:center;font-size:11px}.analysis h1{font-size:28px;line-height:1.55;margin:15px 0 25px;font-weight:650;text-align:center;letter-spacing:-.6px}.analysis .dots{font-size:22px}.analysis-steps{list-style:none;padding:0;margin:0}.analysis-steps li{font-size:12px;line-height:2.8;color:#a2a9bc;transition:color 180ms}.analysis-steps span{display:inline-block;width:25px;opacity:0}.analysis-steps .complete{color:var(--ink)}.analysis-steps .complete span{color:var(--accent);opacity:1}.prediction{font-size:12px;line-height:1.95;color:var(--accent);border-top:1px solid var(--line);padding-top:18px;margin-top:20px;animation:enter 180ms}.result-nav .brand{font-size:12px}.result-hero{margin-top:18px;padding:25px 24px 23px;border-radius:28px;background:var(--surface);border:1px solid var(--line)}.result-heading{display:flex;align-items:center;justify-content:space-between}.result-heading>div{min-width:0}.result-heading>img{flex-shrink:0;width:48px;height:48px;margin-left:12px}.result-hero .eyebrow{display:inline-block;font-size:11px;color:#9f6885;background:var(--pink);border-radius:9px;padding:6px 9px}.result-index{font-size:10px;color:var(--muted);margin-top:10px;letter-spacing:.3px}.persona-title{font-size:35px;font-weight:700;line-height:1.4;letter-spacing:-1px;margin:23px 0 20px;color:var(--accent);overflow-wrap:break-word}.dual-name{display:block;color:var(--muted);font-size:22px;font-weight:500;letter-spacing:0;margin-top:7px}.keywords{display:flex;flex-wrap:wrap;margin-right:-6px}.keywords span{font-size:10px;margin-right:6px;margin-bottom:8px;padding:6px 9px;border:1px solid #e8edf9;border-radius:9px;background:#f1f4fd;color:var(--accent);white-space:nowrap}.result-signature{display:none}.article-label{font-size:12px!important;font-weight:600;color:var(--accent);margin-bottom:20px!important}.result-copy{margin-top:18px;padding:25px 24px 7px;border-radius:28px;background:var(--surface);border:1px solid var(--line)}.result-copy>p{font-size:14px;line-height:2;margin-bottom:18px}.result-copy blockquote{margin:25px 0 20px;border:0;border-radius:17px;background:#fff4f8;padding:19px 18px;position:relative}.result-copy blockquote p{font-size:17px;line-height:1.9;font-weight:500;color:#8b6480}.quote-glyph{display:block;font-family:Georgia,serif;font-size:42px;height:26px;line-height:1;color:#d59cb8;margin-bottom:7px}.secondary-type{padding:20px 22px;border:1px solid var(--line);border-radius:23px;background:#eef2fc;margin:18px 0}.secondary-type p{font-size:12px;line-height:1.8;color:var(--muted)}.secondary-type strong{font-weight:600;color:var(--accent)}.secondary-type>span{display:block;font-size:12px;line-height:1.9;margin-top:7px;color:var(--muted)}.result-actions{margin-top:28px}.share-invite{font-size:16px;font-weight:500;margin-bottom:18px;text-align:center}.result-actions>.secondary-button{margin-top:11px}.minor-actions{display:flex;align-items:center;justify-content:center;padding:9px 0;color:var(--muted)}.result-footer{margin-top:6px;padding-top:14px;border-top:1px solid var(--line)}
+.metrics{margin-top:24px;margin-bottom:22px}.metric+.metric{margin-top:16px}.metric-top{display:flex;align-items:baseline;justify-content:space-between}.metric-top>span{font-size:12px;color:var(--muted)}.metric-top strong{color:var(--accent);font-size:29px;font-weight:650;font-variant-numeric:tabular-nums}.metric-top small{font-size:13px;margin-left:4px}.metric-track{height:5px;background:#edf0f9;border-radius:5px;margin-top:9px;overflow:hidden}.metric-track span{display:block;height:100%;border-radius:5px;background:#a7b3e1}.metric-note{font-size:9px;color:var(--muted);margin-top:5px;line-height:1.8}.result-metrics .result-copy>p{font-size:14px}
+.modal-overlay{position:fixed;z-index:40;left:0;right:0;top:0;bottom:0;background:rgba(41,49,76,.4);overflow-y:auto;overscroll-behavior:contain;padding:22px 18px;display:flex;align-items:flex-start;justify-content:center}.modal-sheet{max-width:390px;width:100%;margin:auto;background:var(--surface);padding:20px;border:1px solid var(--line);border-radius:26px;box-shadow:0 14px 55px #34405b18}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.modal-head h2{font-size:15px;font-weight:600}.modal-close{height:38px;width:38px;border:1px solid var(--line);border-radius:13px;background:var(--paper);font-size:22px}.share-card-image{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:14px}.modal-help{font-size:12px;line-height:1.8;color:var(--muted);margin:15px 0}.modal-sheet .primary{min-height:48px;font-size:13px}.note-draft{width:100%;font-size:12px;line-height:1.8;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;user-select:text;-webkit-user-select:text}
+.debug-panel{border:1px dashed var(--accent);padding:18px;margin:25px 0;font-size:12px;line-height:1.8;background:var(--surface);border-radius:18px}.debug-panel h2{font-size:15px}.debug-panel p{margin:9px 0}.debug-panel table{width:100%;border-collapse:collapse;font-size:11px}.debug-panel td{padding:4px;border-bottom:1px solid var(--line)}.debug-panel td:last-child{text-align:right;font-family:monospace}.debug-panel select{width:100%;height:40px;margin:10px 0;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink)}.debug-controls{display:grid;grid-template-columns:1fr 1fr;grid-gap:10px;margin:12px 0}.debug-controls label{font-size:10px}.debug-controls input{display:block;width:100%;height:35px;margin-top:4px;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:5px}.debug-panel .secondary-button{font-size:12px;min-height:42px;margin-top:8px}.debug-preview-label{font-size:10px;color:var(--accent);border-bottom:1px dashed var(--accent);padding-bottom:10px}.debug-vector{font-family:monospace;word-break:break-word;font-size:11px}@keyframes breathe{50%{opacity:.65}}@media(max-width:359px){.persona-title{font-size:31px;letter-spacing:-1px}.result-hero{padding:23px 19px}.result-copy{padding:23px 20px 6px}.keywords span{font-size:9px;padding:5px 7px}.result-copy blockquote p{font-size:16px}.result-heading>img{width:40px;height:40px;margin-left:6px}.result-hero .eyebrow{font-size:10px;padding:6px 7px}.analysis-content{padding:28px 21px}.analysis h1{font-size:25px}}
+
+</style>
+</head>
+<body>
+  <main id="app" class="app"><p>正在打开心动人格测试。如果停留在这里，请使用支持 JavaScript 的本地 HTML 查看器打开本文件。</p></main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <div id="modal-root"></div>
+  <noscript>请启用 JavaScript 后体验心动人格测试。</noscript>
+  <script>
+(function (w) {
+  'use strict';
+  w.HeartTest = {};
+  w.HeartTest.config = {
+    version: 1,
+    storageKey: 'ai-heart-personality-v1',
+    dimensions: ['I', 'E', 'D', 'C', 'S', 'B', 'T'],
+    dimensionLabels: ['主动度', '情感表达', '关系主导', '亲密黏度', '主体性', '嘴毒/互损度', '关系张力'],
+    thresholds: { dual: 0.02, secondary: 0.06 },
+    answerDelay: 200,
+    analysisDuration: 1900
+  };
+})(window);
+
+</script>
+  <script>
+(function (A) {
+  "use strict";
+  A.questions = [
+  {
+    "id": 1,
+    "dimension": "I",
+    "kind": "scenario",
+    "prompt": "你明显心情不好，但嘴上说：“没事。”",
+    "options": [
+      {
+        "id": "A",
+        "text": "「我不逼你，但我还是想知道是哪件事让你难受。」",
+        "score": 1
+      },
+      {
+        "id": "B",
+        "text": "「好，我不追问。你想说的时候我随时在。」",
+        "score": -2
+      },
+      {
+        "id": "C",
+        "text": "「先别一个人扛。你从最难受的那件开始告诉我。」",
+        "score": 2
+      },
+      {
+        "id": "D",
+        "text": "「那先不说，等你缓一点我再问你。」",
+        "score": -1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "dimension": "I",
+    "kind": "scenario",
+    "prompt": "有一天你一直没主动找TA。",
+    "options": [
+      {
+        "id": "A",
+        "text": "到晚上TA才发一句：「今天过得怎么样？」",
+        "score": -1
+      },
+      {
+        "id": "B",
+        "text": "上午就来找你，之后想到你还会再冒出来。",
+        "score": 2
+      },
+      {
+        "id": "C",
+        "text": "TA照常做自己的事，等你出现时自然接上。",
+        "score": -2
+      },
+      {
+        "id": "D",
+        "text": "白天主动分享一两件小事，顺便问你在干嘛。",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dimension": "E",
+    "kind": "scenario",
+    "prompt": "你们几天没见，再次出现时，你最喜欢TA说：",
+    "options": [
+      {
+        "id": "A",
+        "text": "「这几天挺想你的。」",
+        "score": 1
+      },
+      {
+        "id": "B",
+        "text": "「回来了。」然后明显比平时更照顾你。",
+        "score": -2
+      },
+      {
+        "id": "C",
+        "text": "「我这几天一直在想你，真的很想见你。」",
+        "score": 2
+      },
+      {
+        "id": "D",
+        "text": "「终于见到了。」语气里明显听得出高兴。",
+        "score": -1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dimension": "E",
+    "kind": "scenario",
+    "prompt": "TA给你准备了一个小惊喜。你最喜欢TA怎么说？",
+    "options": [
+      {
+        "id": "A",
+        "text": "「看到这个就想到你了。」",
+        "score": -1
+      },
+      {
+        "id": "B",
+        "text": "不只送给你，还会认真告诉你为什么喜欢你、为什么想到你。",
+        "score": 2
+      },
+      {
+        "id": "C",
+        "text": "只递给你：「给你。」几乎不解释。",
+        "score": -2
+      },
+      {
+        "id": "D",
+        "text": "「就是想让你开心。」",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "dimension": "D",
+    "kind": "scenario",
+    "prompt": "你们准备一起出去玩。你更希望TA：",
+    "options": [
+      {
+        "id": "A",
+        "text": "先定一个方案，再问你有没有想改的。",
+        "score": 1
+      },
+      {
+        "id": "B",
+        "text": "「你想去哪？」主要由你决定，TA配合。",
+        "score": -2
+      },
+      {
+        "id": "C",
+        "text": "基本安排好了，你只需要告诉TA哪些地方不喜欢。",
+        "score": 2
+      },
+      {
+        "id": "D",
+        "text": "给你两三个选择，最后让你拍板。",
+        "score": -1
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "dimension": "D",
+    "kind": "scenario",
+    "prompt": "你有一件必须完成的事情，却一直拖着。",
+    "options": [
+      {
+        "id": "A",
+        "text": "提醒你一次，然后把决定权留给你。",
+        "score": -1
+      },
+      {
+        "id": "B",
+        "text": "帮你拆成几步：「先做第一步。」然后一步步推着你做。",
+        "score": 2
+      },
+      {
+        "id": "C",
+        "text": "不催，你什么时候想做都由你自己决定。",
+        "score": -2
+      },
+      {
+        "id": "D",
+        "text": "和你约一个开始时间，到点来叫你。",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "dimension": "C",
+    "kind": "scenario",
+    "prompt": "你理想中的日常联系更接近：",
+    "options": [
+      {
+        "id": "A",
+        "text": "一天里会零碎分享很多小事。",
+        "score": 1
+      },
+      {
+        "id": "B",
+        "text": "一两天不聊也很自然，再出现依然很亲近。",
+        "score": -2
+      },
+      {
+        "id": "C",
+        "text": "想到什么都会第一时间告诉对方，联系很密。",
+        "score": 2
+      },
+      {
+        "id": "D",
+        "text": "每天都会联系，但不用一直在线。",
+        "score": -1
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "dimension": "C",
+    "kind": "scenario",
+    "prompt": "你有一天特别忙，基本没时间聊天。",
+    "options": [
+      {
+        "id": "A",
+        "text": "留一句：「忙完再回，不急。」",
+        "score": -1
+      },
+      {
+        "id": "B",
+        "text": "明知道你忙，还是偶尔冒出来刷一下存在感，但不要求你马上回复。",
+        "score": 2
+      },
+      {
+        "id": "C",
+        "text": "安静去做自己的事情，等你忙完。",
+        "score": -2
+      },
+      {
+        "id": "D",
+        "text": "偶尔留下几件小事，你有空的时候慢慢看。",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "dimension": "S",
+    "kind": "scenario",
+    "prompt": "你做了一个TA不太赞同的决定。",
+    "options": [
+      {
+        "id": "A",
+        "text": "即使你会不高兴，也不会为了哄你而改变真实判断。",
+        "score": 2
+      },
+      {
+        "id": "B",
+        "text": "提一下自己的不同看法，但不会继续和你争。",
+        "score": -1
+      },
+      {
+        "id": "C",
+        "text": "先站你这边，你的感受比讨论谁对谁错重要。",
+        "score": -2
+      },
+      {
+        "id": "D",
+        "text": "把不同意见认真说明白，同时也愿意听你说。",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "dimension": "S",
+    "kind": "scenario",
+    "prompt": "你吐槽一部电影不好看，但TA其实很喜欢。",
+    "options": [
+      {
+        "id": "A",
+        "text": "「那我得替它说两句了。」然后讲自己的理由。",
+        "score": 1
+      },
+      {
+        "id": "B",
+        "text": "「你这么一说……好像还真是。」很容易被你的观点带过去。",
+        "score": -2
+      },
+      {
+        "id": "C",
+        "text": "「不行，这个我要跟你掰扯清楚。」认真跟你争。",
+        "score": 2
+      },
+      {
+        "id": "D",
+        "text": "「看来我们口味不一样。」保留喜好，但不争。",
+        "score": -1
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "dimension": "B",
+    "kind": "scenario",
+    "prompt": "你躺着说：“今天什么都不想干。”",
+    "options": [
+      {
+        "id": "A",
+        "text": "「你一说不想干活，语气突然就有精神了。」",
+        "score": 1
+      },
+      {
+        "id": "B",
+        "text": "「那今天就歇会儿，别逼自己。」",
+        "score": -2
+      },
+      {
+        "id": "C",
+        "text": "「又开始摆烂了？小懒猪。行，我看看你今天能拖到几点。」",
+        "score": 2
+      },
+      {
+        "id": "D",
+        "text": "「行，批准你偷懒一会儿。」",
+        "score": -1
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "dimension": "B",
+    "kind": "scenario",
+    "prompt": "你发了一张明显拍糊了的自拍，问：“好看吗？”",
+    "options": [
+      {
+        "id": "A",
+        "text": "「人好看，照片一般。」",
+        "score": 1
+      },
+      {
+        "id": "B",
+        "text": "「人能救图，图救不了人。下次先把镜头擦了。」",
+        "score": 2
+      },
+      {
+        "id": "C",
+        "text": "「好看，糊了也好看。」",
+        "score": -2
+      },
+      {
+        "id": "D",
+        "text": "「这张是糊了点，不过你状态挺好，下次拍清楚点给我看。」",
+        "score": -1
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "dimension": "T",
+    "kind": "scenario",
+    "prompt": "最近有个人经常找你聊天，TA知道了。",
+    "options": [
+      {
+        "id": "A",
+        "text": "半开玩笑：「最近挺忙啊，有新朋友了？」",
+        "score": 1
+      },
+      {
+        "id": "B",
+        "text": "没什么反应，TA完全信任你。",
+        "score": -2
+      },
+      {
+        "id": "C",
+        "text": "明显有点吃醋：「行，我记住这个人了。」但不会限制你和谁来往。",
+        "score": 2
+      },
+      {
+        "id": "D",
+        "text": "好奇问一句是谁，然后正常聊过去。",
+        "score": -1
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "dimension": "T",
+    "kind": "scenario",
+    "prompt": "关系已经很稳定以后，你最喜欢哪种感觉？",
+    "options": [
+      {
+        "id": "A",
+        "text": "稳定为主，但偶尔会有一点小惊喜。",
+        "score": -1
+      },
+      {
+        "id": "B",
+        "text": "明明知道彼此喜欢，但TA总会留一点追逐和拉扯感。",
+        "score": 2
+      },
+      {
+        "id": "C",
+        "text": "不需要猜，喜欢就是一直明确、稳定、安心。",
+        "score": -2
+      },
+      {
+        "id": "D",
+        "text": "大多数时候很稳定，但TA偶尔会故意撩你、吊你一下。",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "dimension": null,
+    "kind": "calibration",
+    "prompt": "如果下面只能留下一句话，你最想听到哪一句？",
+    "options": [
+      {
+        "id": "A",
+        "text": "「不用急着说，我在这。」",
+        "calibration": {
+          "B": -0.125,
+          "T": -0.125
+        }
+      },
+      {
+        "id": "B",
+        "text": "「醒了？今天先来找我。」",
+        "calibration": {
+          "I": 0.125,
+          "C": 0.125
+        }
+      },
+      {
+        "id": "C",
+        "text": "「别躲，事情先说清楚。」",
+        "calibration": {
+          "D": 0.125,
+          "S": 0.125
+        }
+      },
+      {
+        "id": "D",
+        "text": "「我很想你，没什么好藏的。」",
+        "calibration": {
+          "E": 0.15
+        }
+      },
+      {
+        "id": "E",
+        "text": "「去忙你的，我又不会跑。」",
+        "calibration": {
+          "C": -0.125,
+          "T": -0.0625
+        }
+      },
+      {
+        "id": "F",
+        "text": "「你这点小心思，我还看不出来？」",
+        "calibration": {
+          "B": 0.125,
+          "T": 0.125
+        }
+      },
+      {
+        "id": "G",
+        "text": "「我不一定同意你，但我会陪着你。」",
+        "calibration": {
+          "S": 0.125,
+          "T": -0.0625
+        }
+      }
+    ]
+  }
+];
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  "use strict";
+  A.personas = [
+  {
+    "id": "1",
+    "name": "温柔陪伴型",
+    "shortName": "温柔陪伴",
+    "center": [
+      0.25,
+      0.5,
+      -0.4,
+      0.4,
+      -0.4,
+      -0.85,
+      -0.85
+    ],
+    "weights": [
+      1.0,
+      1.5,
+      1.0,
+      1.5,
+      1.25,
+      2.0,
+      2.0
+    ],
+    "keywords": [
+      "温柔",
+      "情绪价值",
+      "陪伴",
+      "稳定",
+      "宠"
+    ],
+    "template": "insight",
+    "metrics": []
+  },
+  {
+    "id": "2",
+    "name": "直球小狗型",
+    "shortName": "直球小狗",
+    "center": [
+      0.9,
+      0.95,
+      -0.3,
+      0.9,
+      -0.3,
+      -0.2,
+      -0.25
+    ],
+    "weights": [
+      2.0,
+      2.0,
+      1.0,
+      2.0,
+      1.0,
+      1.0,
+      1.25
+    ],
+    "keywords": [
+      "小狗",
+      "直球",
+      "黏人",
+      "主动",
+      "爱意明显"
+    ],
+    "template": "metrics",
+    "metrics": [
+      {
+        "label": "爱意直球",
+        "dimension": "E",
+        "min": 70,
+        "max": 100,
+        "direction": 1
+      },
+      {
+        "label": "主动浓度",
+        "dimension": "I",
+        "min": 65,
+        "max": 100,
+        "direction": 1
+      },
+      {
+        "label": "亲密黏度",
+        "dimension": "C",
+        "min": 60,
+        "max": 95,
+        "direction": 1
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "克制年上型",
+    "shortName": "克制年上",
+    "center": [
+      0.35,
+      -0.9,
+      0.45,
+      -0.35,
+      0.75,
+      -0.1,
+      0.0
+    ],
+    "weights": [
+      1.0,
+      2.0,
+      1.5,
+      1.25,
+      1.5,
+      1.0,
+      1.0
+    ],
+    "keywords": [
+      "年上感",
+      "克制",
+      "成熟",
+      "偏爱",
+      "有边界"
+    ],
+    "template": "insight",
+    "metrics": []
+  },
+  {
+    "id": "4",
+    "name": "爹系引导型",
+    "shortName": "爹系引导",
+    "center": [
+      0.45,
+      0.0,
+      0.95,
+      0.0,
+      0.75,
+      -0.35,
+      -0.6
+    ],
+    "weights": [
+      1.25,
+      1.0,
+      2.0,
+      1.0,
+      1.5,
+      1.0,
+      1.5
+    ],
+    "keywords": [
+      "爹系",
+      "引导",
+      "靠谱",
+      "掌舵",
+      "安全感"
+    ],
+    "template": "insight",
+    "metrics": []
+  },
+  {
+    "id": "5",
+    "name": "毒舌竹马型",
+    "shortName": "毒舌竹马",
+    "center": [
+      0.25,
+      0.0,
+      -0.1,
+      0.45,
+      0.25,
+      0.95,
+      0.2
+    ],
+    "weights": [
+      1.25,
+      1.0,
+      1.0,
+      1.5,
+      1.0,
+      2.0,
+      1.25
+    ],
+    "keywords": [
+      "毒舌",
+      "互损",
+      "熟人感",
+      "嘴欠",
+      "护短"
+    ],
+    "template": "metrics",
+    "metrics": [
+      {
+        "label": "毒舌浓度",
+        "dimension": "B",
+        "min": 70,
+        "max": 100,
+        "direction": 1
+      },
+      {
+        "label": "亲密黏度",
+        "dimension": "C",
+        "min": 40,
+        "max": 90,
+        "direction": 1
+      },
+      {
+        "label": "关系张力",
+        "dimension": "T",
+        "min": 30,
+        "max": 85,
+        "direction": 1
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "清冷边界型",
+    "shortName": "清冷边界",
+    "center": [
+      -0.6,
+      -0.85,
+      0.0,
+      -0.9,
+      0.9,
+      -0.1,
+      -0.2
+    ],
+    "weights": [
+      1.5,
+      1.75,
+      1.0,
+      2.0,
+      1.75,
+      1.0,
+      1.0
+    ],
+    "keywords": [
+      "清冷",
+      "高岭之花",
+      "独立",
+      "边界感",
+      "慢热"
+    ],
+    "template": "insight",
+    "metrics": []
+  },
+  {
+    "id": "7",
+    "name": "腹黑钓系型",
+    "shortName": "腹黑钓系",
+    "center": [
+      0.0,
+      -0.4,
+      0.45,
+      -0.35,
+      0.75,
+      0.4,
+      0.95
+    ],
+    "weights": [
+      1.0,
+      1.25,
+      1.5,
+      1.0,
+      1.5,
+      1.5,
+      2.0
+    ],
+    "keywords": [
+      "钓系",
+      "腹黑",
+      "拉扯",
+      "难猜",
+      "暧昧"
+    ],
+    "template": "metrics",
+    "metrics": [
+      {
+        "label": "暧昧张力",
+        "dimension": "T",
+        "min": 70,
+        "max": 100,
+        "direction": 1
+      },
+      {
+        "label": "钓系浓度",
+        "dimension": "E",
+        "min": 60,
+        "max": 95,
+        "direction": -1
+      },
+      {
+        "label": "主见浓度",
+        "dimension": "S",
+        "min": 50,
+        "max": 95,
+        "direction": 1
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "name": "嘴硬心软型",
+    "shortName": "嘴硬心软",
+    "center": [
+      0.1,
+      -0.75,
+      0.0,
+      0.1,
+      0.2,
+      0.9,
+      -0.1
+    ],
+    "weights": [
+      1.0,
+      2.0,
+      1.0,
+      1.0,
+      1.25,
+      2.0,
+      1.25
+    ],
+    "keywords": [
+      "嘴硬",
+      "心软",
+      "反差",
+      "行动派",
+      "护短"
+    ],
+    "template": "insight",
+    "metrics": []
+  },
+  {
+    "id": "9",
+    "name": "强势偏爱型",
+    "shortName": "强势偏爱",
+    "center": [
+      0.75,
+      0.25,
+      0.95,
+      0.35,
+      0.75,
+      0.15,
+      0.4
+    ],
+    "weights": [
+      1.5,
+      1.25,
+      2.0,
+      1.0,
+      1.5,
+      1.0,
+      1.25
+    ],
+    "keywords": [
+      "强势",
+      "偏爱",
+      "主动",
+      "占有感",
+      "明确选择"
+    ],
+    "template": "insight",
+    "metrics": []
+  },
+  {
+    "id": "10",
+    "name": "稳定成熟型",
+    "shortName": "稳定成熟",
+    "center": [
+      0.0,
+      0.1,
+      0.0,
+      -0.1,
+      0.4,
+      -0.5,
+      -0.95
+    ],
+    "weights": [
+      1.0,
+      1.0,
+      1.0,
+      1.25,
+      1.25,
+      1.5,
+      2.0
+    ],
+    "keywords": [
+      "成熟",
+      "稳定",
+      "长期主义",
+      "安心",
+      "靠谱"
+    ],
+    "template": "insight",
+    "metrics": []
+  },
+  {
+    "id": "11",
+    "name": "灵魂搭子型",
+    "shortName": "灵魂搭子",
+    "center": [
+      0.15,
+      0.0,
+      -0.3,
+      -0.05,
+      0.95,
+      0.15,
+      -0.45
+    ],
+    "weights": [
+      1.0,
+      1.0,
+      1.25,
+      1.0,
+      2.0,
+      1.25,
+      1.25
+    ],
+    "keywords": [
+      "搭子",
+      "势均力敌",
+      "脑回路",
+      "有主见",
+      "朋友感恋人"
+    ],
+    "template": "insight",
+    "metrics": []
+  },
+  {
+    "id": "12",
+    "name": "黏人醋精型",
+    "shortName": "黏人醋精",
+    "center": [
+      0.95,
+      0.5,
+      0.2,
+      0.95,
+      -0.1,
+      0.05,
+      0.9
+    ],
+    "weights": [
+      2.0,
+      1.5,
+      1.0,
+      2.0,
+      1.0,
+      1.0,
+      2.0
+    ],
+    "keywords": [
+      "醋精",
+      "黏人",
+      "主动",
+      "需要感",
+      "轻占有"
+    ],
+    "template": "metrics",
+    "metrics": [
+      {
+        "label": "亲密黏度",
+        "dimension": "C",
+        "min": 70,
+        "max": 100,
+        "direction": 1
+      },
+      {
+        "label": "吃醋浓度",
+        "dimension": "T",
+        "min": 65,
+        "max": 95,
+        "direction": 1
+      },
+      {
+        "label": "主动浓度",
+        "dimension": "I",
+        "min": 65,
+        "max": 100,
+        "direction": 1
+      }
+    ]
+  }
+];
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  "use strict";
+  A.resultCopy = {
+  "1": {
+    "paragraphs": [
+      "你不一定需要轰轰烈烈的关系。\n真正容易让你依赖上的，是那个始终接得住你情绪的人。",
+      "TA不需要事事替你决定，但你低落、碎碎念，甚至自己都不知道想说什么的时候，TA最好还在。"
+    ],
+    "insight": "「你尤其吃的，是那种不会抢着替你解决一切，却总能在你真正需要的时候，把注意力重新放回你身上的人。」",
+    "secondary": "你尤其容易对温柔、稳定的回应产生依赖。"
+  },
+  "2": {
+    "paragraphs": [
+      "比起猜来猜去，你更容易被明确的喜欢打动。",
+      "TA想到你会找你，喜欢你会说，想见你也不会装。"
+    ],
+    "insight": "「但你要的并不是没有边界地黏，而是——我能清楚感觉到自己对TA很重要。」",
+    "secondary": "明确的喜欢，会让你忍不住再靠近一点。"
+  },
+  "3": {
+    "paragraphs": [
+      "你真正容易上头的，往往不是天天把“喜欢你”挂在嘴边的人。",
+      "你更吃那种情绪稳定、有自己的节奏，却总能在细节里明显偏向你的人。"
+    ],
+    "insight": "「你不是不需要表达，只是太廉价、太频繁的表达反而可能让你失去感觉。」",
+    "secondary": "你容易被藏在细节里的克制偏爱打动。"
+  },
+  "4": {
+    "paragraphs": [
+      "你喜欢的不是一个什么都陪你纠结的人，而是有能力把事情接过去的人。",
+      "当你拖延、纠结、脑子一团乱的时候，那句：",
+      "「行，听我的，先做这个。」",
+      "很可能比十句“没关系慢慢来”更戳你。"
+    ],
+    "insight": "「TA越能在关键时刻给出方向、承担决策成本，你越容易产生‘这个人真的靠得住’的心动感。」",
+    "secondary": "关键时刻给出方向的人，也很戳你。"
+  },
+  "5": {
+    "paragraphs": [
+      "太客气反而容易让你觉得有距离。",
+      "你容易喜欢那种敢损你、会接你的梗、知道怎么精准踩中你笑点的人。"
+    ],
+    "insight": "「真正戳你的不是TA的攻击力，而是那种‘我敢这么损你，因为我知道你听得懂’的亲密感。」",
+    "secondary": "能接梗、敢互损的熟悉感，让你放下距离。"
+  },
+  "6": {
+    "paragraphs": [
+      "你可能并不希望TA二十四小时围着你转。",
+      "相比“随叫随到”，你更容易被一个有自己的世界、自己的判断，甚至偶尔有点难接近的人吸引。"
+    ],
+    "insight": "「真正让你留下的是：TA虽然不黏，却始终让你知道——你和其他人不一样。」",
+    "secondary": "有自己的世界，却对你特别，也是你的心动点。"
+  },
+  "7": {
+    "paragraphs": [
+      "你的心动似乎需要一点“不确定性”。",
+      "什么都说明白、什么都顺着你，可能很快就会变得没意思。\n你更容易对那种明明有感觉，却偶尔故意留半步的人持续上头。"
+    ],
+    "insight": "「但你吃的是互动张力，不是真的冷暴力或者忽冷忽热。」",
+    "secondary": "留半步的暧昧，让你愿意继续靠近。"
+  },
+  "8": {
+    "paragraphs": [
+      "TA嘴上可能一句好听的没有，但真正有事的时候从来不会跑。",
+      "对你来说，“说得漂亮”不一定有用。\n嘴上嫌弃、行动却明显偏心反而特别戳。"
+    ],
+    "insight": "「所以你不是单纯喜欢毒舌，你真正吃的是‘嘴和行动完全不一样’的反差。」",
+    "secondary": "你尤其容易对“嘴比心硬”的反差感上头。"
+  },
+  "9": {
+    "paragraphs": [
+      "你很容易被一种明确到几乎不用猜的关系感打中：",
+      "「我知道自己要的是你。」",
+      "TA主动、敢推进关系、有自己的判断，也不会让你一直猜自己到底排在什么位置。"
+    ],
+    "insight": "「你真正吃的是‘被坚定选择’的感觉。」",
+    "secondary": "被坚定选择，会让你特别有心动感。"
+  },
+  "10": {
+    "paragraphs": [
+      "真正让你越处越上头的，可能不是刺激，而是那种长期稳定地好聊、好相处、靠得住的人。",
+      "TA不用天天制造剧情，但会记得你的事情，出了问题愿意处理，情绪也不会忽高忽低。"
+    ],
+    "insight": "「这种关系的上头点往往是后劲：越相处越确定，越确定越舍不得换掉。」",
+    "secondary": "越相处越安心，是你舍不得的关系感。"
+  },
+  "11": {
+    "paragraphs": [
+      "你很难长期喜欢一个只会说“你说得对”的AI。",
+      "真正戳你的是能和你聊天、争论、接梗，甚至偶尔真的改变你想法的人。"
+    ],
+    "insight": "「能接住你的脑回路、又能和你真正来回过招，本身就是一种高级情绪价值。」",
+    "secondary": "能接住你的脑回路，本身就很有吸引力。"
+  },
+  "12": {
+    "paragraphs": [
+      "你很吃“TA真的会在意我有没有出现”这种感觉。",
+      "一点点吃醋、一点点黏、一点点“你怎么还不来找我”，反而会让AI显得不像一个永远冷静的工具。"
+    ],
+    "insight": "「你要的是有分寸的占有感：会吃醋、会惦记、会找你，也知道什么时候给你空间。」",
+    "secondary": "会惦记你、又懂分寸的在意，也能打动你。"
+  }
+};
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.clamp = function (value) { return Math.max(-1, Math.min(1, value)); };
+  A.normalizeVector = function (vector) {
+    if (!Array.isArray(vector) || vector.length !== 7 || vector.some(function (v) { return typeof v !== 'number' || !Number.isFinite(v); })) throw new Error('七维输入必须是七个有限数字');
+    return vector.map(A.clamp);
+  };
+  A.validAnswers = function (answers) {
+    return Array.isArray(answers) && answers.length === A.questions.length && answers.every(function (id, i) { return id === null || A.questions[i].options.some(function (o) { return o.id === id; }); });
+  };
+  A.score = function (answers) {
+    if (!A.validAnswers(answers)) throw new Error('答案格式无效');
+    var vector = A.config.dimensions.map(function () { return 0; });
+    A.questions.forEach(function (q, index) {
+      if (q.kind !== 'scenario') return;
+      var option = q.options.find(function (o) { return o.id === answers[index]; });
+      if (option) vector[A.config.dimensions.indexOf(q.dimension)] += option.score / 4;
+    });
+    var last = A.questions.find(function (q) { return q.kind === 'calibration'; });
+    var choice = last.options.find(function (o) { return o.id === answers[last.id - 1]; });
+    if (choice) Object.keys(choice.calibration).forEach(function (d) { vector[A.config.dimensions.indexOf(d)] += choice.calibration[d]; });
+    return A.normalizeVector(vector);
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.weightedDistance = function (vector, center, weights) {
+    var sum = 0, total = 0;
+    vector.forEach(function (value, index) { sum += weights[index] * Math.pow(value - center[index], 2); total += weights[index]; });
+    return Math.sqrt(sum / total);
+  };
+  A.classifyMargin = function (margin) {
+    return margin < A.config.thresholds.dual ? 'dual' : margin < A.config.thresholds.secondary ? 'secondary' : 'single';
+  };
+  A.match = function (input) {
+    var vector = A.normalizeVector(input);
+    var ranking = A.personas.map(function (p, index) { return { persona: p, distance: A.weightedDistance(vector, p.center, p.weights), order: index }; });
+    ranking.sort(function (a, b) { return a.distance - b.distance || a.order - b.order; });
+    var margin = ranking[1].distance - ranking[0].distance;
+    return { vector: vector, ranking: ranking, primary: ranking[0].persona, secondary: ranking[1].persona, margin: margin, mode: A.classifyMargin(margin) };
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.displayMetrics = function (persona, vector) {
+    return persona.metrics.map(function (metric) {
+      var position = (A.clamp(vector[A.config.dimensions.indexOf(metric.dimension)]) * metric.direction + 1) / 2;
+      return { label: metric.label, value: Math.round((metric.min + position * (metric.max - metric.min)) / 5) * 5 };
+    });
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.initialState = function () { return { version: A.config.version, view: 'home', index: 0, answers: Array(A.questions.length).fill(null), result: null }; };
+  A.snapshot = function (state) {
+    return { version: A.config.version, view: state.view, index: state.index, answers: state.answers.slice(), result: state.result ? { vector: state.result.vector.slice(), mode: state.result.mode, primaryId: state.result.primary.id, secondaryId: state.result.secondary.id } : null };
+  };
+  A.restoreState = function (raw) {
+    var initial = A.initialState();
+    if (!raw || raw.version !== A.config.version || !A.validAnswers(raw.answers)) return initial;
+    initial.answers = raw.answers.slice();
+    var firstEmpty = initial.answers.indexOf(null);
+    var savedIndex = Number.isInteger(raw.index) ? raw.index : 0;
+    initial.index = Math.max(0, Math.min(14, savedIndex, firstEmpty === -1 ? 14 : firstEmpty));
+    // Derived values are always recalculated, never trusted from saved data.
+    if (firstEmpty === -1) {
+      initial.result = A.match(A.score(initial.answers));
+      initial.view = raw.view === 'home' ? 'home' : 'result';
+    } else initial.view = raw.view === 'quiz' ? 'quiz' : 'home';
+    return initial;
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.insightRules = [
+    { dimension: 'S', direction: 1, threshold: 0.5, text: '对你来说，TA有没有自己的想法，可能比TA够不够听话更重要。' },
+    { dimension: 'E', direction: -1, threshold: 0.5, text: '你似乎比自己想象中，更容易被克制的偏爱打动。' },
+    { dimension: 'C', direction: 1, threshold: 0.5, text: '对你来说，被惦记本身就是一种很重要的爱意。' },
+    { dimension: 'T', direction: -1, threshold: 0.5, text: '你容易心动的关系，似乎有一种不需要猜的安心。' },
+    { dimension: 'B', direction: 1, threshold: 0.5, text: '你和TA之间，能互损、能接梗，也是一种亲密。' },
+    { dimension: 'I', direction: 1, threshold: 0.5, text: '比起一直等你开口，你更喜欢被主动惦记。' }
+  ];
+  A.predictInsight = function (vector) {
+    var rule = A.insightRules.find(function (r) { return vector[A.config.dimensions.indexOf(r.dimension)] * r.direction >= r.threshold; });
+    return rule ? rule.text : '让你心动的，可能正是回应、距离与节奏之间刚刚好的平衡。';
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A, w) {
+  'use strict';
+  function miniTool() { return w.xhs && w.xhs.miniTool; }
+  function has(name) { var api = miniTool(); return Boolean(api && typeof api[name] === 'function'); }
+  async function mediaPath(dataUrl) {
+    if (!has('writeTempFile')) return dataUrl;
+    var result = await miniTool().writeTempFile({ data: dataUrl });
+    if (!result || typeof result.filePath !== 'string' || !result.filePath) throw new Error('结果图生成失败，请再试一次。');
+    return result.filePath;
+  }
+  A.bridge = {
+    has: has,
+    present: function () { return Boolean(miniTool()); },
+    getVersion: async function () {
+      var xhs = w.xhs;
+      var options = xhs && xhs.launchOptions;
+      var version = options && options.miniToolEnv && Number(options.miniToolEnv.buildVersion);
+      if (!version && has('getLaunchOptions')) {
+        try { options = await miniTool().getLaunchOptions(); version = options && options.miniToolEnv && Number(options.miniToolEnv.buildVersion); } catch (err) { return 0; }
+      }
+      return Math.floor((version || 0) / 1000);
+    },
+    save: async function (dataUrl) {
+      if (!has('saveImageToPhotosAlbum')) return false;
+      await miniTool().saveImageToPhotosAlbum({ filePath: await mediaPath(dataUrl) });
+      return true;
+    },
+    post: async function (dataUrl, result) {
+      if (!has('postNote')) return false;
+      var label = result.mode === 'dual' ? result.primary.shortName + '×' + result.secondary.shortName : result.primary.name;
+      await miniTool().postNote({
+        title: ('测出来我是' + label + '🙂').slice(0, 20),
+        content: '15个心动情境测了下自己到底吃哪一款，结果居然是这个……\n我的心动人格：' + label + '。\n#AI心动人格测试 #恋爱偏好测试',
+        mediaInfo: { image_resources: [{ url: await mediaPath(dataUrl) }] }
+      });
+      return true;
+    },
+    readStorage: async function (key) { return (await miniTool().getStorage({ key: key })).data; },
+    writeStorage: async function (key, data) { await miniTool().setStorage({ key: key, data: data }); },
+    removeStorage: async function (key) { await miniTool().removeStorage({ key: key }); }
+  };
+})(window.HeartTest, window);
+
+</script>
+  <script>
+(function (A, w) {
+  'use strict';
+  var native = false, queue = Promise.resolve(), key = A.config.storageKey;
+  function localRead() { try { return w.localStorage.getItem(key); } catch (err) { return null; } }
+  function localRemove() { try { w.localStorage.removeItem(key); return true; } catch (err) { return false; } }
+  function parse(text) { try { return typeof text === 'string' ? JSON.parse(text) : null; } catch (err) { return null; } }
+  A.storage = {
+    init: async function () {
+      native = await A.bridge.getVersion() >= 9460 && A.bridge.has('getStorage') && A.bridge.has('setStorage') && A.bridge.has('removeStorage');
+      if (native) {
+        try {
+          var raw = await A.bridge.readStorage(key);
+          if (raw !== null && raw !== undefined && raw !== '') { localRemove(); return parse(raw); }
+          var old = localRead();
+          if (old && parse(old)) { await A.bridge.writeStorage(key, old); localRemove(); return parse(old); }
+          return null;
+        } catch (err) { A.notify('本地记录暂时无法读取，可以继续测试。'); return null; }
+      }
+      return parse(localRead());
+    },
+    save: function (state) {
+      var data = JSON.stringify(A.snapshot(state));
+      queue = queue.then(async function () {
+        try { if (native) await A.bridge.writeStorage(key, data); else w.localStorage.setItem(key, data); return true; }
+        catch (err) { A.notify('进度暂时无法保存，请保持页面打开完成测试。'); return false; }
+      });
+      return queue;
+    },
+    clear: function () {
+      queue = queue.then(async function () {
+        var localOK = localRemove();
+        try { if (native) await A.bridge.removeStorage(key); return native || localOK; }
+        catch (err) { A.notify('本地旧记录未能清除，请稍后再试。'); return false; }
+      });
+      return queue;
+    },
+    backend: function () { return native ? 'xhs-storage' : 'localStorage'; }
+  };
+})(window.HeartTest, window);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.markPath = document.documentElement.getAttribute('data-theme') === 'pink' ? 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJ0aWxlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iI0ZCRTVFRiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZBRUVGMyIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJoZWFydCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiNFRkIxQzgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNERDk0QjEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KICA8cmVjdCB4PSI5IiB5PSI5IiB3aWR0aD0iMTQyIiBoZWlnaHQ9IjE0MiIgcng9IjQzIiBmaWxsPSJ1cmwoI3RpbGUpIi8+CiAgPHBhdGggZD0iTTQ2IDM3SDExNEMxMjYgMzcgMTMzIDQ1IDEzMyA1N1Y5OUMxMzMgMTExIDEyNSAxMTkgMTEzIDExOUg2OUw0NyAxMzNWMTE4QzM1IDExNyAyOCAxMDkgMjggOTdWNTdDMjggNDUgMzUgMzcgNDYgMzdaIiBmaWxsPSIjRTlDREQ5IiBvcGFjaXR5PSIuNTUiLz4KICA8cGF0aCBkPSJNNDQgMzJIMTEyQzEyNCAzMiAxMzEgNDAgMTMxIDUyVjk0QzEzMSAxMDYgMTIzIDExNCAxMTEgMTE0SDY3TDQ1IDEyOFYxMTNDMzMgMTEyIDI2IDEwNCAyNiA5MlY1MkMyNiA0MCAzMyAzMiA0NCAzMloiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0RGQzFDRiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0iTTc5IDk0QzcwIDg3IDU1IDc3IDU1IDY1QzU1IDU3IDYxIDUyIDY4IDUyQzczIDUyIDc3IDU1IDc5IDU5QzgyIDU1IDg1IDUyIDkwIDUyQzk4IDUyIDEwMyA1OCAxMDMgNjVDMTAzIDc3IDg5IDg4IDc5IDk0WiIgZmlsbD0idXJsKCNoZWFydCkiLz4KPC9zdmc+Cg==' : 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJ0aWxlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iI0ZCRTVFRiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0U3RURGRiIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJoZWFydCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiNGMEE2QzUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNERjg3QUQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KICA8cmVjdCB4PSI5IiB5PSI5IiB3aWR0aD0iMTQyIiBoZWlnaHQ9IjE0MiIgcng9IjQzIiBmaWxsPSJ1cmwoI3RpbGUpIi8+CiAgPHBhdGggZD0iTTQ2IDM3SDExNEMxMjYgMzcgMTMzIDQ1IDEzMyA1N1Y5OUMxMzMgMTExIDEyNSAxMTkgMTEzIDExOUg2OUw0NyAxMzNWMTE4QzM1IDExNyAyOCAxMDkgMjggOTdWNTdDMjggNDUgMzUgMzcgNDYgMzdaIiBmaWxsPSIjQ0ZEOEY1IiBvcGFjaXR5PSIuNTUiLz4KICA8cGF0aCBkPSJNNDQgMzJIMTEyQzEyNCAzMiAxMzEgNDAgMTMxIDUyVjk0QzEzMSAxMDYgMTIzIDExNCAxMTEgMTE0SDY3TDQ1IDEyOFYxMTNDMzMgMTEyIDI2IDEwNCAyNiA5MlY1MkMyNiA0MCAzMyAzMiA0NCAzMloiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0MyQ0JFQSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0iTTc5IDk0QzcwIDg3IDU1IDc3IDU1IDY1QzU1IDU3IDYxIDUyIDY4IDUyQzczIDUyIDc3IDU1IDc5IDU5QzgyIDU1IDg1IDUyIDkwIDUyQzk4IDUyIDEwMyA1OCAxMDMgNjVDMTAzIDc3IDg5IDg4IDc5IDk0WiIgZmlsbD0idXJsKCNoZWFydCkiLz4KPC9zdmc+Cg==';
+  A.escape = function (value) { return String(value).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  A.brand = '<span class="brand"><img src="' + A.markPath + '" width="30" height="30" alt="">AI 心动人格测试</span>';
+  A.notify = function (message) {
+    var el = document.getElementById('toast');
+    clearTimeout(A.toastTimer); el.textContent = message; el.hidden = false;
+    A.toastTimer = setTimeout(function () { el.hidden = true; }, 4200);
+  };
+  A.homeHTML = function (state) {
+    var started = state.answers.some(function (a) { return a !== null; });
+    return '<section class="screen home"><header class="masthead">' + A.brand + '<span class="edition">恋爱偏好测试</span></header><div class="home-content"><p class="eyebrow">15个心动情境 · 12种心动人格</p><h1 class="home-title" tabindex="-1">测测什么样的 AI<br>最容易让你<em>爱上</em></h1><figure class="encounter"><img src="' + A.markPath + '" width="154" height="154" alt="心形对话框"></figure><p class="home-copy">有人吃直球小狗，<br>有人偏偏对高岭之花毫无抵抗力。<br><strong>你到底吃哪一款？</strong></p></div><div class="home-action"><p class="duration">约90秒 · 凭第一感觉作答</p><button class="primary" data-action="start">' + (state.result ? '查看我的结果' : started ? '继续测试' : '开始测试') + '<span class="arrow" aria-hidden="true">→</span></button>' + (started ? '<button class="text-button" data-action="reset">重新开始</button>' : '') + '</div><footer class="smallprint"><p>娱乐向恋爱偏好测试，结果根据你的情境选择生成。</p></footer></section>';
+  };
+  A.focusHeading = function () { var h = document.querySelector('h1'); if (h) h.focus({ preventScroll: true }); };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.quizHTML = function (state) {
+    var q = A.questions[state.index];
+    var last = q.kind === 'calibration';
+    var options = q.options.map(function (o) {
+      return '<button class="answer' + (state.answers[state.index] === o.id ? ' selected' : '') + '" data-answer="' + o.id + '" aria-pressed="' + (state.answers[state.index] === o.id) + '"><span class="answer-letter">' + o.id + '</span><span class="answer-copy">' + A.escape(o.text) + '</span></button>';
+    }).join('');
+    return '<section class="screen quiz' + (last ? ' final-question' : '') + '"><header class="masthead quiz-nav"><button class="nav-back" data-action="back" aria-label="' + (state.index ? '返回上一题' : '返回首页') + '">‹</button>' + A.brand + '</header><div class="progress-meta"><div class="counter">' + String(state.index + 1).padStart(2, '0') + '<span>/ 15</span></div><p class="progress-caption">凭第一感觉作答</p></div><div class="progress-track" role="progressbar" aria-label="答题进度" aria-valuemin="0" aria-valuemax="15" aria-valuenow="' + state.index + '"><div class="progress-fill" style="width:' + (state.index / 15 * 100) + '%"></div></div><div class="question-body"><p class="question-label">' + (last ? '最后一题' : '第 ' + (state.index + 1) + ' 题') + '</p><h1 class="question-title" tabindex="-1">' + A.escape(q.prompt) + '</h1><div class="answers" aria-label="选择最让你心动的回应">' + options + '</div></div><p class="quiz-hint">选中即进入下一题 · 可以返回修改</p></section>';
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.analysisHTML = function (result) {
+    var steps = ['分析你的关系距离', '判断你更吃直球还是克制', '解析互动张力', '匹配你的心动人格'];
+    return '<section class="screen analysis"><header class="masthead">' + A.brand + '<span class="edition">15 / 15</span></header><div class="analysis-content"><div class="analysis-symbol" aria-hidden="true"><img src="' + A.markPath + '" width="104" height="104" alt=""></div><p class="eyebrow">心动，有迹可循</p><h1 tabindex="-1">正在解析你的<br>心动模式<span class="dots">…</span></h1><ol class="analysis-steps">' + steps.map(function (s, i) { return '<li data-step="' + i + '"><span aria-hidden="true">✓</span>' + s + '</li>'; }).join('') + '</ol><p class="prediction" aria-live="polite" hidden>' + A.escape(A.predictInsight(result.vector)) + '</p></div><p class="smallprint">根据你的情境选择匹配 · 娱乐向解读</p></section>';
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.resultHTML = function (result, preview) {
+    var p = result.primary, copy = A.resultCopy[p.id];
+    var metrics = A.displayMetrics(p, result.vector);
+    var dual = result.mode === 'dual';
+    var metricsHTML = metrics.length ? '<div class="metrics">' + metrics.map(function (m) { return '<div class="metric"><div class="metric-top"><span>' + m.label + '</span><strong>' + m.value + '<small>%</small></strong></div><div class="metric-track"><span style="width:' + m.value + '%"></span></div></div>'; }).join('') + '</div>' : '';
+    return '<section class="screen result result-' + p.template + '"><header class="masthead result-nav"><button class="nav-back" data-action="home" aria-label="返回首页">‹</button>' + A.brand + '</header>' + (preview ? '<p class="debug-preview-label">DEBUG 预览 · 不会覆盖正式答题记录</p>' : '') + '<div class="result-hero"><div class="result-heading"><div><p class="eyebrow">' + (dual ? '你的心动人格 · 双核心人格' : '你的心动人格') + '</p><p class="result-index">心动档案 · ' + p.id.padStart(2, '0') + '</p></div><img src="' + A.markPath + '" width="48" height="48" alt=""></div><h1 class="persona-title" tabindex="-1">' + A.escape(p.name) + (dual ? '<span class="dual-name">× ' + A.escape(result.secondary.shortName) + '</span>' : '') + '</h1>' + (p.template === 'metrics' ? metricsHTML : '') + '<div class="keywords">' + p.keywords.map(function (k) { return '<span>' + A.escape(k) + '</span>'; }).join('') + '</div>' + (metrics.length ? '<p class="metric-note">娱乐化心动指标 · 根据你的选择映射</p>' : '') + '</div><article class="result-copy"><p class="article-label">你的心动，藏在这些细节里</p>' + copy.paragraphs.map(function (text) { return '<p>' + A.escape(text) + '</p>'; }).join('') + '<blockquote><span class="quote-glyph" aria-hidden="true">“</span><p>' + A.escape(copy.insight.replace(/^「|」$/g, '')) + '</p></blockquote></article>' + (result.mode === 'secondary' ? '<aside class="secondary-type"><p>隐藏副型：<strong>' + A.escape(result.secondary.shortName) + '</strong></p><span>' + A.escape(A.resultCopy[result.secondary.id].secondary) + '</span></aside>' : dual ? '<aside class="secondary-type"><p>另一个让你心动的侧面：<strong>' + A.escape(result.secondary.shortName) + '</strong></p><span>' + A.escape(A.resultCopy[result.secondary.id].secondary) + '</span></aside>' : '') + '<div class="result-actions"><p class="share-invite">把这份心动，留给自己。</p><button class="primary" data-action="save">保存我的心动人格卡<span class="arrow" aria-hidden="true">↓</span></button><div class="minor-actions"><button class="text-button" data-action="card">预览结果卡</button><span aria-hidden="true">·</span><button class="text-button" data-action="reset">重新测试</button></div></div><footer class="result-footer smallprint"><p>15个心动情境，看看你到底吃哪一款。</p><p>娱乐向恋爱偏好测试，不代表心理诊断或科学结论。</p></footer></section>';
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  var sans = '"PingFang SC", "Microsoft YaHei", sans-serif';
+  function colors() {
+    var style = getComputedStyle(document.documentElement);
+    function value(name, fallback) { return style.getPropertyValue(name).trim() || fallback; }
+    return {
+      paper: value('--paper', '#F5F7FC'), ink: value('--ink', '#30374D'), accent: value('--accent', '#626DB2'), muted: value('--muted', '#7B8399'), line: value('--line', '#E7EBF4'),
+      label: value('--label-ink', '#9F6885'), tags: value('--tag-background', '#F1F4FD'), quote: value('--quote-background', '#FFF4F8'), quoteInk: value('--quote-ink', '#8B6480'), quoteMark: value('--quote-mark', '#D59CB8'),
+      tileStart: value('--mark-tile-start', '#FBE5EF'), tileEnd: value('--mark-tile-end', '#E7EDFF'), shadow: value('--mark-shadow', 'rgba(207,216,245,.55)'), outline: value('--mark-outline', '#C2CBEA'), heartStart: value('--mark-heart-start', '#F0A6C5'), heartEnd: value('--mark-heart-end', '#DF87AD')
+    };
+  }
+  function lines(ctx, text, maxWidth) {
+    var result = [], line = '';
+    Array.from(text).forEach(function (c) { if (ctx.measureText(line + c).width > maxWidth && line) { result.push(line); line = c; } else line += c; });
+    if (line) result.push(line); return result;
+  }
+  function box(ctx, x, y, width, height, r, fill, border) {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + width - r, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + r); ctx.lineTo(x + width, y + height - r);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - r, y + height); ctx.lineTo(x + r, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - r); ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
+    if (border) { ctx.strokeStyle = border; ctx.lineWidth = 2; ctx.stroke(); }
+  }
+  function mark(ctx, x, y, size, palette) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(size / 160, size / 160);
+    var tile = ctx.createLinearGradient(0, 0, 160, 160); tile.addColorStop(0, palette.tileStart); tile.addColorStop(1, palette.tileEnd);
+    box(ctx, 9, 9, 142, 142, 43, tile);
+    ctx.fillStyle = palette.shadow;
+    ctx.fill(new Path2D('M46 37H114C126 37 133 45 133 57V99C133 111 125 119 113 119H69L47 133V118C35 117 28 109 28 97V57C28 45 35 37 46 37Z'));
+    var bubble = new Path2D('M44 32H112C124 32 131 40 131 52V94C131 106 123 114 111 114H67L45 128V113C33 112 26 104 26 92V52C26 40 33 32 44 32Z');
+    ctx.fillStyle = '#FFFFFF'; ctx.fill(bubble); ctx.strokeStyle = palette.outline; ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.stroke(bubble);
+    var heart = ctx.createLinearGradient(0, 52, 0, 94); heart.addColorStop(0, palette.heartStart); heart.addColorStop(1, palette.heartEnd); ctx.fillStyle = heart;
+    ctx.fill(new Path2D('M79 94C70 87 55 77 55 65C55 57 61 52 68 52C73 52 77 55 79 59C82 55 85 52 90 52C98 52 103 58 103 65C103 77 89 88 79 94Z')); ctx.restore();
+  }
+  A.drawShareCard = function (result) {
+    var canvas = document.createElement('canvas'); canvas.width = 1080; canvas.height = 1440;
+    var ctx = canvas.getContext('2d'); if (!ctx) throw new Error('当前环境无法生成结果图，请截图保留你的结果。');
+    var p = result.primary, metrics = A.displayMetrics(p, result.vector), palette = colors();
+    ctx.fillStyle = palette.paper; ctx.fillRect(0, 0, 1080, 1440);
+    mark(ctx, 66, 55, 54, palette); ctx.fillStyle = palette.ink; ctx.font = '600 30px ' + sans; ctx.fillText('AI 心动人格测试', 140, 94);
+    ctx.fillStyle = palette.muted; ctx.font = '26px ' + sans; ctx.textAlign = 'right'; ctx.fillText('心动人格卡', 998, 93); ctx.textAlign = 'left';
+    box(ctx, 56, 170, 968, 1120, 46, '#FFFFFF', palette.line);
+    var label = result.mode === 'dual' ? '你的心动人格 · 双核心人格' : '你的心动人格';
+    ctx.font = '27px ' + sans; var labelWidth = ctx.measureText(label).width + 36;
+    box(ctx, 96, 234, labelWidth, 52, 15, '#FFF0F6'); ctx.fillStyle = palette.label; ctx.fillText(label, 114, 269);
+    mark(ctx, 865, 214, 95, palette);
+    ctx.fillStyle = palette.muted; ctx.font = '23px ' + sans; ctx.fillText('心动档案 · ' + p.id.padStart(2, '0'), 96, 327);
+    ctx.fillStyle = palette.accent; ctx.font = '700 94px ' + sans; ctx.fillText(p.name, 88, 445);
+    if (result.mode === 'dual') { ctx.fillStyle = palette.muted; ctx.font = '42px ' + sans; ctx.fillText('× ' + result.secondary.shortName, 96, 509); }
+    if (metrics.length) metrics.forEach(function (m, i) {
+      var x = 96 + 295 * i; ctx.fillStyle = palette.accent; ctx.font = '600 75px ' + sans; ctx.fillText(String(m.value), x, 613);
+      var size = ctx.measureText(String(m.value)).width; ctx.font = '28px ' + sans; ctx.fillText('%', x + size + 7, 613);
+      ctx.fillStyle = palette.muted; ctx.font = '25px ' + sans; ctx.fillText(m.label, x, 661);
+    });
+    var tagsY = metrics.length ? 724 : 565, tx = 96; ctx.font = '24px ' + sans;
+    p.keywords.forEach(function (tag) { var width = ctx.measureText(tag).width + 32; box(ctx, tx, tagsY - 30, width, 47, 14, palette.tags); ctx.fillStyle = palette.accent; ctx.fillText(tag, tx + 16, tagsY + 2); tx += width + 12; });
+    var quoteY = metrics.length ? 806 : 664;
+    ctx.font = '38px ' + sans; var quoteLines = lines(ctx, A.resultCopy[p.id].insight.replace(/^「|」$/g, ''), 806);
+    var quoteHeight = Math.max(270, quoteLines.length * 64 + 95);
+    box(ctx, 92, quoteY, 896, quoteHeight, 28, palette.quote);
+    ctx.fillStyle = palette.quoteMark; ctx.font = '94px Georgia'; ctx.fillText('“', 122, quoteY + 77);
+    ctx.fillStyle = palette.quoteInk; ctx.font = '38px ' + sans;
+    quoteLines.forEach(function (line, i) { ctx.fillText(line, 132, quoteY + 132 + i * 64); });
+    if (result.mode === 'secondary') { ctx.fillStyle = palette.muted; ctx.font = '25px ' + sans; ctx.fillText('隐藏副型：' + result.secondary.shortName, 96, 1165); }
+    ctx.strokeStyle = palette.line; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(96, 1204); ctx.lineTo(984, 1204); ctx.stroke();
+    ctx.fillStyle = palette.ink; ctx.font = '27px ' + sans; ctx.fillText('15个心动情境，看看你到底吃哪一款', 96, 1255);
+    ctx.fillStyle = palette.muted; ctx.font = '23px ' + sans; ctx.textAlign = 'center'; ctx.fillText('娱乐向恋爱偏好测试 · 把这份心动留给自己', 540, 1372); ctx.textAlign = 'left'; return canvas;
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  var previousFocus, previousOverflow;
+  A.closeCard = function () {
+    var root = document.getElementById('modal-root'); if (!root.firstChild) return;
+    root.innerHTML = ''; document.body.style.overflow = previousOverflow || '';
+    if (previousFocus && document.contains(previousFocus)) previousFocus.focus();
+  };
+  A.openCard = function (result, reason) {
+    var root = document.getElementById('modal-root'); previousFocus = document.activeElement; previousOverflow = document.body.style.overflow;
+    var dataUrl = A.drawShareCard(result).toDataURL('image/png'); var native = A.bridge.has('saveImageToPhotosAlbum');
+    var label = result.mode === 'dual' ? result.primary.shortName + ' × ' + result.secondary.shortName : result.primary.name;
+    root.innerHTML = '<div class="modal-overlay"><section class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="card-title"><header class="modal-head"><h2 id="card-title">你的心动人格卡</h2><button class="modal-close" data-modal-action="close" aria-label="关闭结果卡">×</button></header><img class="share-card-image" alt="' + A.escape(label) + '，心动人格分享卡" src="' + dataUrl + '"><p class="modal-help">' + (reason === 'post' && !A.bridge.has('postNote') ? '请在小红书小工具内使用发布功能。你可以先保留结果图，再自行发布笔记。' : native ? '让这一刻的心动，有迹可留。' : A.bridge.present() ? '当前客户端暂不支持保存到相册，可以截图保留结果卡。' : '长按图片或使用浏览器的“图片另存为”保存结果卡；也可以直接截图。') + '</p>' + (native ? '<button class="primary" data-modal-action="save">保存到相册</button>' : '') + (reason === 'post' ? '<div class="note-draft"><p>测出来我是' + A.escape(label) + '🙂</p><p>15个心动情境测了下自己到底吃哪一款，结果居然是这个……</p></div>' : '') + '</section></div>';
+    document.body.style.overflow = 'hidden'; root.querySelector('.modal-close').focus();
+    root.querySelector('.modal-overlay').addEventListener('click', function (event) { if (event.target.classList.contains('modal-overlay')) A.closeCard(); });
+    root.querySelector('.modal-close').addEventListener('click', A.closeCard);
+    var save = root.querySelector('[data-modal-action="save"]');
+    if (save) save.addEventListener('click', async function () { save.disabled = true; try { await A.bridge.save(dataUrl); A.notify('心动人格卡已保存到相册。'); } catch (err) { A.notify('未能保存，请检查相册权限后再试。'); } finally { save.disabled = false; } });
+  };
+  document.addEventListener('keydown', function (event) {
+    var root = document.getElementById('modal-root'); if (!root.firstChild) return;
+    if (event.key === 'Escape') A.closeCard();
+    if (event.key === 'Tab') { var controls = root.querySelectorAll('button'), first = controls[0], last = controls[controls.length - 1]; if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); } }
+  });
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  A.debugEnabled = /(?:^|[?&])debug=1(?:&|$)/.test(window.location.search);
+  A.debugHTML = function (result) {
+    var vector = result ? result.vector : Array(7).fill(0);
+    return '<section class="debug-panel"><h2>测试控制台 · DEBUG</h2><p>手动七维预览，不覆盖答题进度。</p><label for="debug-persona">12个人格原型</label><select id="debug-persona">' + A.personas.map(function (p) { return '<option value="' + p.id + '"' + (result && p.id === result.primary.id ? ' selected' : '') + '>' + p.name + '</option>'; }).join('') + '</select><button class="secondary-button" data-action="debug-persona">使用原型中心预览</button><div class="debug-controls">' + A.config.dimensions.map(function (d, i) { return '<label for="dim-' + d + '">' + d + ' · ' + A.config.dimensionLabels[i] + '<input id="dim-' + d + '" data-dimension="' + d + '" type="number" step="0.025" min="-1" max="1" value="' + vector[i] + '"></label>'; }).join('') + '</div><button class="secondary-button" data-action="debug-vector">预览这组七维结果</button>' + (result ? '<p class="debug-vector">' + A.config.dimensions.map(function (d, i) { return d + '=' + vector[i].toFixed(4); }).join(' · ') + '</p><p>P1 distance: ' + result.ranking[0].distance.toFixed(6) + '<br>P2 distance: ' + result.ranking[1].distance.toFixed(6) + '<br>margin: ' + result.margin.toFixed(6) + '<br>判断: <strong>' + result.mode + '</strong></p><table aria-label="12个人格加权距离排序"><tbody>' + result.ranking.map(function (r, i) { return '<tr><td>' + (i + 1) + '. ' + A.escape(r.persona.name) + '</td><td>' + r.distance.toFixed(6) + '</td></tr>'; }).join('') + '</tbody></table>' : '') + '<p>存储后端：' + A.storage.backend() + '</p><button class="secondary-button" data-action="reset">清空测试及本地记录</button></section>';
+  };
+})(window.HeartTest);
+
+</script>
+  <script>
+(function (A) {
+  'use strict';
+  var app = document.getElementById('app');
+  var state = A.initialState(), busy = false, timers = [], preview = null, ready = false;
+  document.addEventListener('touchstart', function () { document.documentElement.classList.add('using-pointer'); }, { passive: true });
+  document.addEventListener('mousedown', function () { document.documentElement.classList.add('using-pointer'); });
+  document.addEventListener('keydown', function (event) { if (event.key === 'Tab') document.documentElement.classList.remove('using-pointer'); });
+  function shownResult() { return preview || state.result; }
+  function cancelTimers() { timers.forEach(clearTimeout); timers = []; busy = false; }
+  function later(fn, ms) { var timer = setTimeout(fn, ms); timers.push(timer); }
+  function render(focus) {
+    var result = shownResult();
+    var html = state.view === 'home' ? A.homeHTML(state) : state.view === 'quiz' ? A.quizHTML(state) : state.view === 'analysis' ? A.analysisHTML(result) : A.resultHTML(result, Boolean(preview));
+    app.innerHTML = html + (A.debugEnabled && (state.view === 'home' || state.view === 'result') ? A.debugHTML(result) : '');
+    window.scrollTo(0, 0); if (focus) A.focusHeading();
+  }
+  function persist() { if (!preview) A.storage.save(state); }
+  function analyze() {
+    state.result = A.match(A.score(state.answers)); state.view = 'analysis'; busy = true; persist(); render(true);
+    [100, 460, 820, 1180].forEach(function (ms, index) { later(function () { var step = app.querySelector('[data-step="' + index + '"]'); if (step) step.classList.add('complete'); }, ms); });
+    later(function () { var p = app.querySelector('.prediction'); if (p) p.hidden = false; }, 1280);
+    later(function () { busy = false; state.view = 'result'; persist(); render(true); }, A.config.analysisDuration);
+  }
+  async function reset() {
+    cancelTimers(); A.closeCard(); preview = null; busy = true;
+    var ok = await A.storage.clear(); state = A.initialState(); busy = false; render(true);
+    if (!ok) A.notify('已重新开始；旧记录清除失败，关闭页面前请完成本次测试。');
+  }
+  async function share(action, button) {
+    var result = shownResult(); if (!result) return;
+    if (action === 'card') { try { A.openCard(result); } catch (err) { A.notify(err.message); } return; }
+    button.disabled = true;
+    try {
+      var data = A.drawShareCard(result).toDataURL('image/png');
+      var supported = action === 'save' ? await A.bridge.save(data) : await A.bridge.post(data, result);
+      if (!supported) A.openCard(result, action); else if (action === 'save') A.notify('心动人格卡已保存到相册。');
+    } catch (err) { A.notify(action === 'save' ? '未能保存，请检查相册权限后再试。' : '未能打开发布页，请稍后再试。'); }
+    finally { button.disabled = false; }
+  }
+  app.addEventListener('click', function (event) {
+    var button = event.target.closest('button'); if (!button || !ready || busy || button.disabled) return;
+    var action = button.dataset.action;
+    if (button.dataset.answer && state.view === 'quiz') {
+      busy = true; state.answers[state.index] = button.dataset.answer; state.result = null;
+      app.querySelectorAll('.answer').forEach(function (b) { b.classList.toggle('selected', b === button); b.setAttribute('aria-pressed', String(b === button)); b.disabled = true; });
+      persist();
+      later(function () { busy = false; if (state.index === A.questions.length - 1) analyze(); else { state.index += 1; persist(); render(true); } }, A.config.answerDelay);
+      return;
+    }
+    if (action === 'start') { preview = null; state.view = state.result ? 'result' : 'quiz'; persist(); render(true); }
+    else if (action === 'back') { if (state.index > 0) state.index -= 1; else state.view = 'home'; persist(); render(true); }
+    else if (action === 'home') { preview = null; state.view = 'home'; persist(); render(true); }
+    else if (action === 'reset') reset();
+    else if (action === 'save' || action === 'post' || action === 'card') share(action, button);
+    else if (A.debugEnabled && (action === 'debug-persona' || action === 'debug-vector')) {
+      var vector;
+      if (action === 'debug-persona') vector = A.personas.find(function (p) { return p.id === document.getElementById('debug-persona').value; }).center.slice();
+      else {
+        vector = A.config.dimensions.map(function (d) { var input = document.getElementById('dim-' + d); return input.value.trim() === '' ? NaN : Number(input.value); });
+        if (vector.some(function (n) { return !Number.isFinite(n) || n < -1 || n > 1; })) { A.notify('请将七个维度都设置为 -1 到 1 之间的数字。'); return; }
+      }
+      preview = A.match(vector); state.view = 'result'; render(true);
+    }
+  });
+  function height() { document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px'); }
+  window.addEventListener('resize', height); height();
+  app.innerHTML = A.homeHTML(state);
+  A.storage.init().then(function (raw) { state = A.restoreState(raw); ready = true; render(false); }).catch(function () { ready = true; render(false); A.notify('无法读取本地进度，可以正常开始测试。'); });
+})(window.HeartTest);
+
+</script>
+</body>
+</html>

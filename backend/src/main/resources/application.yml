@@ -1,0 +1,29 @@
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${SERVER_PORT:8080}
+spring:
+  application:
+    name: persona-backend
+  datasource:
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3308/persona_dev?connectionTimeZone=UTC&characterEncoding=UTF-8}
+    username: ${DB_USER:persona_dev}
+    password: ${DB_PASSWORD:local-dev-change-me}
+  flyway:
+    enabled: true
+    clean-disabled: true
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+app:
+  development-owner-id: ${DEV_OWNER_ID:dev-user-local}
+  development-api-enabled: ${DEV_API_ENABLED:false}
+springdoc:
+  swagger-ui:
+    enabled: ${DEV_API_ENABLED:false}
+  api-docs:
+    enabled: ${DEV_API_ENABLED:false}

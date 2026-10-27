@@ -1,0 +1,9 @@
+# pnpm 11 reads project settings here. Hoisted modules avoid Windows symlink privileges.
+packages:
+  - .
+nodeLinker: hoisted
+storeDir: .pnpm-store
+enableGlobalVirtualStore: false
+allowBuilds:
+  esbuild: true
+  '@tailwindcss/oxide': true

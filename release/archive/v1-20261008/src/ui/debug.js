@@ -1,0 +1,8 @@
+(function (A) {
+  'use strict';
+  A.debugEnabled = /(?:^|[?&])debug=1(?:&|$)/.test(window.location.search);
+  A.debugHTML = function (result) {
+    var vector = result ? result.vector : Array(7).fill(0);
+    return '<section class="debug-panel"><h2>测试控制台 · DEBUG</h2><p>手动七维预览，不覆盖答题进度。</p><label for="debug-persona">12个人格原型</label><select id="debug-persona">' + A.personas.map(function (p) { return '<option value="' + p.id + '"' + (result && p.id === result.primary.id ? ' selected' : '') + '>' + p.name + '</option>'; }).join('') + '</select><button class="secondary-button" data-action="debug-persona">使用原型中心预览</button><div class="debug-controls">' + A.config.dimensions.map(function (d, i) { return '<label for="dim-' + d + '">' + d + ' · ' + A.config.dimensionLabels[i] + '<input id="dim-' + d + '" data-dimension="' + d + '" type="number" step="0.025" min="-1" max="1" value="' + vector[i] + '"></label>'; }).join('') + '</div><button class="secondary-button" data-action="debug-vector">预览这组七维结果</button>' + (result ? '<p class="debug-vector">' + A.config.dimensions.map(function (d, i) { return d + '=' + vector[i].toFixed(4); }).join(' · ') + '</p><p>P1 distance: ' + result.ranking[0].distance.toFixed(6) + '<br>P2 distance: ' + result.ranking[1].distance.toFixed(6) + '<br>margin: ' + result.margin.toFixed(6) + '<br>判断: <strong>' + result.mode + '</strong></p><table aria-label="12个人格加权距离排序"><tbody>' + result.ranking.map(function (r, i) { return '<tr><td>' + (i + 1) + '. ' + A.escape(r.persona.name) + '</td><td>' + r.distance.toFixed(6) + '</td></tr>'; }).join('') + '</tbody></table>' : '') + '<p>存储后端：' + A.storage.backend() + '</p><button class="secondary-button" data-action="reset">清空测试及本地记录</button></section>';
+  };
+})(window.HeartTest);

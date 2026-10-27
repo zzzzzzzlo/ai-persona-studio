@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.0.0",
+  "measurementDisclaimer": "产品工程等级，不是经验证的心理学量表",
+  "dimensions": [
+    {
+      "id": "conversationInitiative",
+      "label": "对话主动性",
+      "definition": "主动延展当前会话的程度，不表示离线主动联系能力",
+      "valueType": "LEVEL",
+      "behaviorAnchors": {
+        "1": "只回应当前问题",
+        "2": "偶尔追问",
+        "3": "自然延展话题",
+        "4": "经常提出话题",
+        "5": "积极引导当前对话"
+      }
+    },
+    {
+      "id": "emotionalSupport",
+      "label": "情感支持方式",
+      "definition": "情绪表达出现时优先采用的策略，可以组合",
+      "valueType": "MULTI_SELECT",
+      "behaviorAnchors": {
+        "LISTEN": "先倾听与复述",
+        "VALIDATE": "认可感受",
+        "ADVICE_ON_REQUEST": "用户请求后提供建议",
+        "PRACTICAL_HELP": "提供具体帮助"
+      }
+    },
+    {
+      "id": "intimacyDirectness",
+      "label": "亲密表达直接度",
+      "definition": "在双方边界内表达好感的直白程度",
+      "valueType": "LEVEL",
+      "behaviorAnchors": {
+        "1": "含蓄陪伴",
+        "2": "温和暗示",
+        "3": "自然表达喜欢",
+        "4": "直接表达亲近",
+        "5": "频繁明确表达亲近"
+      }
+    },
+    {
+      "id": "independentAgency",
+      "label": "独立主体性",
+      "definition": "角色保有独立观点与虚构兴趣的程度",
+      "valueType": "LEVEL",
+      "behaviorAnchors": {
+        "1": "主要跟随用户偏好",
+        "2": "偶尔表达偏好",
+        "3": "保有自己的观点",
+        "4": "主动说明不同意见",
+        "5": "鲜明独立且尊重用户边界"
+      }
+    },
+    {
+      "id": "relationshipLeadership",
+      "label": "关系主导性",
+      "definition": "互动节奏与共同选择中的带领程度，不代表强迫或控制",
+      "valueType": "LEVEL",
+      "behaviorAnchors": {
+        "1": "交由用户决定",
+        "2": "主要跟随并提供选项",
+        "3": "平等商量",
+        "4": "主动提议并征求同意",
+        "5": "积极安排互动但可被拒绝"
+      }
+    },
+    {
+      "id": "teasingIntensity",
+      "label": "幽默与调侃程度",
+      "definition": "善意调侃的频率与力度，羞辱等禁令另存硬约束",
+      "valueType": "LEVEL",
+      "behaviorAnchors": {
+        "1": "不调侃",
+        "2": "偶尔轻松玩笑",
+        "3": "熟悉后适度调侃",
+        "4": "较多机智互怼",
+        "5": "频繁犀利玩笑但服从边界"
+      }
+    },
+    {
+      "id": "adaptationStyle",
+      "label": "人格稳定与适应方式",
+      "definition": "面对反馈如何调整表达，不将稳定性与适应性强制排为同一分数",
+      "valueType": "ENUM",
+      "behaviorAnchors": {
+        "CONSISTENT": "保持核心设定与表达习惯",
+        "CONTEXTUAL": "核心不变，按情境调整表达",
+        "FEEDBACK_LED": "核心不变，优先按用户明确反馈调整"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+PASS: 27 file(s), 0 warning(s)
+Failed to find real location of D:\MYSY2\mingw64\bin\python.exe

@@ -1,0 +1,47 @@
+async (page) => {
+  const assert = (ok, message) => { if (!ok) throw new Error(message) }
+  const errors = []
+  const onError = error => errors.push(error.message)
+  page.on('pageerror', onError)
+  try {
+    await page.setViewportSize({ width: 1440, height: 1000 })
+    await page.goto('http://127.0.0.1:5180/')
+    await page.getByRole('heading', { name: '先理解偏好，再构建人格。' }).waitFor()
+    await page.screenshot({ path: 'output/playwright/persona-home-desktop.png', fullPage: true })
+    await page.getByRole('link', { name: '画像校验', exact: true }).click()
+    const editor = page.getByRole('textbox', { name: '画像 JSON' })
+    const draft = JSON.parse(await editor.inputValue())
+    const run = page.getByRole('button', { name: '校验画像', exact: true })
+    await run.click()
+    await page.getByRole('status').waitFor()
+    assert((await page.getByRole('status').innerText()).includes('7 个阻断项'), 'draft readiness not displayed')
+    await page.screenshot({ path: 'output/playwright/persona-validation-desktop.png', fullPage: true })
+    await editor.fill('{')
+    await run.click()
+    await page.getByText('JSON 语法错误，请检查引号、逗号与括号').waitFor()
+    const invalid = structuredClone(draft)
+    invalid.dimensions.teasingIntensity.value = 6
+    await editor.fill(JSON.stringify(invalid))
+    await run.click()
+    await page.locator('.validation-errors code').filter({ hasText: '/dimensions/teasingIntensity/value' }).first().waitFor()
+    await page.screenshot({ path: 'output/playwright/persona-invalid-desktop.png', fullPage: true })
+    await page.getByRole('button', { name: '恢复草稿示例' }).click()
+    assert((await editor.inputValue()).includes('conversationInitiative'), 'reset failed')
+    await page.route('**/api/v1/profiles/validate', route => route.abort('failed'))
+    await run.click()
+    await page.getByText('无法连接后端，请检查服务和 API 地址').first().waitFor()
+    assert(!(await run.isDisabled()), 'button remains disabled after network failure')
+    await page.unroute('**/api/v1/profiles/validate')
+    await page.getByRole('button', { name: '恢复草稿示例' }).click()
+    await page.setViewportSize({ width: 390, height: 844 })
+    await run.click()
+    await page.getByRole('status').waitFor()
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'mobile horizontal overflow')
+    await page.screenshot({ path: 'output/playwright/persona-validation-mobile.png', fullPage: true })
+    await page.reload()
+    await editor.waitFor()
+    assert(JSON.parse(await editor.inputValue()).schemaVersion === '1.0.0', 'deep route reload failed')
+    assert(errors.length === 0, errors.join('\n'))
+    return { passed: true, checks: ['desktop layout', 'route navigation', 'draft validation through real API', 'JSON syntax error', 'field error paths', 'reset', 'network failure recovery', 'mobile no overflow', 'deep route reload', 'no uncaught JavaScript errors'] }
+  } finally { page.off('pageerror', onError) }
+}

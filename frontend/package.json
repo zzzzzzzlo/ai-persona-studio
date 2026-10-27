@@ -1,0 +1,22 @@
+{
+  "name": "persona-profile-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5180 --strictPort",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4180 --strictPort"
+  },
+  "dependencies": {
+    "vue": "^3.5.22", "vue-router": "^4.6.3", "axios": "^1.13.2",
+    "reka-ui": "^2.6.0", "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1", "tailwind-merge": "^3.3.1", "lucide-vue-next": "^0.468.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3", "vue-tsc": "^3.1.1", "vite": "^7.2.2",
+    "@vitejs/plugin-vue": "^6.0.1", "@types/node": "^24.10.0",
+    "tailwindcss": "^4.1.17", "@tailwindcss/vite": "^4.1.17"
+  }
+}

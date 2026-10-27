@@ -1,0 +1,27 @@
+output/npm-cache/
+output/browser-cache/
+.playwright-cli/
+node_modules/
+*.log
+
+# Modular persona application (original offline releases remain tracked).
+backend/target/
+frontend/dist/
+frontend/.pnpm-store/
+.env
+frontend/.env.local
+frontend/.env.production.local
+output/m2/
+output/pnpm-store/
+output/mysql-v1-data/
+output/mysql-v1-files/
+output/scaffold-baseline.json
+
+# Local verification artifacts and runtime data stay on this machine.
+output/
+__pycache__/
+*.py[cod]
+.env.local
+.env.*.local
+.DS_Store
+Thumbs.db

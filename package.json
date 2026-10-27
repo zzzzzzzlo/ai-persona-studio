@@ -1,0 +1,12 @@
+{
+  "name": "ai-heart-personality",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Offline AI heart personality mini tool",
+  "scripts": {
+    "dev": "node tools/serve.cjs",
+    "test": "node tests/algorithm.cjs",
+    "build": "python tools/build-variants.py",
+    "audit": "python tools/validate.py dist"
+  }
+}

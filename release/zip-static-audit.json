@@ -1,0 +1,9 @@
+{
+  "target": "E:\\ai人格测试产品\\release\\ai-heart-personality-v2.0.0.zip",
+  "passed": true,
+  "fileCount": 29,
+  "uncompressedBytes": 94352,
+  "errors": [],
+  "warnings": [],
+  "scope": "Static source/container checks; excludes platform and real device acceptance"
+}

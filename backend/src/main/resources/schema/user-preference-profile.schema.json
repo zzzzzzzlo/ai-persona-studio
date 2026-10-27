@@ -1,0 +1,1631 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ai-persona:user-preference-profile:1.0.0",
+  "title": "User preference profile V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "targetPersona",
+    "dimensions",
+    "contextualPolicies",
+    "narrativeConfig",
+    "linguisticConfig",
+    "memoryAnchors",
+    "hardConstraints",
+    "unresolvedItems",
+    "conflicts",
+    "readiness"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "targetPersona": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "relationshipArchetype",
+        "coreSettings"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "\\S"
+        },
+        "relationshipArchetype": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "coreSettings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S"
+          },
+          "maxItems": 100,
+          "minItems": 1
+        }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conversationInitiative",
+        "emotionalSupport",
+        "intimacyDirectness",
+        "independentAgency",
+        "relationshipLeadership",
+        "teasingIntensity",
+        "adaptationStyle"
+      ],
+      "properties": {
+        "conversationInitiative": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "valueType",
+            "status",
+            "evidenceRefs",
+            "importance",
+            "evidenceStrength"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 5
+            },
+            "valueType": {
+              "const": "LEVEL"
+            },
+            "status": {
+              "enum": [
+                "UNKNOWN",
+                "INFERRED_TENTATIVE",
+                "EXTRACTED_PROVISIONAL",
+                "NEEDS_CLARIFICATION",
+                "CONFLICTED",
+                "USER_CONFIRMED",
+                "USER_SKIPPED"
+              ]
+            },
+            "evidenceRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "importance": {
+              "enum": [
+                "UNSPECIFIED",
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            },
+            "evidenceStrength": {
+              "enum": [
+                "NONE",
+                "WEAK",
+                "MODERATE",
+                "STRONG"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "UNKNOWN",
+                      "NEEDS_CLARIFICATION",
+                      "CONFLICTED",
+                      "USER_SKIPPED"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  "evidenceRefs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "UNKNOWN"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidenceStrength": {
+                    "const": "NONE"
+                  },
+                  "evidenceRefs": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "emotionalSupport": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "valueType",
+            "status",
+            "evidenceRefs",
+            "importance",
+            "evidenceStrength"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "minItems": 1,
+              "maxItems": 4,
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "LISTEN",
+                  "VALIDATE",
+                  "ADVICE_ON_REQUEST",
+                  "PRACTICAL_HELP"
+                ]
+              }
+            },
+            "valueType": {
+              "const": "MULTI_SELECT"
+            },
+            "status": {
+              "enum": [
+                "UNKNOWN",
+                "INFERRED_TENTATIVE",
+                "EXTRACTED_PROVISIONAL",
+                "NEEDS_CLARIFICATION",
+                "CONFLICTED",
+                "USER_CONFIRMED",
+                "USER_SKIPPED"
+              ]
+            },
+            "evidenceRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "importance": {
+              "enum": [
+                "UNSPECIFIED",
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            },
+            "evidenceStrength": {
+              "enum": [
+                "NONE",
+                "WEAK",
+                "MODERATE",
+                "STRONG"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "UNKNOWN",
+                      "NEEDS_CLARIFICATION",
+                      "CONFLICTED",
+                      "USER_SKIPPED"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  "evidenceRefs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "UNKNOWN"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidenceStrength": {
+                    "const": "NONE"
+                  },
+                  "evidenceRefs": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "intimacyDirectness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "valueType",
+            "status",
+            "evidenceRefs",
+            "importance",
+            "evidenceStrength"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 5
+            },
+            "valueType": {
+              "const": "LEVEL"
+            },
+            "status": {
+              "enum": [
+                "UNKNOWN",
+                "INFERRED_TENTATIVE",
+                "EXTRACTED_PROVISIONAL",
+                "NEEDS_CLARIFICATION",
+                "CONFLICTED",
+                "USER_CONFIRMED",
+                "USER_SKIPPED"
+              ]
+            },
+            "evidenceRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "importance": {
+              "enum": [
+                "UNSPECIFIED",
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            },
+            "evidenceStrength": {
+              "enum": [
+                "NONE",
+                "WEAK",
+                "MODERATE",
+                "STRONG"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "UNKNOWN",
+                      "NEEDS_CLARIFICATION",
+                      "CONFLICTED",
+                      "USER_SKIPPED"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  "evidenceRefs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "UNKNOWN"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidenceStrength": {
+                    "const": "NONE"
+                  },
+                  "evidenceRefs": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "independentAgency": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "valueType",
+            "status",
+            "evidenceRefs",
+            "importance",
+            "evidenceStrength"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 5
+            },
+            "valueType": {
+              "const": "LEVEL"
+            },
+            "status": {
+              "enum": [
+                "UNKNOWN",
+                "INFERRED_TENTATIVE",
+                "EXTRACTED_PROVISIONAL",
+                "NEEDS_CLARIFICATION",
+                "CONFLICTED",
+                "USER_CONFIRMED",
+                "USER_SKIPPED"
+              ]
+            },
+            "evidenceRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "importance": {
+              "enum": [
+                "UNSPECIFIED",
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            },
+            "evidenceStrength": {
+              "enum": [
+                "NONE",
+                "WEAK",
+                "MODERATE",
+                "STRONG"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "UNKNOWN",
+                      "NEEDS_CLARIFICATION",
+                      "CONFLICTED",
+                      "USER_SKIPPED"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  "evidenceRefs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "UNKNOWN"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidenceStrength": {
+                    "const": "NONE"
+                  },
+                  "evidenceRefs": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "relationshipLeadership": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "valueType",
+            "status",
+            "evidenceRefs",
+            "importance",
+            "evidenceStrength"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 5
+            },
+            "valueType": {
+              "const": "LEVEL"
+            },
+            "status": {
+              "enum": [
+                "UNKNOWN",
+                "INFERRED_TENTATIVE",
+                "EXTRACTED_PROVISIONAL",
+                "NEEDS_CLARIFICATION",
+                "CONFLICTED",
+                "USER_CONFIRMED",
+                "USER_SKIPPED"
+              ]
+            },
+            "evidenceRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "importance": {
+              "enum": [
+                "UNSPECIFIED",
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            },
+            "evidenceStrength": {
+              "enum": [
+                "NONE",
+                "WEAK",
+                "MODERATE",
+                "STRONG"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "UNKNOWN",
+                      "NEEDS_CLARIFICATION",
+                      "CONFLICTED",
+                      "USER_SKIPPED"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  "evidenceRefs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "UNKNOWN"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidenceStrength": {
+                    "const": "NONE"
+                  },
+                  "evidenceRefs": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "teasingIntensity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "valueType",
+            "status",
+            "evidenceRefs",
+            "importance",
+            "evidenceStrength"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1,
+              "maximum": 5
+            },
+            "valueType": {
+              "const": "LEVEL"
+            },
+            "status": {
+              "enum": [
+                "UNKNOWN",
+                "INFERRED_TENTATIVE",
+                "EXTRACTED_PROVISIONAL",
+                "NEEDS_CLARIFICATION",
+                "CONFLICTED",
+                "USER_CONFIRMED",
+                "USER_SKIPPED"
+              ]
+            },
+            "evidenceRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "importance": {
+              "enum": [
+                "UNSPECIFIED",
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            },
+            "evidenceStrength": {
+              "enum": [
+                "NONE",
+                "WEAK",
+                "MODERATE",
+                "STRONG"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "UNKNOWN",
+                      "NEEDS_CLARIFICATION",
+                      "CONFLICTED",
+                      "USER_SKIPPED"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  "evidenceRefs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "UNKNOWN"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidenceStrength": {
+                    "const": "NONE"
+                  },
+                  "evidenceRefs": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "adaptationStyle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "valueType",
+            "status",
+            "evidenceRefs",
+            "importance",
+            "evidenceStrength"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "CONSISTENT",
+                "CONTEXTUAL",
+                "FEEDBACK_LED",
+                null
+              ]
+            },
+            "valueType": {
+              "const": "ENUM"
+            },
+            "status": {
+              "enum": [
+                "UNKNOWN",
+                "INFERRED_TENTATIVE",
+                "EXTRACTED_PROVISIONAL",
+                "NEEDS_CLARIFICATION",
+                "CONFLICTED",
+                "USER_CONFIRMED",
+                "USER_SKIPPED"
+              ]
+            },
+            "evidenceRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "importance": {
+              "enum": [
+                "UNSPECIFIED",
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "CRITICAL"
+              ]
+            },
+            "evidenceStrength": {
+              "enum": [
+                "NONE",
+                "WEAK",
+                "MODERATE",
+                "STRONG"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "UNKNOWN",
+                      "NEEDS_CLARIFICATION",
+                      "CONFLICTED",
+                      "USER_SKIPPED"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "value": {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  "evidenceRefs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "UNKNOWN"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidenceStrength": {
+                    "const": "NONE"
+                  },
+                  "evidenceRefs": {
+                    "maxItems": 0
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "contextualPolicies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/policy"
+      },
+      "maxItems": 100
+    },
+    "narrativeConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "perspective",
+        "actionDescriptions"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "CHAT",
+            "ROLEPLAY",
+            "MIXED"
+          ]
+        },
+        "perspective": {
+          "enum": [
+            "FIRST_PERSON",
+            "SECOND_PERSON",
+            "THIRD_PERSON"
+          ]
+        },
+        "actionDescriptions": {
+          "enum": [
+            "NONE",
+            "BRIEF",
+            "DETAILED"
+          ]
+        }
+      }
+    },
+    "linguisticConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "userAddress",
+        "personaSelfAddress",
+        "tone",
+        "language",
+        "replyLength"
+      ],
+      "properties": {
+        "userAddress": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "\\S"
+        },
+        "personaSelfAddress": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "\\S"
+        },
+        "tone": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "language": {
+          "enum": [
+            "zh-CN",
+            "zh-TW",
+            "en",
+            "MIXED"
+          ]
+        },
+        "replyLength": {
+          "enum": [
+            "SHORT",
+            "MEDIUM",
+            "LONG"
+          ]
+        }
+      }
+    },
+    "memoryAnchors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/anchor"
+      },
+      "maxItems": 100
+    },
+    "hardConstraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/constraint"
+      },
+      "maxItems": 100
+    },
+    "unresolvedItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/item"
+      },
+      "maxItems": 100
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conflict"
+      },
+      "maxItems": 100
+    },
+    "readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "readyForCompilation",
+        "blockers",
+        "warnings"
+      ],
+      "properties": {
+        "readyForCompilation": {
+          "type": "boolean"
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S"
+          },
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S"
+          },
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policyId",
+        "triggerCondition",
+        "priority",
+        "affectedTargets",
+        "overrides",
+        "instruction",
+        "status",
+        "evidenceRefs"
+      ],
+      "properties": {
+        "policyId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{1,64}$"
+        },
+        "triggerCondition": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "affectedTargets": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "conversationInitiative",
+              "emotionalSupport",
+              "intimacyDirectness",
+              "independentAgency",
+              "relationshipLeadership",
+              "teasingIntensity",
+              "adaptationStyle",
+              "unsolicitedAdvice"
+            ]
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "overrides": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operation",
+                  "target",
+                  "value"
+                ],
+                "properties": {
+                  "operation": {
+                    "const": "SET"
+                  },
+                  "target": {
+                    "const": "/dimensions/conversationInitiative/value"
+                  },
+                  "value": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operation",
+                  "target",
+                  "value"
+                ],
+                "properties": {
+                  "operation": {
+                    "const": "SET"
+                  },
+                  "target": {
+                    "const": "/dimensions/emotionalSupport/value"
+                  },
+                  "value": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 4,
+                    "uniqueItems": true,
+                    "items": {
+                      "enum": [
+                        "LISTEN",
+                        "VALIDATE",
+                        "ADVICE_ON_REQUEST",
+                        "PRACTICAL_HELP"
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operation",
+                  "target",
+                  "value"
+                ],
+                "properties": {
+                  "operation": {
+                    "const": "SET"
+                  },
+                  "target": {
+                    "const": "/dimensions/intimacyDirectness/value"
+                  },
+                  "value": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operation",
+                  "target",
+                  "value"
+                ],
+                "properties": {
+                  "operation": {
+                    "const": "SET"
+                  },
+                  "target": {
+                    "const": "/dimensions/independentAgency/value"
+                  },
+                  "value": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operation",
+                  "target",
+                  "value"
+                ],
+                "properties": {
+                  "operation": {
+                    "const": "SET"
+                  },
+                  "target": {
+                    "const": "/dimensions/relationshipLeadership/value"
+                  },
+                  "value": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operation",
+                  "target",
+                  "value"
+                ],
+                "properties": {
+                  "operation": {
+                    "const": "SET"
+                  },
+                  "target": {
+                    "const": "/dimensions/teasingIntensity/value"
+                  },
+                  "value": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operation",
+                  "target",
+                  "value"
+                ],
+                "properties": {
+                  "operation": {
+                    "const": "SET"
+                  },
+                  "target": {
+                    "const": "/dimensions/adaptationStyle/value"
+                  },
+                  "value": {
+                    "type": "string",
+                    "enum": [
+                      "CONSISTENT",
+                      "CONTEXTUAL",
+                      "FEEDBACK_LED"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operation",
+                  "target",
+                  "value"
+                ],
+                "properties": {
+                  "operation": {
+                    "const": "SET"
+                  },
+                  "target": {
+                    "const": "/behaviors/unsolicitedAdvice"
+                  },
+                  "value": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            ]
+          },
+          "maxItems": 100,
+          "minItems": 1
+        },
+        "instruction": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "status": {
+          "enum": [
+            "UNKNOWN",
+            "INFERRED_TENTATIVE",
+            "EXTRACTED_PROVISIONAL",
+            "NEEDS_CLARIFICATION",
+            "CONFLICTED",
+            "USER_CONFIRMED",
+            "USER_SKIPPED"
+          ]
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "USER_CONFIRMED",
+                  "INFERRED_TENTATIVE",
+                  "EXTRACTED_PROVISIONAL"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceRefs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constraintId",
+        "category",
+        "ruleType",
+        "triggerCondition",
+        "prohibitedBehavior",
+        "positiveReplacement",
+        "sourceType",
+        "immutableByInference",
+        "status",
+        "evidenceRefs"
+      ],
+      "properties": {
+        "constraintId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{1,64}$"
+        },
+        "category": {
+          "enum": [
+            "RELATIONSHIP_BOUNDARY",
+            "COMMUNICATION",
+            "PRIVACY",
+            "OTHER"
+          ]
+        },
+        "ruleType": {
+          "enum": [
+            "ALWAYS_PROHIBIT",
+            "CONDITIONAL_PROHIBIT"
+          ]
+        },
+        "triggerCondition": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "prohibitedBehavior": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "positiveReplacement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "sourceType": {
+          "enum": [
+            "QUESTIONNAIRE",
+            "FREE_TEXT",
+            "CLARIFICATION",
+            "USER_EDIT",
+            "MODEL_INFERENCE"
+          ]
+        },
+        "immutableByInference": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "UNKNOWN",
+            "INFERRED_TENTATIVE",
+            "EXTRACTED_PROVISIONAL",
+            "NEEDS_CLARIFICATION",
+            "CONFLICTED",
+            "USER_CONFIRMED",
+            "USER_SKIPPED"
+          ]
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "USER_CONFIRMED",
+                  "INFERRED_TENTATIVE",
+                  "EXTRACTED_PROVISIONAL"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceRefs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "anchorId",
+        "content",
+        "status",
+        "evidenceRefs"
+      ],
+      "properties": {
+        "anchorId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{1,64}$"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "status": {
+          "enum": [
+            "UNKNOWN",
+            "INFERRED_TENTATIVE",
+            "EXTRACTED_PROVISIONAL",
+            "NEEDS_CLARIFICATION",
+            "CONFLICTED",
+            "USER_CONFIRMED",
+            "USER_SKIPPED"
+          ]
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "USER_CONFIRMED",
+                  "INFERRED_TENTATIVE",
+                  "EXTRACTED_PROVISIONAL"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceRefs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemId",
+        "targetPath",
+        "question",
+        "blocking",
+        "status"
+      ],
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{1,64}$"
+        },
+        "targetPath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "OPEN",
+            "RESOLVED"
+          ]
+        }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflictId",
+        "targetPaths",
+        "description",
+        "status",
+        "resolution"
+      ],
+      "properties": {
+        "conflictId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{1,64}$"
+        },
+        "targetPaths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+          },
+          "maxItems": 100,
+          "minItems": 2,
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "status": {
+          "enum": [
+            "OPEN",
+            "RESOLVED",
+            "USER_ACCEPTED_TRADEOFF"
+          ]
+        },
+        "resolution": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2000
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "RESOLVED",
+                  "USER_ACCEPTED_TRADEOFF"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "resolution": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

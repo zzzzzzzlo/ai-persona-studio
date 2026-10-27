@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <defs><linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FBE5EF"/><stop offset="1" stop-color="#E7EDFF"/></linearGradient><linearGradient id="heart" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#F0A6C5"/><stop offset="1" stop-color="#DF87AD"/></linearGradient></defs>
+  <rect x="9" y="9" width="142" height="142" rx="43" fill="url(#tile)"/>
+  <path d="M46 37H114C126 37 133 45 133 57V99C133 111 125 119 113 119H69L47 133V118C35 117 28 109 28 97V57C28 45 35 37 46 37Z" fill="#CFD8F5" opacity=".55"/>
+  <path d="M44 32H112C124 32 131 40 131 52V94C131 106 123 114 111 114H67L45 128V113C33 112 26 104 26 92V52C26 40 33 32 44 32Z" fill="#FFFFFF" stroke="#C2CBEA" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M79 94C70 87 55 77 55 65C55 57 61 52 68 52C73 52 77 55 79 59C82 55 85 52 90 52C98 52 103 58 103 65C103 77 89 88 79 94Z" fill="url(#heart)"/>
+</svg>

@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: ${TEST_DB_URL:jdbc:h2:mem:profile;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE}
+    username: ${TEST_DB_USER:sa}
+    password: ${TEST_DB_PASSWORD:}
+  flyway:
+    enabled: ${TEST_FLYWAY_ENABLED:false}
+  sql:
+    init:
+      mode: ${TEST_SQL_INIT_MODE:embedded}
+      schema-locations: classpath:h2-schema.sql
+app:
+  development-api-enabled: true
+  development-owner-id: test-owner
