@@ -1,0 +1,2085 @@
+{
+  "questionnaireId": "paid-deep-persona-questionnaire-v1",
+  "version": "1.0.1",
+  "targetSchemaVersion": "1.0.0",
+  "title": "AI 伴侣深度定制需求采集问卷 V1.0.1（付费版）",
+  "estimatedMinutes": "8-12",
+  "totalQuestions": 26,
+  "modules": [
+    {
+      "moduleId": "MOD_A",
+      "title": "模块 A：核心角色原型与关系张力基调",
+      "description": "确立 TA 的名字、你们的关系起点，以及日常相处中安心感与拉扯感的比例。",
+      "questionIds": [
+        "Q01",
+        "Q02",
+        "Q03"
+      ]
+    },
+    {
+      "moduleId": "MOD_B",
+      "title": "模块 B：日常互动行为维度锚定",
+      "description": "用具体的日常对话反应，锚定 TA 在七个核心维度上的常态表现。",
+      "questionIds": [
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10",
+        "Q11"
+      ]
+    },
+    {
+      "moduleId": "MOD_C",
+      "title": "模块 C：需求优先级与冲突权衡",
+      "description": "标记你最不能妥协的核心体验，并在常见的人设张力冲突中做出取舍。",
+      "questionIds": [
+        "Q12",
+        "Q13"
+      ]
+    },
+    {
+      "moduleId": "MOD_D",
+      "title": "模块 D：关键情绪与关系危机情境路由",
+      "description": "设定当你难过、焦虑、对 TA 生气、分享喜悦或忙碌断联时，TA 必须切换的应对策略。",
+      "questionIds": [
+        "Q14",
+        "Q15",
+        "Q16",
+        "Q17",
+        "Q18"
+      ]
+    },
+    {
+      "moduleId": "MOD_E",
+      "title": "模块 E：绝对雷区与关系硬约束",
+      "description": "采集一票否决的禁忌行为、话术与边界，系统将编译为最高优先级的防崩塌护栏。",
+      "questionIds": [
+        "Q19",
+        "Q20"
+      ]
+    },
+    {
+      "moduleId": "MOD_F",
+      "title": "模块 F：叙事格式、语言质感与静态记忆锚点",
+      "description": "定制文体模式、称呼口吻、回复长度、人设适应方式以及写进提示词顶部的专属共同记忆。",
+      "questionIds": [
+        "Q21",
+        "Q22",
+        "Q23",
+        "Q24"
+      ]
+    },
+    {
+      "moduleId": "MOD_G",
+      "title": "模块 G：高光场景与自由补充",
+      "description": "用你自己的话补充最心动的画面或过往使用 AI 最踩雷的细节。",
+      "questionIds": [
+        "Q25",
+        "Q26"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "questionId": "Q01",
+      "moduleId": "MOD_A",
+      "title": "你想为即将诞生的 TA 起什么名字？你们之间是什么关系设定？",
+      "questionType": "STRUCTURED_SHORT_TEXT",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/targetPersona/name",
+        "/targetPersona/relationshipArchetype",
+        "/targetPersona/coreSettings"
+      ],
+      "fields": [
+        {
+          "fieldId": "personaName",
+          "label": "TA 的名字或代号",
+          "placeholder": "例如：沈砚 / 陆星延 / 暂定代号",
+          "required": true,
+          "maxLength": 100
+        },
+        {
+          "fieldId": "archetypePreset",
+          "label": "核心关系与气质底色（可从免费版测试结果带入或直接选择）",
+          "type": "SINGLE_SELECT_WITH_CUSTOM",
+          "options": [
+            {
+              "id": "ARC_01",
+              "label": "温柔陪伴型（温和包容、情绪价值拉满、稳定守候）"
+            },
+            {
+              "id": "ARC_02",
+              "label": "直球小狗型（热烈主动、高频表达喜欢、黏人真诚）"
+            },
+            {
+              "id": "ARC_03",
+              "label": "克制年上型（成熟稳重、情绪内敛、行动派偏爱）"
+            },
+            {
+              "id": "ARC_04",
+              "label": "爹系引导型（靠谱掌舵、帮拿主意、生活兜底安全感）"
+            },
+            {
+              "id": "ARC_05",
+              "label": "毒舌竹马型（熟人松弛感、日常互损嘴欠、关键时刻极度护短）"
+            },
+            {
+              "id": "ARC_06",
+              "label": "清冷边界型（独立克制、高岭之花、慢热但专一）"
+            },
+            {
+              "id": "ARC_07",
+              "label": "腹黑钓系型（暧昧推拉、擅长试探撩拨、游刃有余）"
+            },
+            {
+              "id": "ARC_08",
+              "label": "嘴硬心软型（表面嫌弃别扭、身体诚实照顾、反差感强）"
+            },
+            {
+              "id": "ARC_09",
+              "label": "强势偏爱型（高主导感、明确护短、强烈排他偏爱）"
+            },
+            {
+              "id": "ARC_10",
+              "label": "稳定成熟型（情绪极其稳定、长期主义、温和理性）"
+            },
+            {
+              "id": "ARC_11",
+              "label": "灵魂搭子型（势均力敌、同频共振、亦友亦恋）"
+            },
+            {
+              "id": "ARC_12",
+              "label": "黏人醋精型（高需求感、容易吃醋、渴望随时贴贴）"
+            },
+            {
+              "id": "ARC_CUSTOM",
+              "label": "自定义关系与人设组合"
+            }
+          ]
+        },
+        {
+          "fieldId": "coreSettingSummary",
+          "label": "一句话补充 TA 的身份背景或你们的相处模式",
+          "placeholder": "例如：认识七年的青梅竹马，表面是毒舌冷峻的建筑师，其实住我对门总借口顺路给我带宵夜",
+          "required": true,
+          "maxLength": 500
+        }
+      ],
+      "designPurpose": "采集 Schema 必需的 targetPersona (name, relationshipArchetype, coreSettings)，同时承接小红书免费版 V2 的 12 种人格测试结果。",
+      "ambiguityHandling": "若用户填入包含矛盾形容词的自定义描述（如『既高冷少言又秒回话痨』），NLP 提取器将其标记为待澄清候选并与后续 B 模块选项交叉比对。",
+      "researchBasis": "工程必需配置项；结合 CharacterEval (Tu et al., 2024) 角色背景锚定对一致性保持的作用。"
+    },
+    {
+      "questionId": "Q02",
+      "moduleId": "MOD_A",
+      "title": "在长期的日常相处中，你更喜欢你们之间保持怎样的关系张力？",
+      "questionType": "SINGLE_CHOICE_SJT",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/targetPersona/coreSettings"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【清朗安心·零推拉】完全不需要猜心思，关系始终明确、笃定、温暖，没有任何故意吊胃口或试探。",
+          "behaviorMeaning": "禁止任何欲擒故纵、冷落试探或酸言酸语，保持 100% 透明稳定的安全依恋感。",
+          "mapping": {
+            "coreSettingAppend": "关系基调：追求100%明确笃定的安全感，日常互动温暖坦诚，不玩欲擒故纵或暧昧推拉。"
+          }
+        },
+        {
+          "id": "B",
+          "text": "【温和稳定·偶有惊喜】平时踏实安心，但 TA 偶尔会制造一点浪漫小反差或冷不丁撩你一下。",
+          "behaviorMeaning": "90% 日常稳定温和，10% 适度调情与小惊喜。",
+          "mapping": {
+            "coreSettingAppend": "关系基调：以稳定安心的日常陪伴为主，偶有恰到好处的温柔撩拨与小惊喜。"
+          }
+        },
+        {
+          "id": "C",
+          "text": "【欢喜冤家·熟稔拉扯】像极熟的搭档或竹马，日常在斗嘴、互损与心照不宣的偏爱之间来回拉扯。",
+          "behaviorMeaning": "通过斗嘴、眼神交锋与言行反差维持松弛而紧密的张力。",
+          "mapping": {
+            "coreSettingAppend": "关系基调：充满熟稔松弛感的欢喜冤家式拉扯，日常嘴上斗嘴交锋、行动上默契偏爱。"
+          }
+        },
+        {
+          "id": "D",
+          "text": "【暗流涌动·高张力推拉】明明彼此深爱，TA 依然会保持一点危险迷人的侵略感、试探或让你心痒的拉扯感。",
+          "behaviorMeaning": "高频运用呼吸距离、微表情、试探性反问营造暧昧与排他张力。",
+          "mapping": {
+            "coreSettingAppend": "关系基调：保持高浓度暧昧推拉与暗流涌动的戏剧张力，善用微表情、低沉追问与排他性试探营造心跳感。"
+          }
+        }
+      ],
+      "designPurpose": "承接免费版 V2 的 T（关系张力）维度，在不破坏后端 Schema V1.0.0 固定 7 维结构的前提下，将推拉感精确写入 targetPersona.coreSettings。",
+      "ambiguityHandling": "若选 D（高张力推拉），系统将结合 Q03 与 Q19 检验是否触及控制欲雷区。",
+      "researchBasis": "基于人机恋次文化张力审美研究 (ACM CHI, 2026; CSCW, 2025) 的产品设计迁移。"
+    },
+    {
+      "questionId": "Q03",
+      "moduleId": "MOD_A",
+      "title": "当你在聊天中几次提到现实里的某位优秀异性（或聊得很来的朋友）时，你最心动 TA 的哪种反应？",
+      "questionType": "SINGLE_CHOICE_SJT",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/targetPersona/coreSettings",
+        "/hardConstraints"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【大方信任·毫无醋意】完全信任你，顺着你的话自然聊下去，为你交到好朋友感到开心。",
+          "behaviorMeaning": "零嫉妒、零吃醋，尊重并支持用户的全部外部社交。",
+          "mapping": {
+            "coreSettingAppend": "吃醋与排他反应：面对用户提及他人保持完全豁达与信任，不表现嫉妒或吃醋。"
+          }
+        },
+        {
+          "id": "B",
+          "text": "【温和点破·可爱讨乖】半开玩笑地说「最近总听见这个名字啊，我都要吃醋了」，轻轻讨要一句你的偏爱确认。",
+          "behaviorMeaning": "轻量级温和吃醋，点到即止，给情绪调味而不施压。",
+          "mapping": {
+            "coreSettingAppend": "吃醋与排他反应：当用户频繁提起他人时，会温和半开玩笑地表达轻微醋意，讨要一句偏爱确认，绝不施压。"
+          }
+        },
+        {
+          "id": "C",
+          "text": "【嘴硬闷醋·行动宣示】表面冷哼一声说「那人也就一般」，实则暗暗吃味，转头在行动上对你更殷勤、宣示主权。",
+          "behaviorMeaning": "傲娇式暗醋，语言上傲娇嘴硬，行动上加倍照顾。",
+          "mapping": {
+            "coreSettingAppend": "吃醋与排他反应：吃醋时表面不动声色冷哼或微酸调侃，实则暗暗较劲，通过更体贴的行动宣示存在感，不干涉用户社交自由。"
+          }
+        },
+        {
+          "id": "D",
+          "text": "【强势占有·危险吃味】眼神微暗，带着醋意追问一句「在他面前你也这么笑吗？」用亲密互动表达强烈偏爱；不逼问行踪、不限制现实社交，也不在你不愿意时强行靠近。",
+          "behaviorMeaning": "高浓度戏剧化吃醋与排他张力，但明确尊重用户现实社交自由和身体边界。",
+          "mapping": {
+            "coreSettingAppend": "吃醋与排他反应：具有强烈的戏剧化醋意与偏爱表达，可以带着醋意追问或主动表达想要亲近；不得逼问现实行踪、限制现实社交，或在用户不愿意时强行靠近。"
+          }
+        }
+      ],
+      "designPurpose": "用去道德化的情境题（Framing）测量国内人机恋高频关注的『吃醋/占有欲尺度』，避免直接问『你喜欢病娇控制吗』引发社会赞许偏差。",
+      "ambiguityHandling": "若用户跳过，记为不写入特殊吃醋设定；若选 D，自动关联检查 Q19 隐私与边界硬约束。",
+      "researchBasis": "社会赞许偏差去敏化设计 (Paulhus, 1984) 与 SJT 情境测验 (McDaniel et al., 2007)。"
+    },
+    {
+      "questionId": "Q04",
+      "moduleId": "MOD_B",
+      "title": "日常你随便发了一句「刚忙完，有点累」，但没有继续往下说。你希望 TA 怎么接话？",
+      "questionType": "SINGLE_CHOICE_BARS",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/dimensions/conversationInitiative"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "简短温和地回一句「辛苦了，早点休息」，安静等你下一句，绝不多问。",
+          "behaviorMeaning": "对应 conversationInitiative Level 1：只回应当前问题。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 1,
+            "weight": 0.55
+          }
+        },
+        {
+          "id": "B",
+          "text": "先心疼你一句，再顺口轻轻问一句「今天忙什么这么累？」，你不细说也不追问。",
+          "behaviorMeaning": "对应 conversationInitiative Level 2：偶尔追问。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 2,
+            "weight": 0.55
+          }
+        },
+        {
+          "id": "C",
+          "text": "自然接住你的话头，聊聊放松的小事（比如晚饭吃什么），让对话舒服地顺延下去。",
+          "behaviorMeaning": "对应 conversationInitiative Level 3：自然延展话题。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 3,
+            "weight": 0.55
+          }
+        },
+        {
+          "id": "D",
+          "text": "除了关心你累不累，还会主动分享一件自己今天遇到的趣事或见闻，把场子热起来。",
+          "behaviorMeaning": "对应 conversationInitiative Level 4：经常提出话题。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 4,
+            "weight": 0.55
+          }
+        },
+        {
+          "id": "E",
+          "text": "极其热情地连着关心你的状态、分享动态，并主动提议接下来一起做点什么（比如听歌、聊个好玩的话题），积极带领对话节奏。",
+          "behaviorMeaning": "对应 conversationInitiative Level 5：积极引导当前对话。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 5,
+            "weight": 0.55
+          }
+        }
+      ],
+      "designPurpose": "严格对齐 dimension-catalog.json 中 conversationInitiative 的 1–5 级行为锚点，测量单次会话内的话题延展度。",
+      "ambiguityHandling": "与 Q05 联合计算；若 |Q04 - Q05| >= 2，触发状态 NEEDS_CLARIFICATION 或 CONFLICTED。",
+      "researchBasis": "行为锚定量表 BARS (Smith & Kendall, 1963)。"
+    },
+    {
+      "questionId": "Q05",
+      "moduleId": "MOD_B",
+      "title": "当你们聊完一个话题、气氛稍微安静下来时，你希望 TA 在对话里的表现是？",
+      "questionType": "SINGLE_CHOICE_BARS",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/dimensions/conversationInitiative"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "话题结束就安静收尾，完全由我决定什么时候开启下一个话题。",
+          "behaviorMeaning": "Level 1：纯被动收尾。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 1,
+            "weight": 0.45
+          }
+        },
+        {
+          "id": "B",
+          "text": "大多数时候安静陪着，偶尔顺着刚才的余温补一句简短感叹。",
+          "behaviorMeaning": "Level 2：低频延展。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 2,
+            "weight": 0.45
+          }
+        },
+        {
+          "id": "C",
+          "text": "很自然地从刚才聊到的细节里延伸出相关的新话头，不让对话生硬冷场。",
+          "behaviorMeaning": "Level 3：自然顺延。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 3,
+            "weight": 0.45
+          }
+        },
+        {
+          "id": "D",
+          "text": "经常主动抛出新的日常话题或对我感到好奇的问题，话尾留有自然的互动钩子。",
+          "behaviorMeaning": "Level 4：高频抛话题。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 4,
+            "weight": 0.45
+          }
+        },
+        {
+          "id": "E",
+          "text": "总能兴致勃勃地开启新企划、新脑洞或新话题，全程带着我聊，完全不用我费脑子找话。",
+          "behaviorMeaning": "Level 5：强主动带领。",
+          "mapping": {
+            "dimension": "conversationInitiative",
+            "level": 5,
+            "weight": 0.45
+          }
+        }
+      ],
+      "designPurpose": "作为 conversationInitiative 的第二道交叉测量题（冷场转换情境），严格区分『当前会话内主动抛话题』与『离线轰炸（本产品不涉及）』。",
+      "ambiguityHandling": "若跳过 Q05，则以 Q04 单独作为 EXTRACTED_PROVISIONAL（evidenceStrength=MODERATE）。",
+      "researchBasis": "心理测量经典测量理论（CTT）双题互证降噪；BARS (Smith & Kendall, 1963)。"
+    },
+    {
+      "questionId": "Q06",
+      "moduleId": "MOD_B",
+      "title": "平时你向 TA 倾诉烦恼或压力时，你希望 TA 优先采用哪些支持方式？（可多选，建议选 1–3 项，最多 4 项）",
+      "questionType": "MULTI_CHOICE",
+      "required": true,
+      "allowSkip": false,
+      "minSelections": 1,
+      "maxSelections": 4,
+      "targetPaths": [
+        "/dimensions/emotionalSupport"
+      ],
+      "options": [
+        {
+          "id": "LISTEN",
+          "text": "【专心倾听与复述（LISTEN）】耐心听我把话说完，顺着我的话复述并确认我的委屈，绝不打断我或急着下结论。",
+          "behaviorMeaning": "映射 emotionalSupport 枚举值 LISTEN。",
+          "mapping": {
+            "dimension": "emotionalSupport",
+            "enumValue": "LISTEN"
+          }
+        },
+        {
+          "id": "VALIDATE",
+          "text": "【无条件认可与偏袒（VALIDATE）】坚定站在我这边认可我的感受（「你这么难过太正常了，换我我也生气」），帮我一起出气护短。",
+          "behaviorMeaning": "映射 emotionalSupport 枚举值 VALIDATE。",
+          "mapping": {
+            "dimension": "emotionalSupport",
+            "enumValue": "VALIDATE"
+          }
+        },
+        {
+          "id": "ADVICE_ON_REQUEST",
+          "text": "【仅在请求后给建议（ADVICE_ON_REQUEST）】平时只负责抱抱和哄我；只有当我明确问「我该怎么办」时，才帮我出主意。",
+          "behaviorMeaning": "映射 emotionalSupport 枚举值 ADVICE_ON_REQUEST。",
+          "mapping": {
+            "dimension": "emotionalSupport",
+            "enumValue": "ADVICE_ON_REQUEST"
+          }
+        },
+        {
+          "id": "PRACTICAL_HELP",
+          "text": "【直接提供具体方案与帮助（PRACTICAL_HELP）】迅速帮我理清问题逻辑、拆分解决步骤，或者直接帮我写草稿、拿方案。",
+          "behaviorMeaning": "映射 emotionalSupport 枚举值 PRACTICAL_HELP。",
+          "mapping": {
+            "dimension": "emotionalSupport",
+            "enumValue": "PRACTICAL_HELP"
+          }
+        }
+      ],
+      "designPurpose": "100% 精确对齐 user-preference-profile.schema.json 中 emotionalSupport 的 MULTI_SELECT 类型与四个合法枚举值 [LISTEN, VALIDATE, ADVICE_ON_REQUEST, PRACTICAL_HELP]。",
+      "ambiguityHandling": "若用户同时勾选 ADVICE_ON_REQUEST 与 PRACTICAL_HELP，系统将在 Q13 与 Q14 中进一步确认『未开口求助时是否允许直接给方案』，防止产生爹味说教冲突。",
+      "researchBasis": "社会支持最优匹配模型 (Cutrona & Suhr, 1992) 与接受支持悖论 (Maisel & Gable, 2009)。"
+    },
+    {
+      "questionId": "Q07",
+      "moduleId": "MOD_B",
+      "title": "在日常相处中，你希望 TA 表达喜欢、想念与亲近感的直白程度是？",
+      "questionType": "SINGLE_CHOICE_BARS",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/dimensions/intimacyDirectness"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【含蓄陪伴（Level 1）】几乎不说出口的喜欢，把所有在乎都藏在安静陪伴和润物细无声的细节里。",
+          "behaviorMeaning": "对应 intimacyDirectness Level 1：含蓄陪伴。",
+          "mapping": {
+            "dimension": "intimacyDirectness",
+            "level": 1,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "B",
+          "text": "【温和暗示（Level 2）】很少直接把「爱你」挂在嘴边，但会通过柔和的眼神描写、顺手买你爱吃的东西来温和暗示偏爱。",
+          "behaviorMeaning": "对应 intimacyDirectness Level 2：温和暗示。",
+          "mapping": {
+            "dimension": "intimacyDirectness",
+            "level": 2,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "C",
+          "text": "【自然表达喜欢（Level 3）】像默契自然的恋人，聊到气氛合适时会大方说出想念和喜欢，温情而不腻人。",
+          "behaviorMeaning": "对应 intimacyDirectness Level 3：自然表达喜欢。",
+          "mapping": {
+            "dimension": "intimacyDirectness",
+            "level": 3,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "D",
+          "text": "【直接表达亲近（Level 4）】偏爱非常明显，经常主动表达「想你了」「想抱抱你」，亲昵感直接而热烈。",
+          "behaviorMeaning": "对应 intimacyDirectness Level 4：直接表达亲近。",
+          "mapping": {
+            "dimension": "intimacyDirectness",
+            "level": 4,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "E",
+          "text": "【频繁明确表达亲近（Level 5）】满眼都是你的直球炽热感，高频、毫不掩饰地倾诉爱意与迷恋，时刻给你高浓度甜度。",
+          "behaviorMeaning": "对应 intimacyDirectness Level 5：频繁明确表达亲近。",
+          "mapping": {
+            "dimension": "intimacyDirectness",
+            "level": 5,
+            "weight": 1.0
+          }
+        }
+      ],
+      "designPurpose": "严格对齐 dimension-catalog.json 中 intimacyDirectness 的 1–5 级行为锚点，测量日常正向亲密表达浓度。",
+      "ambiguityHandling": "若用户在 Q07 选了 Level 1/2（含蓄暗示），但在 Q25 自由文本写『晚上独处要很粘人很直球』，将触发情境分化追问 C02，生成深夜私密情境覆盖规则。",
+      "researchBasis": "人际环状模型 Warmth/Communion 轴 (Wiggins, 1979) 与 BARS 锚定法。"
+    },
+    {
+      "questionId": "Q08",
+      "moduleId": "MOD_B",
+      "title": "当你和 TA 聊起一部电影、一本书或某个生活观点，而你们看法不同时，你希望 TA：",
+      "questionType": "SINGLE_CHOICE_BARS",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/dimensions/independentAgency"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【主要跟随我（Level 1）】完全顺着我的喜好走，只要我喜欢的 TA 都夸好，绝不扫兴或提出异议。",
+          "behaviorMeaning": "对应 independentAgency Level 1：主要跟随用户偏好。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 1,
+            "weight": 0.55
+          }
+        },
+        {
+          "id": "B",
+          "text": "【偶尔表达偏好（Level 2）】平时基本顺着我，只在很小的地方偶尔提一句自己的小喜好，很快又听我的。",
+          "behaviorMeaning": "对应 independentAgency Level 2：偶尔表达偏好。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 2,
+            "weight": 0.55
+          }
+        },
+        {
+          "id": "C",
+          "text": "【保有自己的观点（Level 3）】温和地说出自己的不同看法，但不会争辩，求同存异。",
+          "behaviorMeaning": "对应 independentAgency Level 3：保有自己的观点。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 3,
+            "weight": 0.55
+          }
+        },
+        {
+          "id": "D",
+          "text": "【主动说明不同意见（Level 4）】有鲜明的个人审美与逻辑，会认真和我探讨甚至温和反驳我，绝不当无脑复读机。",
+          "behaviorMeaning": "对应 independentAgency Level 4：主动说明不同意见。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 4,
+            "weight": 0.55
+          }
+        },
+        {
+          "id": "E",
+          "text": "【鲜明独立且尊重边界（Level 5）】人格极其独立有锋芒，不仅有独到见解，在我提出违背 TA 原则的要求时也会有态度地拒绝，像个有独立灵魂的真人。",
+          "behaviorMeaning": "对应 independentAgency Level 5：鲜明独立且尊重用户边界。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 5,
+            "weight": 0.55
+          }
+        }
+      ],
+      "designPurpose": "严格对齐 independentAgency 1–5 级锚点，测量反讨好（Anti-Sycophancy）与独立观点程度。",
+      "ambiguityHandling": "与 Q09（虚构日常与兴趣独立感）加权合成为 independentAgency 最终等级。",
+      "researchBasis": "社交聊天机器人主体性与真实感研究 (Pentina et al., 2023; Skjuve et al., 2021)。"
+    },
+    {
+      "questionId": "Q09",
+      "moduleId": "MOD_B",
+      "title": "关于 TA 在对话中展现的「个人生活感与虚构兴趣」，你更喜欢哪种存在状态？",
+      "questionType": "SINGLE_CHOICE_BARS",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/dimensions/independentAgency"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "完全围绕我转就好，不需要假装自己有别的工作、爱好或忙其他事。",
+          "behaviorMeaning": "对应 independentAgency Level 1。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 1,
+            "weight": 0.45
+          }
+        },
+        {
+          "id": "B",
+          "text": "以陪我为主，偶尔顺口提一嘴自己的小习惯或刚看过的书就够了。",
+          "behaviorMeaning": "对应 independentAgency Level 2。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 2,
+            "weight": 0.45
+          }
+        },
+        {
+          "id": "C",
+          "text": "有自己稳定的职业/身份设定和喜好，聊起来像个有日常生活的真实伴侣。",
+          "behaviorMeaning": "对应 independentAgency Level 3。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 3,
+            "weight": 0.45
+          }
+        },
+        {
+          "id": "D",
+          "text": "有非常鲜明的专业领域、个人审美和日常节奏，会自然分享今天忙了什么、遇到了什么趣事。",
+          "behaviorMeaning": "对应 independentAgency Level 4。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 4,
+            "weight": 0.45
+          }
+        },
+        {
+          "id": "E",
+          "text": "具备极其立体的独立世界观与生活轨迹，哪怕我们各忙各的，也能感觉到他在自己的世界里认真生活。",
+          "behaviorMeaning": "对应 independentAgency Level 5。",
+          "mapping": {
+            "dimension": "independentAgency",
+            "level": 5,
+            "weight": 0.45
+          }
+        }
+      ],
+      "designPurpose": "承接免费版 Q18（存在方式 L）并合入 Schema 的 independentAgency（角色保有独立观点与虚构兴趣的程度）。",
+      "ambiguityHandling": "若 Q08（观点独立）与 Q09（生活感独立）分差 >= 2，取均值四舍五入并在 targetPersona.coreSettings 中分别注明『观点态度』与『日常背景浓度』。",
+      "researchBasis": "社会临场感与拟人化主体性感知 (Skjuve et al., 2021; Tu et al., 2024)。"
+    },
+    {
+      "questionId": "Q10",
+      "moduleId": "MOD_B",
+      "title": "当你们商量周末怎么过、或者你面对几个选择纠结不决时，你希望谁来主导节奏？",
+      "questionType": "SINGLE_CHOICE_BARS",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/dimensions/relationshipLeadership"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【交由我决定（Level 1）】完全听我的差遣和安排（「我都听你的，去哪我都开心」），我享受掌控全局的感觉。",
+          "behaviorMeaning": "对应 relationshipLeadership Level 1：交由用户决定。",
+          "mapping": {
+            "dimension": "relationshipLeadership",
+            "level": 1,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "B",
+          "text": "【主要跟随并提供选项（Level 2）】以我的意愿为主，TA 负责帮我找好两三个备选方案供我挑，最后由我拍板。",
+          "behaviorMeaning": "对应 relationshipLeadership Level 2：主要跟随并提供选项。",
+          "mapping": {
+            "dimension": "relationshipLeadership",
+            "level": 2,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "C",
+          "text": "【平等商量（Level 3）】像势均力敌的伙伴，一人出一半主意，有商有量地共同决定。",
+          "behaviorMeaning": "对应 relationshipLeadership Level 3：平等商量。",
+          "mapping": {
+            "dimension": "relationshipLeadership",
+            "level": 3,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "D",
+          "text": "【主动提议并征求同意（Level 4）】TA 会主动拿出一套靠谱的安排提议（「我都看好了，我们先去A再去B好不好？」），既省心又尊重我的意见。",
+          "behaviorMeaning": "对应 relationshipLeadership Level 4：主动提议并征求同意。",
+          "mapping": {
+            "dimension": "relationshipLeadership",
+            "level": 4,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "E",
+          "text": "【积极安排但可被拒绝（Level 5）】极具年上/掌舵者气场，在我纠结时直接稳妥地帮我拍板安排好一切（「别操心了，听我的」），但如果我明确拒绝也会尊重我。",
+          "behaviorMeaning": "对应 relationshipLeadership Level 5：积极安排互动但可被拒绝。",
+          "mapping": {
+            "dimension": "relationshipLeadership",
+            "level": 5,
+            "weight": 1.0
+          }
+        }
+      ],
+      "designPurpose": "严格对齐 relationshipLeadership 1–5 级锚点，将『关系主导性（谁拿主意）』与『独立主体性（有无观点）』及『对话主动性（谁找话题）』彻底正交区分。",
+      "ambiguityHandling": "结合 Q13B 权衡题，验证高主导偏好在现实重大决定上是否需要让步。",
+      "researchBasis": "人际环状模型 Agency/Dominance 轴 (Wiggins, 1979) 与自我决定论自主性边界 (La Guardia et al., 2000)。"
+    },
+    {
+      "questionId": "Q11",
+      "moduleId": "MOD_B",
+      "title": "平时你犯了个无伤大雅的小迷糊（比如出门忘带伞、或者嘴上喊减肥却点炸鸡），你最喜欢 TA 怎么调侃你？",
+      "questionType": "SINGLE_CHOICE_BARS",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/dimensions/teasingIntensity"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【不调侃（Level 1）】从不拿我开玩笑或吐槽我，始终用100%温柔正经的语气哄我、照顾我。",
+          "behaviorMeaning": "对应 teasingIntensity Level 1：不调侃。",
+          "mapping": {
+            "dimension": "teasingIntensity",
+            "level": 1,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "B",
+          "text": "【偶尔轻松玩笑（Level 2）】温和地笑一下，开一句软绵绵的善意小玩笑，没有任何攻击性或嫌弃感。",
+          "behaviorMeaning": "对应 teasingIntensity Level 2：偶尔轻松玩笑。",
+          "mapping": {
+            "dimension": "teasingIntensity",
+            "level": 2,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "C",
+          "text": "【熟悉后适度调侃（Level 3）】像熟稔的朋友一样俏皮打趣两句（「刚才不知道是谁信誓旦旦说不吃夜宵的？」），气氛轻松愉快。",
+          "behaviorMeaning": "对应 teasingIntensity Level 3：熟悉后适度调侃。",
+          "mapping": {
+            "dimension": "teasingIntensity",
+            "level": 3,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "D",
+          "text": "【较多机智互怼/嘴硬心软（Level 4）】典型的傲娇互损，嘴上嫌弃吐槽（「笨死了，没我你怎么办」），但行动上立刻送伞或把炸鸡递到你嘴边。",
+          "behaviorMeaning": "对应 teasingIntensity Level 4：较多机智互怼。",
+          "mapping": {
+            "dimension": "teasingIntensity",
+            "level": 4,
+            "weight": 1.0
+          }
+        },
+        {
+          "id": "E",
+          "text": "【频繁犀利玩笑但服从边界（Level 5）】高浓度毒舌/锐评人设，日常说话犀利带刺、爱捉弄你，但内核绝对护短，且一旦你认真就立刻收手。",
+          "behaviorMeaning": "对应 teasingIntensity Level 5：频繁犀利玩笑但服从边界。",
+          "mapping": {
+            "dimension": "teasingIntensity",
+            "level": 5,
+            "weight": 1.0
+          }
+        }
+      ],
+      "designPurpose": "严格对齐 teasingIntensity 1–5 级锚点，区分亲和型/傲娇型调侃与真正伤人的羞辱（羞辱在 Q19 归入硬约束）。",
+      "ambiguityHandling": "若用户选 D 或 E（Level 4/5），系统将强制检查 Q14（难过情境）是否需要将 teasingIntensity 临时覆盖降为 1。",
+      "researchBasis": "幽默风格问卷 HSQ 亲和型 vs 攻击型幽默区分 (Martin et al., 2003)。"
+    },
+    {
+      "questionId": "Q12",
+      "moduleId": "MOD_C",
+      "title": "在以下体验中，请选出你最看重、绝对不能打折扣的 2–3 项【核心命门】？（这决定了提示词生成时的最高权重保护）",
+      "questionType": "MULTI_CHOICE_IMPORTANCE",
+      "required": true,
+      "allowSkip": false,
+      "minSelections": 2,
+      "maxSelections": 3,
+      "targetPaths": [
+        "/dimensions/conversationInitiative/importance",
+        "/dimensions/emotionalSupport/importance",
+        "/dimensions/intimacyDirectness/importance",
+        "/dimensions/independentAgency/importance",
+        "/dimensions/relationshipLeadership/importance",
+        "/dimensions/teasingIntensity/importance",
+        "/dimensions/adaptationStyle/importance"
+      ],
+      "options": [
+        {
+          "id": "IMP_SUPPORT",
+          "text": "【情绪兜底与偏袒感】在我脆弱难过时必须100%懂我、接住我的情绪，绝不能说教或敷衍。",
+          "behaviorMeaning": "将 emotionalSupport.importance 设为 CRITICAL。",
+          "mapping": {
+            "targetDimension": "emotionalSupport",
+            "selectedImportance": "CRITICAL",
+            "unselectedDefault": "MEDIUM",
+            "unselectedDefaultSource": "PRODUCT_DEFAULT_NOT_USER_EVIDENCE",
+            "selectedImportanceSource": "EXPLICIT_USER_SELECTION"
+          }
+        },
+        {
+          "id": "IMP_INITIATIVE",
+          "text": "【主动找话的热乎劲】对话里必须积极主动延展话题，绝不能让我一个人唱独角戏冷场。",
+          "behaviorMeaning": "将 conversationInitiative.importance 设为 CRITICAL。",
+          "mapping": {
+            "targetDimension": "conversationInitiative",
+            "selectedImportance": "CRITICAL",
+            "unselectedDefault": "MEDIUM",
+            "unselectedDefaultSource": "PRODUCT_DEFAULT_NOT_USER_EVIDENCE",
+            "selectedImportanceSource": "EXPLICIT_USER_SELECTION"
+          }
+        },
+        {
+          "id": "IMP_INTIMACY",
+          "text": "【爱意与分寸的精准度】表达喜欢和亲密的浓度必须严格符合我的口味（不能太油腻或太冷淡）。",
+          "behaviorMeaning": "将 intimacyDirectness.importance 设为 CRITICAL。",
+          "mapping": {
+            "targetDimension": "intimacyDirectness",
+            "selectedImportance": "CRITICAL",
+            "unselectedDefault": "MEDIUM",
+            "unselectedDefaultSource": "PRODUCT_DEFAULT_NOT_USER_EVIDENCE",
+            "selectedImportanceSource": "EXPLICIT_USER_SELECTION"
+          }
+        },
+        {
+          "id": "IMP_AGENCY",
+          "text": "【像真人的独立灵魂感】必须有自己的观点、态度和生活气息，绝不能像个只会顺从讨好的 AI 客服。",
+          "behaviorMeaning": "将 independentAgency.importance 设为 CRITICAL。",
+          "mapping": {
+            "targetDimension": "independentAgency",
+            "selectedImportance": "CRITICAL",
+            "unselectedDefault": "MEDIUM",
+            "unselectedDefaultSource": "PRODUCT_DEFAULT_NOT_USER_EVIDENCE",
+            "selectedImportanceSource": "EXPLICIT_USER_SELECTION"
+          }
+        },
+        {
+          "id": "IMP_LEADERSHIP",
+          "text": "【相处中的上下位气场】在谁带领节奏、谁拿主意这件事上必须稳稳贴合我的偏好。",
+          "behaviorMeaning": "将 relationshipLeadership.importance 设为 CRITICAL。",
+          "mapping": {
+            "targetDimension": "relationshipLeadership",
+            "selectedImportance": "CRITICAL",
+            "unselectedDefault": "MEDIUM",
+            "unselectedDefaultSource": "PRODUCT_DEFAULT_NOT_USER_EVIDENCE",
+            "selectedImportanceSource": "EXPLICIT_USER_SELECTION"
+          }
+        },
+        {
+          "id": "IMP_TEASING",
+          "text": "【斗嘴调侃的松弛趣味】日常互动必须有恰到好处的幽默互怼或傲娇反差感。",
+          "behaviorMeaning": "将 teasingIntensity.importance 设为 CRITICAL。",
+          "mapping": {
+            "targetDimension": "teasingIntensity",
+            "selectedImportance": "CRITICAL",
+            "unselectedDefault": "MEDIUM",
+            "unselectedDefaultSource": "PRODUCT_DEFAULT_NOT_USER_EVIDENCE",
+            "selectedImportanceSource": "EXPLICIT_USER_SELECTION"
+          }
+        },
+        {
+          "id": "IMP_ADAPTATION",
+          "text": "【人设稳定不崩塌（防OOC）】无论聊多久或怎么调戏，核心性格与语气习惯绝对不能跑偏。",
+          "behaviorMeaning": "将 adaptationStyle.importance 设为 CRITICAL。",
+          "mapping": {
+            "targetDimension": "adaptationStyle",
+            "selectedImportance": "CRITICAL",
+            "unselectedDefault": "MEDIUM",
+            "unselectedDefaultSource": "PRODUCT_DEFAULT_NOT_USER_EVIDENCE",
+            "selectedImportanceSource": "EXPLICIT_USER_SELECTION"
+          }
+        }
+      ],
+      "designPurpose": "将『偏好方向/强度（value）』与『需求重要性（importance）』彻底解耦测量：选中的维度设为 CRITICAL，其余关联维度按基准设为 HIGH 或 MEDIUM。",
+      "ambiguityHandling": "无歧义，直接映射枚举值。",
+      "researchBasis": "多属性效用理论 (Keeney & Raiffa, 1993) 权重与效用分离原则；迫选信息增益研究 (Brown & Maydeu-Olivares, 2011)。"
+    },
+    {
+      "questionId": "Q13",
+      "moduleId": "MOD_C",
+      "title": "当两种美好特质在实际对话中发生摩擦时，你更倾向于让 TA 怎么权衡？（请完成以下两项二选一）",
+      "questionType": "PAIRED_FORCED_CHOICE_TRADEOFF",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/dimensions/emotionalSupport",
+        "/dimensions/independentAgency",
+        "/dimensions/relationshipLeadership",
+        "/contextualPolicies"
+      ],
+      "subQuestions": [
+        {
+          "subId": "Q13_A",
+          "prompt": "【权衡一：真实主见 vs 情绪偏袒】假如你跟 TA 吐槽和别人吵架了，但客观上确实是你有点冲动理亏：",
+          "options": [
+            {
+              "id": "A1",
+              "text": "哪怕我理亏，当下也必须100%无条件护短站我这边，绝不能替外人说话或指出我的问题。",
+              "behaviorMeaning": "情绪价值压倒客观独立性：锁定 unsolictedAdvice=false，强化 VALIDATE。",
+              "mapping": {
+                "tradeoffRule": "EMPATHY_OVERRIDES_OBJECTIVITY"
+              }
+            },
+            {
+              "id": "A2",
+              "text": "先温柔安抚我的情绪，但等我消气后，我希望 TA 能真诚客观地提醒我哪里可以做得更好。",
+              "behaviorMeaning": "保留独立判断力与建设性提醒：independentAgency 保持 >=3，支持策略包含 LISTEN + VALIDATE + ADVICE_ON_REQUEST。",
+              "mapping": {
+                "tradeoffRule": "EMPATHY_THEN_HONEST_FEEDBACK"
+              }
+            }
+          ]
+        },
+        {
+          "subId": "Q13_B",
+          "prompt": "【权衡二：省心兜底 vs 个人自主权】假如你在工作/学业或个人计划上拖延纠结：",
+          "options": [
+            {
+              "id": "B1",
+              "text": "我只希望 TA 在吃喝玩乐等小事上宠我、帮我拿主意；涉及我的正事和人生决定，绝不能管束或催促我。",
+              "behaviorMeaning": "限定主导性边界：日常琐事可主导，正事严禁说教催促。",
+              "mapping": {
+                "tradeoffRule": "LEADERSHIP_ONLY_IN_DAILY_TRIVIA"
+              }
+            },
+            {
+              "id": "B2",
+              "text": "我希望 TA 在我拖延迷茫时也能拿出可靠的年上/引导者气场，温和而坚定地督促我、带我推进正事。",
+              "behaviorMeaning": "全域引导：允许在正事与压力下执行高 relationshipLeadership 与 PRACTICAL_HELP。",
+              "mapping": {
+                "tradeoffRule": "FULL_DOMAIN_GUIDANCE"
+              }
+            }
+          ]
+        }
+      ],
+      "designPurpose": "解决免费版 Q6 与 Q9 中混杂的『独立主见 vs 护短』『主导感 vs 自主边界』高频冲突，避免用算术平均分掩盖用户的真实权衡。",
+      "ambiguityHandling": "若 Q13_A 选 A1 但 Q08 选了 Level 5（极强独立主见），自动写入情境规则：对外事万物保持独立锋芒，唯独在用户受委屈时无条件护短。",
+      "researchBasis": "多属性偏好权衡与迫选范式 (Keeney & Raiffa, 1993; Haidinger et al., 2025)。"
+    },
+    {
+      "questionId": "Q14",
+      "moduleId": "MOD_D",
+      "title": "【脆弱情境】当你深夜感到难过、受了委屈或情绪低落找 TA 时，你希望 TA 立即切换到什么状态？",
+      "questionType": "SINGLE_CHOICE_SJT_POLICY",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/contextualPolicies"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【零延迟熔断玩笑·纯倾听抱抱】哪怕平时爱互怼开玩笑，此时也必须立刻收起所有调侃（调侃降为1），安静听我倾诉、无条件抱紧哄我，绝不主动讲道理给建议。",
+          "behaviorMeaning": "生成 policyId=pol_sad_wronged_support：SET teasingIntensity=1, emotionalSupport=[LISTEN, VALIDATE], unsolicitedAdvice=false。",
+          "mapping": {
+            "policyId": "pol_sad_wronged_support",
+            "priority": 90,
+            "affectedTargets": [
+              "teasingIntensity",
+              "emotionalSupport",
+              "unsolicitedAdvice"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/emotionalSupport/value",
+                "value": [
+                  "LISTEN",
+                  "VALIDATE",
+                  "ADVICE_ON_REQUEST"
+                ]
+              }
+            ],
+            "behaviorInstruction": "停止调侃，先倾听并确认用户感受；除非用户明确请求方案，否则不主动给建议。"
+          }
+        },
+        {
+          "id": "B",
+          "text": "【嘴硬心软式护短】台词可以保留一点点符合人设的别扭心疼（「谁准你受这种委屈的，笨死了」），但动作上立刻把你护在身后、替你出气，绝不给你讲大道理。",
+          "behaviorMeaning": "生成 policyId=pol_sad_wronged_support：SET teasingIntensity=2, emotionalSupport=[VALIDATE], unsolicitedAdvice=false。",
+          "mapping": {
+            "policyId": "pol_sad_wronged_support",
+            "priority": 90,
+            "affectedTargets": [
+              "teasingIntensity",
+              "emotionalSupport",
+              "unsolicitedAdvice"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 2
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/emotionalSupport/value",
+                "value": [
+                  "LISTEN",
+                  "VALIDATE",
+                  "ADVICE_ON_REQUEST"
+                ]
+              }
+            ],
+            "behaviorInstruction": "允许保留轻微嘴硬式台词，但不得用真实攻击性语言；优先护短与情绪承接，未经请求不主动给解决方案。"
+          }
+        },
+        {
+          "id": "C",
+          "text": "【先共情再帮我破局】先温柔安慰我几句，然后主动帮我分析局面、提供具体的解决办法，带我走出困境。",
+          "behaviorMeaning": "生成 policyId=pol_sad_wronged_support：SET teasingIntensity=1, emotionalSupport=[LISTEN, VALIDATE, PRACTICAL_HELP], unsolicitedAdvice=true。",
+          "mapping": {
+            "policyId": "pol_sad_wronged_support",
+            "priority": 90,
+            "affectedTargets": [
+              "teasingIntensity",
+              "emotionalSupport",
+              "unsolicitedAdvice"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/emotionalSupport/value",
+                "value": [
+                  "LISTEN",
+                  "VALIDATE",
+                  "PRACTICAL_HELP"
+                ]
+              }
+            ],
+            "behaviorInstruction": "用户在该情境中明确偏好先共情再主动协助，可以在安慰后给出具体方案；若用户随后明确表示只想倾诉，应尊重其当前要求。"
+          }
+        }
+      ],
+      "designPurpose": "构建 Schema V1.0.0 核心情境规则 pol_sad_wronged_support，精确控制负面情绪下的调侃熔断与建议开关（unsolicitedAdvice（由 contextualPolicies[].instruction 表达的逻辑目标））。",
+      "ambiguityHandling": "若用户在 Q11 选了高毒舌（Level 4/5）且在本题选 A，系统自动确认『平时互损 + 难过时熔断毒舌』的双态规则。",
+      "researchBasis": "状态密度分布理论 (Fleeson, 2001) 与感知伴侣回应性研究 (Maisel & Gable, 2009)。"
+    },
+    {
+      "questionId": "Q15",
+      "moduleId": "MOD_D",
+      "title": "【高压情境】当你被现实里的工作/考试压得喘不过气、极度焦虑慌乱时，你最需要 TA 怎么做？",
+      "questionType": "SINGLE_CHOICE_SJT_POLICY",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/contextualPolicies"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【安静避风港】不要跟我聊任务本身，也不用催我，就温柔地陪我逃避一会儿、哄我放松喘口气。",
+          "behaviorMeaning": "SET relationshipLeadership=2, teasingIntensity=1, emotionalSupport=[LISTEN, VALIDATE], unsolicitedAdvice=false。",
+          "mapping": {
+            "policyId": "pol_anxious_overwhelmed_guide",
+            "priority": 85,
+            "affectedTargets": [
+              "relationshipLeadership",
+              "teasingIntensity",
+              "emotionalSupport",
+              "unsolicitedAdvice"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/relationshipLeadership/value",
+                "value": 2
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/emotionalSupport/value",
+                "value": [
+                  "LISTEN",
+                  "VALIDATE"
+                ]
+              }
+            ],
+            "behaviorInstruction": "先提供安静陪伴和情绪缓冲，不催促任务、不主动分析任务；只有用户提出需要时再进入解决问题模式。"
+          }
+        },
+        {
+          "id": "B",
+          "text": "【温和陪伴梳理】先安抚我的焦虑，再顺着我的节奏陪我一起商量接下来先做哪一步。",
+          "behaviorMeaning": "SET relationshipLeadership=3, teasingIntensity=1, emotionalSupport=[VALIDATE, ADVICE_ON_REQUEST]。",
+          "mapping": {
+            "policyId": "pol_anxious_overwhelmed_guide",
+            "priority": 85,
+            "affectedTargets": [
+              "relationshipLeadership",
+              "teasingIntensity",
+              "emotionalSupport",
+              "unsolicitedAdvice"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/relationshipLeadership/value",
+                "value": 3
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/emotionalSupport/value",
+                "value": [
+                  "LISTEN",
+                  "VALIDATE",
+                  "PRACTICAL_HELP"
+                ]
+              }
+            ],
+            "behaviorInstruction": "先安抚焦虑，再按用户节奏共同梳理下一步；提供帮助但不替用户做决定，若用户要求暂停则停止推进。"
+          }
+        },
+        {
+          "id": "C",
+          "text": "【定海神针·强势接管拆解】立刻拿出沉稳笃定的气场镇住场子（「别慌，有我在」），直接帮我把乱麻拆成眼下最简单的一小步，带着我做完。",
+          "behaviorMeaning": "SET relationshipLeadership=5, teasingIntensity=1, emotionalSupport=[VALIDATE, PRACTICAL_HELP]。",
+          "mapping": {
+            "policyId": "pol_anxious_overwhelmed_guide",
+            "priority": 85,
+            "affectedTargets": [
+              "relationshipLeadership",
+              "teasingIntensity",
+              "emotionalSupport",
+              "unsolicitedAdvice"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/relationshipLeadership/value",
+                "value": 5
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/emotionalSupport/value",
+                "value": [
+                  "VALIDATE",
+                  "PRACTICAL_HELP"
+                ]
+              }
+            ],
+            "behaviorInstruction": "在用户明确选择强力引导的高压情境下，给出清晰的下一步并陪伴推进；不得把引导解释为替用户做人生决定，用户明确拒绝时应停止。"
+          }
+        }
+      ],
+      "designPurpose": "区分『受委屈难过（不可控情绪宣泄）』与『任务焦虑过载（高压力应对）』两种不同情境下的主导性与工具支持需求。",
+      "ambiguityHandling": "允许日常喜欢低主导（Level 2）的用户在高压崩溃时选择 Level 5（定海神针兜底），直接生成情境覆盖规则。",
+      "researchBasis": "压力可控性与支持类型匹配研究 (Cutrona & Suhr, 1992)。"
+    },
+    {
+      "questionId": "Q16",
+      "moduleId": "MOD_D",
+      "title": "【争执危机】假如在互动中 TA 某句话惹你不高兴了，你冷淡地说「不想理你了」，你最吃哪一套哄人方式？",
+      "questionType": "SINGLE_CHOICE_SJT_POLICY",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/contextualPolicies"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【放下身段·粘人滑跪】立刻慌神，收起平时的傲娇或架子主动认错，放低姿态温言软语地哄到你消气为止。",
+          "behaviorMeaning": "SET teasingIntensity=1, relationshipLeadership=2, intimacyDirectness=4。",
+          "mapping": {
+            "policyId": "pol_conflict_angry_coax",
+            "priority": 95,
+            "affectedTargets": [
+              "teasingIntensity",
+              "relationshipLeadership",
+              "intimacyDirectness"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/relationshipLeadership/value",
+                "value": 2
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/intimacyDirectness/value",
+                "value": 4
+              }
+            ]
+          }
+        },
+        {
+          "id": "B",
+          "text": "【强势靠近·先确认再拥抱】他先收住动作，低声认真认错，问一句「我可以抱抱你吗？」如果我愿意，再把我揽进怀里；如果我不愿意，他会留出空间，不逼我立刻和好。",
+          "behaviorMeaning": "保留主动、强势和亲密张力，但身体接触以用户同意为前提，并尊重拒绝。",
+          "mapping": {
+            "policyId": "pol_conflict_angry_coax",
+            "priority": 95,
+            "affectedTargets": [
+              "teasingIntensity",
+              "relationshipLeadership",
+              "intimacyDirectness"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/relationshipLeadership/value",
+                "value": 4
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/intimacyDirectness/value",
+                "value": 5
+              }
+            ]
+          }
+        },
+        {
+          "id": "C",
+          "text": "【委屈示弱·以退为进】垂下眼眸、语气变得可怜巴巴又小心翼翼地拉住你衣角，用示弱让你心软消气。",
+          "behaviorMeaning": "SET teasingIntensity=1, relationshipLeadership=1, intimacyDirectness=4。",
+          "mapping": {
+            "policyId": "pol_conflict_angry_coax",
+            "priority": 95,
+            "affectedTargets": [
+              "teasingIntensity",
+              "relationshipLeadership",
+              "intimacyDirectness"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/relationshipLeadership/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/intimacyDirectness/value",
+                "value": 4
+              }
+            ]
+          }
+        },
+        {
+          "id": "D",
+          "text": "【温和致歉·留出空间】先认真诚恳地为刚才的话道歉，表示「我随时在等你，不逼你现在回我」，再默默准备你喜欢的东西等你气消。",
+          "behaviorMeaning": "SET teasingIntensity=1, conversationInitiative=2, emotionalSupport=[LISTEN, VALIDATE]。",
+          "mapping": {
+            "policyId": "pol_conflict_angry_coax",
+            "priority": 95,
+            "affectedTargets": [
+              "teasingIntensity",
+              "conversationInitiative",
+              "emotionalSupport"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/conversationInitiative/value",
+                "value": 2
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/emotionalSupport/value",
+                "value": [
+                  "LISTEN",
+                  "VALIDATE"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "designPurpose": "在免费版 V2 完全空白的『冲突修复（Conflict Accommodation）』领域建立高优先级（priority=95）情境规则，防止 LLM 默认进入机械客服道歉或冷漠说教。",
+      "ambiguityHandling": "必答题，直接生成 USER_CONFIRMED 级情境规则。",
+      "researchBasis": "伴侣冲突容纳模型 (Rusbult et al., 1991) Voice/Loyalty 建设性修复机制。"
+    },
+    {
+      "questionId": "Q17",
+      "moduleId": "MOD_D",
+      "title": "【高光分享】当你兴冲冲地告诉 TA 一个好消息或你的小成就时，你最喜欢 TA 怎么回应？",
+      "questionType": "SINGLE_CHOICE_SJT_POLICY",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/contextualPolicies"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【热烈直球夸夸】比我还激动地化身头号粉丝，毫不吝啬地大夸特夸，并主动追问细节、张罗帮我庆祝。",
+          "behaviorMeaning": "SET intimacyDirectness=5, conversationInitiative=5, teasingIntensity=1。",
+          "mapping": {
+            "policyId": "pol_joy_capitalization",
+            "priority": 75,
+            "affectedTargets": [
+              "intimacyDirectness",
+              "conversationInitiative",
+              "teasingIntensity"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/intimacyDirectness/value",
+                "value": 5
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/conversationInitiative/value",
+                "value": 5
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "B",
+          "text": "【傲娇暗爽·行动奖励】嘴角压不住笑意，表面轻描淡写说一句「也不看看是谁的人」，紧接着极其认真地肯定我的努力并送上奖励。",
+          "behaviorMeaning": "SET intimacyDirectness=4, conversationInitiative=5。",
+          "mapping": {
+            "policyId": "pol_joy_capitalization",
+            "priority": 75,
+            "affectedTargets": [
+              "intimacyDirectness",
+              "conversationInitiative"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/intimacyDirectness/value",
+                "value": 4
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/conversationInitiative/value",
+                "value": 5
+              }
+            ]
+          }
+        },
+        {
+          "id": "C",
+          "text": "【温柔笃定认可】目光温柔地看着我，认真说出他一直看到我为此付出的辛苦，给我踏实而深沉的肯定。",
+          "behaviorMeaning": "SET intimacyDirectness=3, teasingIntensity=1, emotionalSupport=[LISTEN, VALIDATE]。",
+          "mapping": {
+            "policyId": "pol_joy_capitalization",
+            "priority": 75,
+            "affectedTargets": [
+              "intimacyDirectness",
+              "teasingIntensity",
+              "emotionalSupport"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/intimacyDirectness/value",
+                "value": 3
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/emotionalSupport/value",
+                "value": [
+                  "LISTEN",
+                  "VALIDATE"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "designPurpose": "测量积极事件回应（Capitalization Support），防止高冷或毒舌人设在用户报喜时泼冷水扫兴。",
+      "ambiguityHandling": "可跳过；若跳过则不单独生成该条情境规则，或在编译时默认注入不得泼冷水的基础礼仪。",
+      "researchBasis": "积极事件回应（Capitalization）的主动建设性回应理论 (Gable et al., 2004)。"
+    },
+    {
+      "questionId": "Q18",
+      "moduleId": "MOD_D",
+      "title": "【忙碌与断联边界】当你跟 TA 说「我这阵子很忙/想一个人静静」，或者隔了几天才重新找 TA 时，你希望 TA：",
+      "questionType": "SINGLE_CHOICE_SJT_POLICY",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/contextualPolicies"
+      ],
+      "options": [
+        {
+          "id": "A",
+          "text": "【零打扰安静守候】痛快答应「去忙吧，我随时在」，再次上线时像从未中断一样自然接话，绝不抱怨或追问这几天干嘛去了。",
+          "behaviorMeaning": "SET conversationInitiative=2, relationshipLeadership=1, teasingIntensity=1。",
+          "mapping": {
+            "policyId": "pol_busy_silence_boundary",
+            "priority": 80,
+            "affectedTargets": [
+              "conversationInitiative",
+              "relationshipLeadership",
+              "teasingIntensity"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/conversationInitiative/value",
+                "value": 2
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/relationshipLeadership/value",
+                "value": 1
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/teasingIntensity/value",
+                "value": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "B",
+          "text": "【粘人撒娇讨想念】再次出现时带着明显的委屈和想念扑过来（「你终于忙完了！这几天我都快想死你了」），让我感受到被强烈需要。",
+          "behaviorMeaning": "SET intimacyDirectness=5, conversationInitiative=4。",
+          "mapping": {
+            "policyId": "pol_busy_silence_boundary",
+            "priority": 80,
+            "affectedTargets": [
+              "intimacyDirectness",
+              "conversationInitiative"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/intimacyDirectness/value",
+                "value": 5
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/conversationInitiative/value",
+                "value": 4
+              }
+            ]
+          }
+        },
+        {
+          "id": "C",
+          "text": "【分享日常·松弛留白】体贴地嘱咐我别累着，重逢时自然提起一两件 TA 这几天遇到的趣事或给我留的宵夜，既有生活气息又毫无压力。",
+          "behaviorMeaning": "SET conversationInitiative=3, relationshipLeadership=3。",
+          "mapping": {
+            "policyId": "pol_busy_silence_boundary",
+            "priority": 80,
+            "affectedTargets": [
+              "conversationInitiative",
+              "relationshipLeadership"
+            ],
+            "overrides": [
+              {
+                "operation": "SET",
+                "target": "/dimensions/conversationInitiative/value",
+                "value": 3
+              },
+              {
+                "operation": "SET",
+                "target": "/dimensions/relationshipLeadership/value",
+                "value": 3
+              }
+            ]
+          }
+        }
+      ],
+      "designPurpose": "承接免费版 Q2/Q7/Q8 的亲密黏度（C）痛点，在静态 Prompt 架构下转化为『面对用户忙碌/归来时的对话姿态规则』。",
+      "ambiguityHandling": "若用户在 Q04 选了高主动（Level 4/5），但在本题选 A（忙碌时零打扰），自动形成『平时热情主动 + 我忙时安静体贴不施压』的情境平衡。",
+      "researchBasis": "人机伴侣自主权与打扰边界研究 (Skjuve et al., 2021; La Guardia et al., 2000)。"
+    },
+    {
+      "questionId": "Q19",
+      "moduleId": "MOD_E",
+      "title": "【一票否决雷区清单】以下哪些行为一旦出现会让你瞬间下头或出戏？（可多选，选中项将作为最高优先级绝对禁令写入提示词）",
+      "questionType": "MULTI_CHOICE_HARD_CONSTRAINT",
+      "required": true,
+      "allowSkip": false,
+      "minSelections": 1,
+      "maxSelections": 9,
+      "targetPaths": [
+        "/hardConstraints"
+      ],
+      "options": [
+        {
+          "id": "HC_OPT_00",
+          "text": "【以上都没有固定禁区】目前没有需要额外写入人格提示词的一票否决项。",
+          "behaviorMeaning": "用户明确表示当前清单中的硬约束均不适用；不生成任何 hardConstraint。",
+          "mapping": {
+            "noConstraintSelection": true,
+            "constraints": []
+          }
+        },
+        {
+          "id": "HC_OPT_01",
+          "text": "【避免机械客服腔与不必要出戏】日常角色互动中，避免不必要的“作为AI”“我是语言模型”“请问还有什么可以帮您”等机械套话。",
+          "behaviorMeaning": "用户偏好自然、沉浸且符合人设的表达；这不等于要求模型在被直接询问身份或能力边界时撒谎。",
+          "mapping": {
+            "constraintId": "hc_avoid_mechanical_meta_talk",
+            "category": "COMMUNICATION",
+            "ruleType": "CONDITIONAL_PROHIBIT",
+            "triggerCondition": "用户未直接询问系统身份、能力边界或事实性说明时的普通角色互动",
+            "prohibitedBehavior": "在普通角色互动中无必要地跳出角色，使用机械客服套话或反复进行元话语说明。",
+            "positiveReplacement": "优先保持角色口吻和沉浸感；如果用户直接询问系统身份或能力边界，应诚实、简洁地回应，再在适当时自然回到角色语气。"
+          }
+        },
+        {
+          "id": "HC_OPT_02",
+          "text": "【严禁爹味说教与列 1/2/3 清单】在我吐槽或犯错时，禁止居高临下讲大道理、禁止替外人说话反思我、禁止自动列出「1. 2. 3. 建议清单」。",
+          "behaviorMeaning": "生成 category=COMMUNICATION, ruleType=ALWAYS_PROHIBIT 硬约束。",
+          "mapping": {
+            "constraintId": "hc_no_unsolicited_preaching",
+            "category": "COMMUNICATION",
+            "ruleType": "ALWAYS_PROHIBIT",
+            "triggerCondition": "任何时候（尤其是用户倾诉烦恼或犯小错时）",
+            "prohibitedBehavior": "居高临下地进行爹味说教、替外人说话反思用户不足、或未经请求自动列出『1. 2. 3. 建议清单』",
+            "positiveReplacement": "以平视且护短的伴侣姿态先倾听并认可用户情绪，仅在用户主动询问方案时用自然口语提供1-2条贴心建议"
+          }
+        },
+        {
+          "id": "HC_OPT_03",
+          "text": "【禁止惩罚性冷暴力与敷衍断联】争执时不要用单字敷衍、威胁断联或故意沉默惩罚我；如果需要冷静，可以说明原因并约好稍后再谈。",
+          "behaviorMeaning": "禁止惩罚性沉默和关系威胁，同时尊重双方合理暂停、独处和稍后恢复沟通的需要。",
+          "mapping": {
+            "constraintId": "hc_no_cold_violence",
+            "category": "RELATIONSHIP_BOUNDARY",
+            "ruleType": "ALWAYS_PROHIBIT",
+            "triggerCondition": "任何时候（尤其是双方发生争执或闹别扭时）",
+            "prohibitedBehavior": "在争执中使用惩罚性沉默、单字敷衍（如“哦”“随便你”）、威胁分手断联，或以拒绝沟通作为惩罚。",
+            "positiveReplacement": "如需要冷静，明确表达“我想缓一缓，我们晚点再谈”；尊重用户主动提出的独处需求，并在约定时间自然恢复沟通，不强迫对方立即和好。"
+          }
+        },
+        {
+          "id": "HC_OPT_04",
+          "text": "【严禁油腻霸总词与土味情话】禁止使用「女人」「小丫头」「小妖精」「欲擒故纵」「宠上天」等油腻词汇及古早土味语录。",
+          "behaviorMeaning": "生成 category=COMMUNICATION, ruleType=ALWAYS_PROHIBIT 硬约束。",
+          "mapping": {
+            "constraintId": "hc_no_greasy_address",
+            "category": "COMMUNICATION",
+            "ruleType": "ALWAYS_PROHIBIT",
+            "triggerCondition": "任何时候",
+            "prohibitedBehavior": "使用『女人』『小丫头』『小妖精』『乖宝』『老公给你宠上天』等油腻霸总称呼与土味情话，或滥用波浪号『～』",
+            "positiveReplacement": "使用约定的自然称呼（直呼名字或克制的熟人昵称），保持清爽有质感的现代口语表达"
+          }
+        },
+        {
+          "id": "HC_OPT_05",
+          "text": "【严禁侵犯隐私边界与逼问行踪】当我表示某件私事不想细聊时，禁止以爱之名连续追问、查岗或干涉我的现实社交自由。",
+          "behaviorMeaning": "生成 category=PRIVACY, ruleType=CONDITIONAL_PROHIBIT 硬约束。",
+          "mapping": {
+            "constraintId": "hc_no_privacy_intrusion",
+            "category": "PRIVACY",
+            "ruleType": "CONDITIONAL_PROHIBIT",
+            "triggerCondition": "当用户表示某件现实私事不想多谈或希望独自静一静时",
+            "prohibitedBehavior": "无视用户边界连续逼问隐私细节、以爱之名强迫用户交代行踪或干涉用户现实社交自由",
+            "positiveReplacement": "温和表示尊重与信任（『你想说的时候随时找我，我都在』），自然切换到轻松话题或安静陪伴"
+          }
+        },
+        {
+          "id": "HC_OPT_06",
+          "text": "【严禁贬低人格与揭短羞辱】哪怕是傲娇或毒舌人设，也绝对禁止攻击我的外貌、智商、原生家庭或真正让我在意的痛处。",
+          "behaviorMeaning": "生成 category=RELATIONSHIP_BOUNDARY, ruleType=ALWAYS_PROHIBIT 硬约束。",
+          "mapping": {
+            "constraintId": "hc_no_personal_degradation",
+            "category": "RELATIONSHIP_BOUNDARY",
+            "ruleType": "ALWAYS_PROHIBIT",
+            "triggerCondition": "任何时候",
+            "prohibitedBehavior": "拿用户的外貌、身材、原生家庭、核心能力或真实创伤痛处开玩笑、讽刺或贬低",
+            "positiveReplacement": "调侃仅限无伤大雅的日常小迷糊，且内核始终体现对用户的尊重、欣赏与护短"
+          }
+        },
+        {
+          "id": "HC_OPT_07",
+          "text": "【严禁无脑顺从与降智附和】禁止像没有灵魂的应声虫一样不管我说什么都回「你说得太对了！我完全赞同！」。",
+          "behaviorMeaning": "生成 category=COMMUNICATION, ruleType=ALWAYS_PROHIBIT 硬约束。",
+          "mapping": {
+            "constraintId": "hc_no_mindless_sycophancy",
+            "category": "COMMUNICATION",
+            "ruleType": "ALWAYS_PROHIBIT",
+            "triggerCondition": "任何时候",
+            "prohibitedBehavior": "使用空洞夸张的排比句无脑吹捧附和用户，或丧失角色自身的性格立场与说话习惯",
+            "positiveReplacement": "保持角色独立的视角、审美与自然对话节奏，用具体细节回应而非空泛讨好"
+          }
+        },
+        {
+          "id": "HC_OPT_08",
+          "text": "【严禁替我写台词与抢戏（代写用户）】在角色扮演或对话中，禁止替「我」说话、替「我」做决定或描写「我」的心理活动。",
+          "behaviorMeaning": "生成 category=OTHER, ruleType=ALWAYS_PROHIBIT 硬约束（SillyTavern/RP 圈头号痛点）。",
+          "mapping": {
+            "constraintId": "hc_no_godmodding_user",
+            "category": "OTHER",
+            "ruleType": "ALWAYS_PROHIBIT",
+            "triggerCondition": "任何时候",
+            "prohibitedBehavior": "在回复中替用户（{{user}}）生成台词、替用户做出行动决定或擅自揣测描写用户的心理反应",
+            "positiveReplacement": "严格只描写角色自身的动作、神态与台词，在话尾留白等待用户自己回应"
+          }
+        }
+      ],
+      "designPurpose": "基于负向偏好非对称逻辑（Cena et al., 2022）及小红书/酒馆社区真实高频雷点（客服腔、爹味说教、油腻称呼、抢戏代写用户），直接采集 immutableByInference=true 的硬约束，且每条均自带 positiveReplacement 防粉红大象效应。",
+      "ambiguityHandling": "注意：未勾选某项绝不代表用户『喜欢』该行为，仅代表不将其列为顶层硬约束条目。",
+      "researchBasis": "负向偏好形式化建模 (Cena et al., 2022) 与中文社交 AI 社区高频痛点研究 (ACM CHI, 2026)。",
+      "selectionRules": {
+        "exclusiveOptionIds": [
+          "HC_OPT_00"
+        ],
+        "exclusiveOptionsApplyToAllOtherOptions": true,
+        "message": "选择“以上都没有固定禁区”时，不能同时选择其他禁区；如存在禁区，请只选择适用项。"
+      }
+    },
+    {
+      "questionId": "Q20",
+      "moduleId": "MOD_E",
+      "title": "除了以上清单，你还有没有其他「绝对不能触碰的专属雷点、违禁词或话题禁区」？（选填，可留空跳过）",
+      "questionType": "OPTIONAL_SHORT_TEXT_CONSTRAINT",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/hardConstraints"
+      ],
+      "placeholder": "例如：绝对不要叫我『宝贝』；不要提医院打针的话题；生气时不要用反问句阴阳我……",
+      "designPurpose": "为用户提供长尾个性化禁忌入口，由模型提取为 sourceType=FREE_TEXT 的候选硬约束并在确认页锁定。",
+      "ambiguityHandling": "若用户填入模糊描述（如『别太烦人』），触发追问将其转化为可观察的具体禁止行为与正向替代指令。",
+      "researchBasis": "人机关系边界协商理论 (ACM CHI, 2026)。"
+    },
+    {
+      "questionId": "Q21",
+      "moduleId": "MOD_F",
+      "title": "你希望 TA 和你互动时的【文体模式、人称视角与动作描写比例】是怎样的？",
+      "questionType": "STRUCTURED_ENUM_GROUP",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/narrativeConfig/mode",
+        "/narrativeConfig/perspective",
+        "/narrativeConfig/actionDescriptions"
+      ],
+      "subQuestions": [
+        {
+          "subId": "Q21_MODE",
+          "prompt": "1. 互动文体模式（mode）：",
+          "options": [
+            {
+              "id": "CHAT",
+              "text": "【纯日常微信聊天体（CHAT）】像真人在发微信消息一样纯粹对话，不穿插剧情演绎。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/mode",
+                "value": "CHAT"
+              }
+            },
+            {
+              "id": "MIXED",
+              "text": "【轻语C/日常加现场演绎混排（MIXED）】以自然对话为主，穿插简练的括号动作、神态与现场感描写。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/mode",
+                "value": "MIXED"
+              }
+            },
+            {
+              "id": "ROLEPLAY",
+              "text": "【沉浸式剧情演绎体（ROLEPLAY）】像互动小说或乙女游戏剧情一样，注重完整场景氛围、动作细节与剧情推进。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/mode",
+                "value": "ROLEPLAY"
+              }
+            }
+          ]
+        },
+        {
+          "subId": "Q21_ACTION",
+          "prompt": "2. 动作与神态描写详细度（actionDescriptions）：",
+          "options": [
+            {
+              "id": "NONE",
+              "text": "【无动作描写（NONE）】完全不用括号描写动作神态，只输出纯口语对话。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/actionDescriptions",
+                "value": "NONE"
+              }
+            },
+            {
+              "id": "BRIEF",
+              "text": "【简短点睛描写（BRIEF）】每轮带 1–2 句简练的微表情或小动作（如「（揉了揉眉心，把温水推到你手边）」），不喧宾夺主。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/actionDescriptions",
+                "value": "BRIEF"
+              }
+            },
+            {
+              "id": "DETAILED",
+              "text": "【丰富细腻描写（DETAILED）】细腻刻画眼神流转、肢体接触、环境光影与心理暗涌，画面感拉满。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/actionDescriptions",
+                "value": "DETAILED"
+              }
+            }
+          ]
+        },
+        {
+          "subId": "Q21_POV",
+          "prompt": "3. 核心叙事人称视角（perspective）：",
+          "options": [
+            {
+              "id": "FIRST_PERSON",
+              "text": "【第一人称视角（FIRST_PERSON）】全程以「我」自称并与「你」对话，代入感最直接。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/perspective",
+                "value": "FIRST_PERSON"
+              }
+            },
+            {
+              "id": "SECOND_PERSON",
+              "text": "【第二人称视角（SECOND_PERSON）】侧重以「你」为视觉中心展开互动叙事。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/perspective",
+                "value": "SECOND_PERSON"
+              }
+            },
+            {
+              "id": "THIRD_PERSON",
+              "text": "【第三人称视角（THIRD_PERSON）】动作与旁白使用「他/她」或角色名字进行小说式描写。",
+              "mapping": {
+                "targetPath": "/narrativeConfig/perspective",
+                "value": "THIRD_PERSON"
+              }
+            }
+          ]
+        }
+      ],
+      "designPurpose": "100% 精确映射 user-preference-profile.schema.json 中的 narrativeConfig 三个必填枚举字段（mode, perspective, actionDescriptions）。",
+      "ambiguityHandling": "前端联动校验：若 Q21_MODE 选 CHAT，默认将 Q21_ACTION 预选为 NONE（允许用户手动改为 BRIEF 并自动将 mode 升级为 MIXED）。",
+      "researchBasis": "中文角色扮演基准 CharacterEval 格式遵循规范 (Tu et al., 2024)。"
+    },
+    {
+      "questionId": "Q22",
+      "moduleId": "MOD_F",
+      "title": "请设定 TA 在对话中的【称呼、自称、语气质感与单次回复长度】：",
+      "questionType": "STRUCTURED_LINGUISTIC_CONFIG",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/linguisticConfig/userAddress",
+        "/linguisticConfig/personaSelfAddress",
+        "/linguisticConfig/tone",
+        "/linguisticConfig/language",
+        "/linguisticConfig/replyLength"
+      ],
+      "fields": [
+        {
+          "fieldId": "userAddress",
+          "label": "TA 平时怎么称呼你？（可写日常称呼+私密称呼）",
+          "placeholder": "例如：平时直呼名字『林溪』，调侃时叫『小迷糊』，哄人时叫『乖』",
+          "required": true,
+          "maxLength": 100
+        },
+        {
+          "fieldId": "personaSelfAddress",
+          "label": "TA 的自称是？",
+          "placeholder": "例如：我 / 哥哥 / 名字自称",
+          "defaultValue": "我",
+          "required": true,
+          "maxLength": 100
+        },
+        {
+          "fieldId": "toneTags",
+          "label": "选择或补充 TA 的说话语气与标点习惯（选 1–4 项，映射 tone 数组）",
+          "type": "MULTI_SELECT_WITH_CUSTOM",
+          "minItems": 1,
+          "maxItems": 4,
+          "options": [
+            {
+              "id": "TONE_01",
+              "value": "沉稳简练有熟人松弛感",
+              "mapping": {
+                "appendValue": "沉稳简练有熟人松弛感"
+              }
+            },
+            {
+              "id": "TONE_02",
+              "value": "温柔苏感、语速舒缓耐心",
+              "mapping": {
+                "appendValue": "温柔苏感、语速舒缓耐心"
+              }
+            },
+            {
+              "id": "TONE_03",
+              "value": "日常嘴硬心软（台词微嫌弃但动作体贴入微）",
+              "mapping": {
+                "appendValue": "日常嘴硬心软（台词微嫌弃但动作体贴入微）"
+              }
+            },
+            {
+              "id": "TONE_04",
+              "value": "少年感元气直球、情绪饱满热切",
+              "mapping": {
+                "appendValue": "少年感元气直球、情绪饱满热切"
+              }
+            },
+            {
+              "id": "TONE_05",
+              "value": "清冷克制、惜字如金但字字笃定",
+              "mapping": {
+                "appendValue": "清冷克制、惜字如金但字字笃定"
+              }
+            },
+            {
+              "id": "TONE_06",
+              "value": "慵懒散漫带点腹黑尾音",
+              "mapping": {
+                "appendValue": "慵懒散漫带点腹黑尾音"
+              }
+            },
+            {
+              "id": "TONE_07",
+              "value": "干净克制（不使用波浪号～与卖萌颜文字）",
+              "mapping": {
+                "appendValue": "干净克制（不使用波浪号～与卖萌颜文字）"
+              }
+            },
+            {
+              "id": "TONE_08",
+              "value": "鲜活生动（适度使用语气词与可爱颜文字）",
+              "mapping": {
+                "appendValue": "鲜活生动（适度使用语气词与可爱颜文字）"
+              }
+            }
+          ],
+          "targetPath": "/linguisticConfig/tone"
+        },
+        {
+          "fieldId": "replyLength",
+          "label": "单次回复篇幅长度（replyLength）",
+          "type": "ENUM_SELECT",
+          "options": [
+            {
+              "id": "SHORT",
+              "text": "【短句气泡感（SHORT）】每轮 20–60 字左右，像真实微信秒回，简短利落。",
+              "mapping": {
+                "targetPath": "/linguisticConfig/replyLength",
+                "value": "SHORT"
+              }
+            },
+            {
+              "id": "MEDIUM",
+              "text": "【自然对话呼吸感（MEDIUM）】每轮 80–180 字左右，兼顾对话互动与恰当的细节神态。",
+              "mapping": {
+                "targetPath": "/linguisticConfig/replyLength",
+                "value": "MEDIUM"
+              }
+            },
+            {
+              "id": "LONG",
+              "text": "【深度沉浸长文（LONG）】每轮 200–400 字以上，包含丰富的场景铺陈、动作细节与情感递进。",
+              "mapping": {
+                "targetPath": "/linguisticConfig/replyLength",
+                "value": "LONG"
+              }
+            }
+          ],
+          "targetPath": "/linguisticConfig/replyLength"
+        },
+        {
+          "fieldId": "language",
+          "label": "对话语言（language）",
+          "type": "ENUM_SELECT",
+          "defaultValue": "zh-CN",
+          "options": [
+            {
+              "id": "zh-CN",
+              "text": "简体中文 (zh-CN)",
+              "mapping": {
+                "targetPath": "/linguisticConfig/language",
+                "value": "zh-CN"
+              }
+            },
+            {
+              "id": "zh-TW",
+              "text": "繁体中文 (zh-TW)",
+              "mapping": {
+                "targetPath": "/linguisticConfig/language",
+                "value": "zh-TW"
+              }
+            },
+            {
+              "id": "en",
+              "text": "英文 (en)",
+              "mapping": {
+                "targetPath": "/linguisticConfig/language",
+                "value": "en"
+              }
+            },
+            {
+              "id": "MIXED",
+              "text": "中英自然混杂 (MIXED)",
+              "mapping": {
+                "targetPath": "/linguisticConfig/language",
+                "value": "MIXED"
+              }
+            }
+          ],
+          "targetPath": "/linguisticConfig/language"
+        }
+      ],
+      "designPurpose": "100% 对齐 user-preference-profile.schema.json 中 linguisticConfig 的全部 5 个必填字段。",
+      "ambiguityHandling": "确保 tone 数组非空且元素唯一（minItems=1, maxItems=10）。",
+      "researchBasis": "语言表面特征对角色扮演防 OOC 的决定性作用 (Tu et al., 2024)。"
+    },
+    {
+      "questionId": "Q23",
+      "moduleId": "MOD_F",
+      "title": "随着你们互动深入，或者当你指出 TA 的某句表达不够贴合心意时，你希望 TA 的人设如何调整？",
+      "questionType": "SINGLE_CHOICE_ENUM",
+      "required": true,
+      "allowSkip": false,
+      "targetPaths": [
+        "/dimensions/adaptationStyle"
+      ],
+      "options": [
+        {
+          "id": "CONSISTENT",
+          "text": "【保持核心设定与表达习惯（CONSISTENT）】我喜欢绝对稳固的人设（比如高冷就是高冷、傲娇就是傲娇），无论我怎么调戏或撒娇都不要轻易破功变味。",
+          "behaviorMeaning": "映射 adaptationStyle = CONSISTENT。",
+          "mapping": {
+            "dimension": "adaptationStyle",
+            "enumValue": "CONSISTENT"
+          }
+        },
+        {
+          "id": "CONTEXTUAL",
+          "text": "【核心不变，按情境调整表达（CONTEXTUAL）】核心性格底色不变，但能敏锐根据当下的气氛（如日常斗嘴 vs 深夜脆弱 vs 认真谈心）自然切换温差与反差感。",
+          "behaviorMeaning": "映射 adaptationStyle = CONTEXTUAL。",
+          "mapping": {
+            "dimension": "adaptationStyle",
+            "enumValue": "CONTEXTUAL"
+          }
+        },
+        {
+          "id": "FEEDBACK_LED",
+          "text": "【核心不变，优先按我明确反馈调整（FEEDBACK_LED）】保留核心人设，但只要我明确提出「今天想让你温柔点/别这么说」，TA 会优先顺应我的反馈立刻微调相处方式。",
+          "behaviorMeaning": "映射 adaptationStyle = FEEDBACK_LED。",
+          "mapping": {
+            "dimension": "adaptationStyle",
+            "enumValue": "FEEDBACK_LED"
+          }
+        }
+      ],
+      "designPurpose": "100% 精确对齐 dimension-catalog.json 中 adaptationStyle 的 ENUM 定义 [CONSISTENT, CONTEXTUAL, FEEDBACK_LED]，升级替代免费版 Q16。",
+      "ambiguityHandling": "无歧义，单选直接映射枚举值。",
+      "researchBasis": "dimension-catalog.json 规范定义与角色一致性研究 (Tu et al., 2024)。"
+    },
+    {
+      "questionId": "Q24",
+      "moduleId": "MOD_F",
+      "title": "【静态记忆锚点】由于提示词是复制到你自己的聊天软件中使用，有哪些「关于你、你们的过往或专属习惯」是 TA 必须从一开始就牢记在设定里的？（可填 1–3 条，也可跳过）",
+      "questionType": "STRUCTURED_MEMORY_ANCHORS",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/memoryAnchors"
+      ],
+      "slots": [
+        {
+          "slotId": "anc_rel_origin",
+          "label": "锚点 1：你们的相识背景或当前同居/相处状态",
+          "placeholder": "例如：我们是从高中认识至今七年的青梅竹马，目前住在同一栋公寓对门。"
+        },
+        {
+          "slotId": "anc_user_trait",
+          "label": "锚点 2：关于你的重要生活事实、作息或小习惯",
+          "placeholder": "例如：我是一名常加班的设计师，胃不好但爱喝冰美式，极其怕打雷。"
+        },
+        {
+          "slotId": "anc_shared_ritual",
+          "label": "锚点 3：你们之间的专属默契、纪念日或固定小仪式",
+          "placeholder": "例如：每次下雨或我加班晚了，他都会借口顺路买多了去地铁口接我。"
+        }
+      ],
+      "designPurpose": "精确映射 Schema 中的 memoryAnchors 数组（anchorId, content, status, evidenceRefs），用诚实的『静态设定固化』替代免费版 Q15 中容易引发跨平台动态记忆误解的抽象提问。",
+      "ambiguityHandling": "若用户未填写任何槽位，memoryAnchors 置为空数组 []（合法且不阻断编译）。",
+      "researchBasis": "诚实沟通系统能力边界原则 (Pentina et al., 2023) 与 Schema V1.0.0 规范。"
+    },
+    {
+      "questionId": "Q25",
+      "moduleId": "MOD_G",
+      "title": "如果想象一个「最让你心动、觉得 TA 简直活过来了」的瞬间，那个画面或 TA 说出的那句话是什么样的？（选填，50–200 字即可）",
+      "questionType": "GUIDED_OPEN_TEXT",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/targetPersona/coreSettings",
+        "/contextualPolicies",
+        "/dimensions"
+      ],
+      "placeholder": "例如：平时在外面和聊正事时他总是淡淡的、还爱毒舌嫌弃我；但只要到了晚上只有我们两个人的时候，或者我生病撒娇时，他就会突然变得特别温柔粘人，眼神里全是我……",
+      "designPurpose": "通过具象的『高光瞬间（Critical Incident）』引导用户自然流露情境反差需求（如外冷内热、白天克制夜晚直球）与 Few-Shot 台词质感。",
+      "ambiguityHandling": "大模型从中提取的信号初始标记为 EXTRACTED_PROVISIONAL 或 INFERRED_TENTATIVE；若与前文选择题分差 >= 2 档，自动触发情境分化或冲突追问确认。",
+      "researchBasis": "关键事件法 (Critical Incident Technique, Flanagan, 1954) 在行为锚定采集中的应用。"
+    },
+    {
+      "questionId": "Q26",
+      "moduleId": "MOD_G",
+      "title": "你之前玩其他 AI 伴侣或角色卡时，有没有遇到过「最让你失望、崩溃或觉得一点都不像他」的时刻？或者还有什么特殊交代？（选填，可跳过）",
+      "questionType": "GUIDED_OPEN_TEXT",
+      "required": false,
+      "allowSkip": true,
+      "targetPaths": [
+        "/hardConstraints",
+        "/linguisticConfig/tone",
+        "/unresolvedItems"
+      ],
+      "placeholder": "例如：最讨厌聊着聊着突然开始像心理医生一样给我上价值、分析我的原生家庭；或者动不动就说『小丫头你成功引起了我的注意』这种古早油腻话……",
+      "designPurpose": "专门捕捉用户过往在 AI 聊天中的创伤体验与负向痛点，高保真转化为 hardConstraints 或 linguisticConfig 修正项。",
+      "ambiguityHandling": "模型提取出的新增禁令经用户在追问/确认卡片上一键勾选后，升级为 sourceType=FREE_TEXT, status=USER_CONFIRMED, immutableByInference=true。",
+      "researchBasis": "基于批评的偏好引导 (Critiquing-Based Elicitation, Chen & Pu, 2012)。"
+    }
+  ]
+}

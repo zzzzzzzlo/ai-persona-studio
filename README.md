@@ -1,5 +1,20 @@
 # AI 人格定制
 
+## 付费深度问卷闭环（2026-10-28）
+
+已接入提供的 1.0.1 问卷：26 题 / 7 模块、逐题卡片、本地草稿、最终一次提交、确定性候选画像、证据与事务持久化、幂等重试及历史版本读取。前端入口 `/questionnaire`，沿用归档 V2 的浅粉视觉；原推广文件未修改。
+
+完整接入说明、API、配置差异和测试结果见 [付费问卷实现说明](docs/paid-questionnaire-implementation-v1.md)。浏览器实填并从 MySQL 重新读取的答卷、画像、39 条证据和回执在 [docs/examples](docs/examples/paid-browser-profile.json)。默认仍关闭开发接口，运行前沿用下方 DEV_API_ENABLED 和数据库配置。
+
+```powershell
+npm --prefix frontend test
+npm --prefix frontend run build
+mvn -f backend/pom.xml test
+mvn -f backend/pom.xml package
+```
+
+新增迁移为 `V2__questionnaire_submission.sql`，不改既有 V1。没有支付、大模型或最终提示词生成；提交后是待确认候选画像。
+
 ## AI 人格定制工程 V1.0
 
 当前开发内容为 Vue + Spring Boot 的 AI 人格定制应用。此前用于推广的人格问卷已完整归档到 [推广问卷/](推广问卷/README.md)，不属于现阶段开发范围，也不直接作为已确认用户画像的数据来源。

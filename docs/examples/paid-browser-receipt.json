@@ -1,0 +1,40 @@
+{
+  "submissionId": "ca9ea6b8-983d-4227-9d14-1f1f42c2ded6",
+  "profileId": "29269d1d-90f0-4c64-9e7a-74b54e36ad40",
+  "profileVersion": 1,
+  "questionnaireVersion": "1.0.1",
+  "processingStatus": "COMPLETED",
+  "profileStatus": "DRAFT",
+  "readyForCompilation": false,
+  "clarificationCount": 25,
+  "blockers": [
+    "anchor:anc_rel_origin",
+    "anchor:anc_shared_ritual",
+    "anchor:anc_user_trait",
+    "dimension:adaptationStyle",
+    "dimension:conversationInitiative",
+    "dimension:emotionalSupport",
+    "dimension:independentAgency",
+    "dimension:intimacyDirectness",
+    "dimension:relationshipLeadership",
+    "dimension:teasingIntensity",
+    "policy:pol_anxious_overwhelmed_guide",
+    "policy:pol_busy_silence_boundary",
+    "policy:pol_conflict_angry_coax",
+    "policy:pol_daily_trivia_leadership_only",
+    "policy:pol_empathy_before_objectivity",
+    "policy:pol_joy_capitalization",
+    "policy:pol_sad_wronged_support"
+  ],
+  "warnings": [
+    "unresolved:pending-1",
+    "unresolved:pending-2",
+    "unresolved:pending-3",
+    "unresolved:pending-4",
+    "unresolved:pending-5",
+    "unresolved:pending-6",
+    "unresolved:pending-7",
+    "unresolved:pending-8"
+  ],
+  "processedAt": "2026-10-28T02:53:52.014331Z"
+}

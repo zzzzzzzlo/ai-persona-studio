@@ -19,6 +19,10 @@ public class ProfileController {
     public ProfileResponse create(@Valid @RequestBody CreateProfileRequest request) { return service.create(request); }
     @GetMapping("/{profileId}")
     public ProfileResponse get(@PathVariable String profileId) { return service.get(profileId); }
+    @GetMapping("/{profileId}/versions/{version}")
+    public VersionResponse version(@PathVariable String profileId,@PathVariable int version){return service.getVersion(profileId,version);}
+    @GetMapping("/{profileId}/evidence")
+    public java.util.List<EvidenceResponse> evidence(@PathVariable String profileId){return service.getEvidence(profileId);}
     @PostMapping("/{profileId}/versions") @ResponseStatus(HttpStatus.CREATED)
     public ProfileResponse addVersion(@PathVariable String profileId,@Valid @RequestBody NewVersionRequest request) { return service.addVersion(profileId,request); }
     @PostMapping("/validate")

@@ -1,0 +1,340 @@
+{
+  "answers": {
+    "Q01": {
+      "text": null,
+      "fields": {
+        "personaName": "林间",
+        "archetypePreset": "ARC_01",
+        "coreSettingSummary": "认识七年，喜欢散步和阅读的虚构伴侣。"
+      },
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": []
+    },
+    "Q02": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q03": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q04": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q05": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q06": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "LISTEN"
+      ]
+    },
+    "Q07": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q08": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q09": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q10": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q11": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q12": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "IMP_SUPPORT",
+        "IMP_INITIATIVE"
+      ]
+    },
+    "Q13": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {
+        "Q13_A": [
+          "A1"
+        ],
+        "Q13_B": [
+          "B1"
+        ]
+      },
+      "customTexts": {},
+      "selectedOptionIds": []
+    },
+    "Q14": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q15": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q16": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q17": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q18": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "A"
+      ]
+    },
+    "Q19": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "HC_OPT_00"
+      ]
+    },
+    "Q20": {
+      "text": "希望在我情绪低落时先倾听，不替我决定。",
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": []
+    },
+    "Q21": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {
+        "Q21_POV": [
+          "FIRST_PERSON"
+        ],
+        "Q21_MODE": [
+          "CHAT"
+        ],
+        "Q21_ACTION": [
+          "NONE"
+        ]
+      },
+      "customTexts": {},
+      "selectedOptionIds": []
+    },
+    "Q22": {
+      "text": null,
+      "fields": {
+        "language": "zh-CN",
+        "replyLength": "SHORT",
+        "userAddress": "小林",
+        "personaSelfAddress": "我"
+      },
+      "anchors": {},
+      "skipped": false,
+      "selections": {
+        "toneTags": [
+          "TONE_01"
+        ]
+      },
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": []
+    },
+    "Q23": {
+      "text": null,
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": [
+        "CONSISTENT"
+      ]
+    },
+    "Q24": {
+      "text": null,
+      "fields": {},
+      "anchors": {
+        "anc_rel_origin": "相识七年，一起散步，尊重各自的生活。",
+        "anc_user_trait": "相识七年，一起散步，尊重各自的生活。",
+        "anc_shared_ritual": "相识七年，一起散步，尊重各自的生活。"
+      },
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": []
+    },
+    "Q25": {
+      "text": "希望在我情绪低落时先倾听，不替我决定。",
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": []
+    },
+    "Q26": {
+      "text": "希望在我情绪低落时先倾听，不替我决定。",
+      "fields": {},
+      "anchors": {},
+      "skipped": false,
+      "selections": {},
+      "subAnswers": {},
+      "customTexts": {},
+      "selectedOptionIds": []
+    }
+  },
+  "profileId": null,
+  "submissionId": "ca9ea6b8-983d-4227-9d14-1f1f42c2ded6",
+  "questionnaireId": "paid-deep-persona-questionnaire-v1",
+  "questionnaireVersion": "1.0.1",
+  "expectedCurrentVersion": null
+}

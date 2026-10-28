@@ -1,0 +1,33 @@
+{
+  "version": "1.0.1",
+  "levelConflictGap": 2,
+  "initialDimensionStatus": "EXTRACTED_PROVISIONAL",
+  "importanceDefault": "MEDIUM",
+  "policyTriggers": {
+    "Q14": "用户感到委屈、难过或需要情绪支持时",
+    "Q15": "用户焦虑、压力过载或面对任务不知所措时",
+    "Q16": "用户因角色行为生气或双方发生争执时",
+    "Q17": "用户分享喜悦、成就或好消息时",
+    "Q18": "用户忙碌暂停聊天后重新出现时"
+  },
+  "structuredMappings": {
+    "identityQuestion": "Q01", "nameField": "personaName", "archetypeField": "archetypePreset", "coreField": "coreSettingSummary",
+    "narrativeQuestion": "Q21", "linguisticQuestion": "Q22", "memoryQuestion": "Q24",
+    "freeTextQuestions": ["Q20", "Q25", "Q26"]
+  },
+  "clarificationChecks": [
+    {"dimension":"emotionalSupport", "selectedQuestion":"Q06", "selectedOption":"PRACTICAL_HELP", "anyOf":[{"question":"Q13","subQuestion":"Q13_A","option":"A1"},{"question":"Q19","option":"HC_OPT_02"}], "question":"日常实际帮助和不主动说教之间，你希望怎样划分情境？"}
+  ],
+  "tradeoffOverrides": {
+    "EMPATHY_OVERRIDES_OBJECTIVITY": [{"operation":"SET","target":"/dimensions/emotionalSupport/value","value":["LISTEN","VALIDATE"]}],
+    "EMPATHY_THEN_HONEST_FEEDBACK": [{"operation":"SET","target":"/dimensions/emotionalSupport/value","value":["LISTEN","VALIDATE"]}],
+    "LEADERSHIP_ONLY_IN_DAILY_TRIVIA": [{"operation":"SET","target":"/dimensions/relationshipLeadership/value","fromProfile":"/dimensions/relationshipLeadership/value"}],
+    "FULL_DOMAIN_GUIDANCE": [{"operation":"SET","target":"/dimensions/relationshipLeadership/value","fromProfile":"/dimensions/relationshipLeadership/value"}]
+  },
+  "compatibilityNotes": [
+    "原始问卷和评分 JSON 保持不变；此文件将人类可读的冲突阈值和触发情境整理为可执行数据。",
+    "USER_AUTONOMY 不在正式 Schema 的 affectedTargets 枚举内，保留其 instruction 与独立硬约束，不生成新维度。",
+    "没有自然语言解析；自由文本只记录原文与待分析事项。",
+    "正式 Schema 要求情境规则至少有一个类型化 override。Q13 情绪权衡映射为该情境先倾听/认可；未经请求不给建议只保留在 instruction，不写 /behaviors 路径。主导权衡沿用用户在常态维度已选的档位，不发明新档位。"
+  ]
+}

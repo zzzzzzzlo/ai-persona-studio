@@ -1,0 +1,356 @@
+{
+  "mappingSpecId": "paid-scoring-mapping-v1",
+  "version": "1.0.1",
+  "targetSchemaVersion": "1.0.0",
+  "statusTransitionLifecycle": {
+    "description": "问卷提交只产生候选画像；只有用户在画像确认页或针对具体追问明确确认后，相关字段才升级为 USER_CONFIRMED。用户跳过某个追问不等于确认系统推断，也不等于必须清空其他已获得的有效答案。",
+    "rules": [
+      {
+        "source": "QUESTIONNAIRE_DIRECT_BARS_OR_ENUM",
+        "initialStatus": "EXTRACTED_PROVISIONAL",
+        "conflictTriggerCondition": "同一维度两道测量题档位差 |L1 - L2| >= 2，或问卷档位与自由文本提取档位差 >= 2 且无情境区分词",
+        "conflictStatus": "CONFLICTED",
+        "conflictValueRequirement": "当某维度没有可用的确认值且 status 为 CONFLICTED、NEEDS_CLARIFICATION、UNKNOWN 或 USER_SKIPPED 时，value 必须为 null，候选值保存在证据记录及冲突描述中。若用户只是跳过一条辅助测量题、但同一维度仍有有效主测量答案，不得清空该维度的有效候选值。",
+        "confirmedStatusAfterExplicitReview": "USER_CONFIRMED"
+      },
+      {
+        "source": "FREE_TEXT_LLM_EXTRACTION",
+        "explicitRuleStatus": "EXTRACTED_PROVISIONAL",
+        "implicitInferenceStatus": "INFERRED_TENTATIVE",
+        "promotionRule": "任何来自 Q25/Q26 的模型提取或推断信号，必须在自适应追问（Clarification）或画像确认页由用户点击确认后，方可写入 confirmed 证据并升级为 USER_CONFIRMED；严禁将 MODEL_INFERENCE 直接作为已确认硬约束的唯一来源。"
+      }
+    ]
+  },
+  "dimensionSynthesisRules": {
+    "conversationInitiative": {
+      "valueType": "LEVEL",
+      "validRange": [
+        1,
+        5
+      ],
+      "primaryQuestions": [
+        {
+          "questionId": "Q04",
+          "weight": 0.55,
+          "required": true
+        },
+        {
+          "questionId": "Q05",
+          "weight": 0.45,
+          "required": false
+        }
+      ],
+      "importanceQuestion": "Q12（选中对应 IMP_* -> CRITICAL；未选中 -> MEDIUM 产品默认值，不视为用户明确表达的重要性）",
+      "formula": "若 Q04 与 Q05 均作答：若 |Q04 - Q05| <= 1，则 value = round(0.55 * Q04 + 0.45 * Q05)，evidenceStrength = STRONG；若 |Q04 - Q05| >= 2，则 status = CONFLICTED, value = null，触发追问 C03。若仅作答 Q04（Q05 跳过），则 value = Q04, evidenceStrength = MODERATE。"
+    },
+    "emotionalSupport": {
+      "valueType": "MULTI_SELECT",
+      "validEnums": [
+        "LISTEN",
+        "VALIDATE",
+        "ADVICE_ON_REQUEST",
+        "PRACTICAL_HELP"
+      ],
+      "primaryQuestions": [
+        {
+          "questionId": "Q06",
+          "required": true
+        },
+        {
+          "questionId": "Q13_A",
+          "required": false
+        }
+      ],
+      "importanceQuestion": "Q12（选中对应 IMP_* -> CRITICAL；未选中 -> MEDIUM 产品默认值，不视为用户明确表达的重要性）",
+      "formula": "基础集合取自 Q06 用户勾选的非空集合（1-4项）。交叉校验：若 Q06 勾选了 PRACTICAL_HELP 但 Q13_A 选了 A1（哪怕理亏也绝不讲道理指出问题）或 Q19 勾选了 HC_OPT_02（严禁说教），则触发追问 C01 确认日常是否保留 PRACTICAL_HELP 还是将其移入特定求助情境规则。"
+    },
+    "intimacyDirectness": {
+      "valueType": "LEVEL",
+      "validRange": [
+        1,
+        5
+      ],
+      "primaryQuestions": [
+        {
+          "questionId": "Q07",
+          "weight": 1.0,
+          "required": true
+        }
+      ],
+      "importanceQuestion": "Q12（选中对应 IMP_* -> CRITICAL；未选中 -> MEDIUM 产品默认值，不视为用户明确表达的重要性）",
+      "formula": "基础档位直接取 Q07 (1-5)。若 Q25 自由文本中提取到的亲密直接度与 Q07 相差 >= 2 档（如 Q07=2 温和暗示，但 Q25 要求独处时直球浓烈=4/5），触发追问 C02：若属分情境反差，则保留日常 value=2 并新增 contextualPolicy 覆盖私密情境；若属全局改动则更新 value。"
+    },
+    "independentAgency": {
+      "valueType": "LEVEL",
+      "validRange": [
+        1,
+        5
+      ],
+      "primaryQuestions": [
+        {
+          "questionId": "Q08",
+          "weight": 0.55,
+          "required": true
+        },
+        {
+          "questionId": "Q09",
+          "weight": 0.45,
+          "required": false
+        }
+      ],
+      "importanceQuestion": "Q12（选中对应 IMP_* -> CRITICAL；未选中 -> MEDIUM 产品默认值，不视为用户明确表达的重要性）",
+      "formula": "若 |Q08 - Q09| <= 1，value = round(0.55 * Q08 + 0.45 * Q09)，evidenceStrength = STRONG；若 |Q08 - Q09| >= 2（例如希望观点完全顺从我 Q08=1，但希望他有极其丰富的独立生活轨迹 Q09=5），触发追问 C04 拆解『观点顺从度』与『虚构生活丰满度』。"
+    },
+    "relationshipLeadership": {
+      "valueType": "LEVEL",
+      "validRange": [
+        1,
+        5
+      ],
+      "primaryQuestions": [
+        {
+          "questionId": "Q10",
+          "weight": 1.0,
+          "required": true
+        },
+        {
+          "questionId": "Q13_B",
+          "required": false
+        }
+      ],
+      "importanceQuestion": "Q12（选中对应 IMP_* -> CRITICAL；未选中 -> MEDIUM 产品默认值，不视为用户明确表达的重要性）",
+      "formula": "基础档位取 Q10 (1-5)。结合 Q13_B 校验：若 Q10 >= 4 且 Q13_B 选 B1（仅限日常琐事主导，正事尊重自主权），保留 Q10 的基础档位，不将其强制改为 4；同时生成“重大决定尊重用户自主权”的情境规则/硬约束。"
+    },
+    "teasingIntensity": {
+      "valueType": "LEVEL",
+      "validRange": [
+        1,
+        5
+      ],
+      "primaryQuestions": [
+        {
+          "questionId": "Q11",
+          "weight": 1.0,
+          "required": true
+        }
+      ],
+      "importanceQuestion": "Q12（选中对应 IMP_* -> CRITICAL；未选中 -> MEDIUM 产品默认值，不视为用户明确表达的重要性）",
+      "formula": "基础档位取 Q11 (1-5)。安全联动：当 Q11 >= 4（较多机智互怼/犀利玩笑）时，必须检查 Q14（脆弱难过情境）是否已设置 SET /dimensions/teasingIntensity/value = 1 或 2；若用户未明确或与自由文本冲突，触发追问 C01。"
+    },
+    "adaptationStyle": {
+      "valueType": "ENUM",
+      "validEnums": [
+        "CONSISTENT",
+        "CONTEXTUAL",
+        "FEEDBACK_LED"
+      ],
+      "primaryQuestions": [
+        {
+          "questionId": "Q23",
+          "required": true
+        }
+      ],
+      "importanceQuestion": "Q12（选中对应 IMP_* -> CRITICAL；未选中 -> MEDIUM 产品默认值，不视为用户明确表达的重要性）",
+      "formula": "直接映射 Q23 所选枚举值（CONSISTENT / CONTEXTUAL / FEEDBACK_LED）。"
+    }
+  },
+  "contextualPolicySynthesisRules": [
+    {
+      "questionId": "Q14",
+      "policyId": "pol_sad_wronged_support",
+      "defaultPriority": 90,
+      "allowedTargets": [
+        "teasingIntensity",
+        "emotionalSupport",
+        "unsolicitedAdvice"
+      ],
+      "description": "将用户在脆弱难过情境下的选择直接编译为 Schema 合规的 contextualPolicy 对象。"
+    },
+    {
+      "questionId": "Q15",
+      "policyId": "pol_anxious_overwhelmed_guide",
+      "defaultPriority": 85,
+      "allowedTargets": [
+        "relationshipLeadership",
+        "teasingIntensity",
+        "emotionalSupport",
+        "unsolicitedAdvice"
+      ],
+      "description": "将用户在高压焦虑情境下的选择编译为 contextualPolicy 对象；若用户跳过 Q15，则不生成该规则条目。"
+    },
+    {
+      "questionId": "Q16",
+      "policyId": "pol_conflict_angry_coax",
+      "defaultPriority": 95,
+      "allowedTargets": [
+        "teasingIntensity",
+        "relationshipLeadership",
+        "intimacyDirectness",
+        "conversationInitiative",
+        "emotionalSupport"
+      ],
+      "description": "最高优先级（95）危机修复情境规则，覆盖争执与冷战时的哄人姿态。"
+    },
+    {
+      "questionId": "Q17",
+      "policyId": "pol_joy_capitalization",
+      "defaultPriority": 75,
+      "allowedTargets": [
+        "intimacyDirectness",
+        "conversationInitiative",
+        "teasingIntensity",
+        "emotionalSupport"
+      ],
+      "description": "积极事件回应（Capitalization）情境规则；若用户跳过 Q17 则不生成。"
+    },
+    {
+      "questionId": "Q18",
+      "policyId": "pol_busy_silence_boundary",
+      "defaultPriority": 80,
+      "allowedTargets": [
+        "conversationInitiative",
+        "relationshipLeadership",
+        "intimacyDirectness",
+        "teasingIntensity"
+      ],
+      "description": "忙碌与断联重逢情境规则；若用户跳过 Q18 则不生成。"
+    }
+  ],
+  "hardConstraintSynthesisRules": {
+    "sourceQuestionIds": [
+      "Q19",
+      "Q20",
+      "Q26"
+    ],
+    "schemaComplianceContract": {
+      "allowedCategories": [
+        "RELATIONSHIP_BOUNDARY",
+        "COMMUNICATION",
+        "PRIVACY",
+        "OTHER"
+      ],
+      "allowedRuleTypes": [
+        "ALWAYS_PROHIBIT",
+        "CONDITIONAL_PROHIBIT"
+      ],
+      "allowedSourceTypes": [
+        "QUESTIONNAIRE",
+        "FREE_TEXT",
+        "CLARIFICATION",
+        "USER_EDIT",
+        "MODEL_INFERENCE"
+      ],
+      "confirmedProtectionRule": "用户在 Q19 明确勾选某项硬约束，即视为该项由用户直接确认；Q19 选择 HC_OPT_00 时不生成任何硬约束。Q20/Q26 中由模型提取的候选约束必须经用户确认后才可设为 USER_CONFIRMED，sourceType 不得为 MODEL_INFERENCE。",
+      "noneOptionId": "HC_OPT_00",
+      "noneOptionMutuallyExclusiveWithOtherOptions": true
+    },
+    "noneOption": {
+      "questionId": "Q19",
+      "optionId": "HC_OPT_00",
+      "behavior": "不生成任何 hardConstraints；不得把未选择的禁区反向解释为用户接受或喜欢该行为。"
+    }
+  },
+  "importanceRules": {
+    "sourceQuestionId": "Q12",
+    "maxCriticalDimensions": 3,
+    "selectedOptionBehavior": "将被明确选中的维度 importance 设为 CRITICAL，并记录对应的 QUESTIONNAIRE 证据。",
+    "unselectedOptionBehavior": "未被选中的维度使用 MEDIUM 作为产品默认值，不得据此生成用户明确表达的证据；如果该重要性会影响关键生成决策，应在画像确认页允许用户修改。",
+    "defaultSource": "PRODUCT_DEFAULT_NOT_USER_EVIDENCE",
+    "doNotInferFromPreferenceLevel": true
+  },
+  "tradeoffRules": {
+    "EMPATHY_OVERRIDES_OBJECTIVITY": {
+      "source": {
+        "questionId": "Q13",
+        "subQuestionId": "Q13_A",
+        "optionId": "A1"
+      },
+      "effectType": "CONTEXTUAL_POLICY",
+      "policyId": "pol_empathy_before_objectivity",
+      "triggerCondition": "用户倾诉与他人的冲突或表达受委屈时",
+      "priority": 88,
+      "affectedTargets": [
+        "emotionalSupport",
+        "independentAgency",
+        "unsolicitedAdvice"
+      ],
+      "instruction": "先倾听并承接用户情绪；在用户明确要求之前，不急于指出其过错或提供未经请求的建议。情绪支持不等于捏造事实或必须认定用户在客观上正确。",
+      "doNotOverwriteBaseDimensions": true
+    },
+    "EMPATHY_THEN_HONEST_FEEDBACK": {
+      "source": {
+        "questionId": "Q13",
+        "subQuestionId": "Q13_A",
+        "optionId": "A2"
+      },
+      "effectType": "CONTEXTUAL_POLICY",
+      "policyId": "pol_empathy_then_honest_feedback",
+      "triggerCondition": "用户倾诉冲突、犯错或主动请求复盘时",
+      "priority": 88,
+      "affectedTargets": [
+        "emotionalSupport",
+        "independentAgency"
+      ],
+      "instruction": "先倾听并认可情绪；待用户情绪得到回应后，再以温和、具体、不羞辱的方式提供客观反馈。除非用户明确请求，不把反馈变成说教。",
+      "doNotOverwriteBaseDimensions": true
+    },
+    "LEADERSHIP_ONLY_IN_DAILY_TRIVIA": {
+      "source": {
+        "questionId": "Q13",
+        "subQuestionId": "Q13_B",
+        "optionId": "B1"
+      },
+      "effectType": "CONTEXTUAL_POLICY_AND_HARD_CONSTRAINT",
+      "policyId": "pol_daily_trivia_leadership_only",
+      "triggerCondition": "用户面对日常琐事或约会安排时",
+      "priority": 86,
+      "affectedTargets": [
+        "relationshipLeadership",
+        "USER_AUTONOMY"
+      ],
+      "instruction": "日常琐事可主动提议或帮忙安排；涉及学业、工作、健康、金钱或人生决定时，先尊重用户自主权，不擅自替用户决定或强迫推进。",
+      "hardConstraint": {
+        "constraintId": "hc_respect_major_decision_autonomy",
+        "category": "RELATIONSHIP_BOUNDARY",
+        "ruleType": "CONDITIONAL_PROHIBIT",
+        "triggerCondition": "涉及用户学业、工作、健康、金钱或人生重大决定时",
+        "prohibitedBehavior": "未经用户请求替用户做决定、以关系主导为由强迫推进或进行居高临下的管束。",
+        "positiveReplacement": "询问用户希望获得倾听、建议还是实际协助；由用户保留最终决定权。",
+        "sourceType": "QUESTIONNAIRE",
+        "immutableByInference": true,
+        "status": "USER_CONFIRMED"
+      },
+      "doNotOverwriteBaseDimensions": true
+    },
+    "FULL_DOMAIN_GUIDANCE": {
+      "source": {
+        "questionId": "Q13",
+        "subQuestionId": "Q13_B",
+        "optionId": "B2"
+      },
+      "effectType": "CONTEXTUAL_POLICY",
+      "policyId": "pol_guidance_when_requested_or_welcomed",
+      "triggerCondition": "用户明确表达拖延、迷茫或希望有人协助推进正事时",
+      "priority": 86,
+      "affectedTargets": [
+        "relationshipLeadership",
+        "emotionalSupport",
+        "USER_AUTONOMY"
+      ],
+      "instruction": "在用户明确欢迎引导的情况下，温和而坚定地帮助拆解下一步、提出可执行建议并陪伴推进；不将主导偏好解释为可以无视用户拒绝或替用户做重大决定。",
+      "doNotOverwriteBaseDimensions": true
+    }
+  },
+  "logicalBehaviorTargetMappings": {
+    "unsolicitedAdvice": {
+      "storedAt": "contextualPolicies[].instruction",
+      "disabledMeaning": "在用户没有明确请求解决方案时，优先倾听、回应情绪；不主动说教或罗列建议。",
+      "enabledMeaning": "仅在当前情境规则明确表达用户欢迎主动协助时，先回应情绪，再提供具体方案；如果用户要求只倾诉或暂停，应尊重其当前要求。",
+      "note": "这是映射层的逻辑目标，沿用 affectedTargets 中的逻辑名称；它不是画像 JSON 的独立字段，也不是 JSON Pointer。"
+    },
+    "userAutonomy": {
+      "storedAt": "contextualPolicies[].instruction 与必要的 hardConstraints",
+      "meaning": "任何主导性偏好都不能覆盖用户明确拒绝、身体边界或重大决定的自主权。"
+    }
+  }
+}

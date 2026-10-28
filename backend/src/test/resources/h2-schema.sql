@@ -1,4 +1,10 @@
 -- H2 fast service/HTTP tests only. The production MySQL migration is verified separately.
+CREATE TABLE IF NOT EXISTS persona_questionnaire_submission (
+ submission_id VARCHAR(36) PRIMARY KEY, owner_user_id VARCHAR(64) NOT NULL, questionnaire_id VARCHAR(100) NOT NULL,
+ questionnaire_version VARCHAR(24) NOT NULL, request_hash CHAR(64) NOT NULL, request_json CLOB NOT NULL,
+ processing_status VARCHAR(24) NOT NULL, profile_id VARCHAR(36), profile_version INT, response_json CLOB,
+ created_at TIMESTAMP(6) NOT NULL, processed_at TIMESTAMP(6)
+);
 CREATE TABLE IF NOT EXISTS persona_profile (
  id BIGINT AUTO_INCREMENT PRIMARY KEY, profile_id VARCHAR(36) NOT NULL UNIQUE,
  owner_user_id VARCHAR(64) NOT NULL, current_version INT NOT NULL, status VARCHAR(24) NOT NULL,

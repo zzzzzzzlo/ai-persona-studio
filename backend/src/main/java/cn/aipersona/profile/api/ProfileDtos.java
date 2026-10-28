@@ -36,4 +36,5 @@ public final class ProfileDtos {
     public record ProfileResponse(String profileId, String ownerUserId, int currentVersion, String status,
         Instant createdAt, Instant updatedAt, VersionResponse current) {}
     public record ErrorResponse(String code, String message, List<FieldError> errors, Instant timestamp) {}
+    public record EvidenceResponse(String evidenceId,int version,String sourceType,String sourceRef,String targetFieldPath,String rawExcerpt,JsonNode extractedValue,String status,Instant createdAt) {}
 }

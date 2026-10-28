@@ -1,0 +1,31 @@
+{
+  "questionnaireId": "paid-deep-persona-questionnaire-v1",
+  "version": "1.0.1",
+  "questions": 26,
+  "required": 15,
+  "optional": 11,
+  "files": [
+    {
+      "file": "paid-questionnaire-v1.json",
+      "sha256": "c5e58d0d1da5e539a7461f6999150ed1cc3f60596c14d12bd175e05d047156dc",
+      "runtimeMatchesProvided": true
+    },
+    {
+      "file": "paid-scoring-mapping-v1.json",
+      "sha256": "80860a1d1c86ad02f13a7731c768d84ef0c1a53e1abfe31eda99a2b49d23a5b3",
+      "runtimeMatchesProvided": true
+    },
+    {
+      "file": "paid-clarification-bank-v1.json",
+      "sha256": "511c656222242523a5d862a565dfaa70e6575036315804d13f8aba055c704374",
+      "runtimeMatchesProvided": true
+    }
+  ],
+  "schemaUnchanged": true,
+  "v1MigrationUnchanged": true,
+  "promotionArchiveUnchanged": true,
+  "providedSampleValidation": {
+    "schemaErrors": [],
+    "businessErrors": []
+  }
+}

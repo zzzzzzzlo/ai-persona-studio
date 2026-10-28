@@ -5,6 +5,7 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: HomeView },
+    { path:'/questionnaire',component:()=>import('@/views/QuestionnaireView.vue'),meta:{standalone:true}},
     ...(devToolsEnabled ? [{ path: '/dev/validate', component: () => import('@/views/ValidateView.vue') }] : []),
     { path: '/:pathMatch(.*)*', component: () => import('@/views/NotFoundView.vue') },
   ],

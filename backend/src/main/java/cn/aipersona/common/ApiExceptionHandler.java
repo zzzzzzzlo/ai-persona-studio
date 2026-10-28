@@ -31,6 +31,8 @@ public class ApiExceptionHandler {
     public ResponseEntity<ErrorResponse> integrity(DataIntegrityViolationException e) {
         return error(HttpStatus.CONFLICT,"DATA_CONFLICT","写入违反唯一性或数据完整性约束，事务已回滚",List.of());
     }
+    @ExceptionHandler(org.springframework.dao.DataAccessException.class)
+    public ResponseEntity<ErrorResponse> database(org.springframework.dao.DataAccessException e){return error(HttpStatus.INTERNAL_SERVER_ERROR,"DATABASE_SAVE_FAILED","数据库暂时不可用，答卷未确认保存，请保留草稿后重试",List.of());}
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ErrorResponse> notFound(NoResourceFoundException e) {
         return error(HttpStatus.NOT_FOUND,"NOT_FOUND","接口或页面不存在",List.of());

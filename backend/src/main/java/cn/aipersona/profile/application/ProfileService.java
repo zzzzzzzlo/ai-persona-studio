@@ -50,6 +50,15 @@ public class ProfileService {
     }
 
     public ProfileResponse get(String profileId) { return response(owned(profiles.findOwned(profileId,ownerId))); }
+    public VersionResponse getVersion(String profileId,int version) {
+        owned(profiles.findOwned(profileId,ownerId));var v=versions.findVersion(profileId,version);
+        if(v==null)throw new ProfileException(HttpStatus.NOT_FOUND,"PROFILE_VERSION_NOT_FOUND","画像版本不存在",List.of());
+        return new VersionResponse(v.versionNumber,v.schemaVersion,v.readyForCompilation,v.changeReason,json.convertValue(read(v.profileJson),ProfileDocument.class),v.createdAt);
+    }
+    public List<EvidenceResponse> getEvidence(String profileId) {
+        var p=owned(profiles.findOwned(profileId,ownerId));
+        return evidence.findThroughVersion(profileId,p.currentVersion).stream().map(e->new EvidenceResponse(e.evidenceId,e.versionNumber,e.sourceType,e.sourceRef,e.targetFieldPath,e.rawExcerpt,read(e.extractedValue),e.status,e.createdAt)).toList();
+    }
 
     @Transactional
     public ProfileResponse addVersion(String profileId, NewVersionRequest request) {

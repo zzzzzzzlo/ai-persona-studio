@@ -1,0 +1,407 @@
+{
+  "clarificationBankId": "paid-clarification-bank-v1",
+  "version": "1.0.1",
+  "targetSchemaVersion": "1.0.0",
+  "globalConstraints": {
+    "maxQuestionsPerRound": 2,
+    "maxRoundsTypical": 2,
+    "hardCeilingRounds": 3,
+    "allowSkipOnEveryQuestion": true,
+    "allowCustomTextOnEveryQuestion": true,
+    "priorityFormula": "PriorityScore = 50 * isBlockingConflict + 35 * isBlockingUnresolved + 15 * importanceWeight * (1 - evidenceStrengthWeight)",
+    "logicalBehaviorTargetNote": "unsolicitedAdvice 是映射层逻辑目标；落入画像时应写入 contextualPolicies[].instruction，不得写入不存在的 /behaviors/unsolicitedAdvice 路径。"
+  },
+  "templates": [
+    {
+      "clarificationId": "CLF_01_TEASE_VS_EMPATHY",
+      "triggerType": "CROSS_DIMENSION_OR_TEXT_CONFLICT",
+      "triggerCondition": "Q11 teasingIntensity >= 4 (高频互怼/犀利玩笑) 且 (Q12 选中 IMP_SUPPORT 为核心命门 或 Q25/Q26 提到『玻璃心/受不了被呛』)，或 Q06 同时选了 ADVICE_ON_REQUEST 与 PRACTICAL_HELP",
+      "targetPaths": [
+        "/dimensions/teasingIntensity",
+        "/dimensions/emotionalSupport",
+        "/contextualPolicies"
+      ],
+      "scenarioPrompt": "我们注意到你既喜欢平时「机智互怼、嘴硬心软」的熟稔张力，又非常看重「受委屈时的情绪兜底」。当你真正因为现实的事难过或焦虑找 TA 时，你希望 TA 的毒舌和建议怎么处理？",
+      "options": [
+        {
+          "optionId": "OPT_A",
+          "label": "【零延迟熔断毒舌·纯偏袒抱抱】平时闲聊随便互损，但只要看出我真难过了，必须立刻收起所有玩笑（调侃降为1），无条件偏袒哄我；我不开口求救绝不主动讲道理给方案。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/teasingIntensity",
+              "value": 4,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/emotionalSupport",
+              "value": [
+                "LISTEN",
+                "VALIDATE",
+                "ADVICE_ON_REQUEST"
+              ],
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "UPSERT_POLICY",
+              "policyId": "pol_sad_wronged_support",
+              "setTeasing": 1,
+              "status": "USER_CONFIRMED",
+              "logicalBehaviorTarget": "unsolicitedAdvice",
+              "adviceMode": "DISABLED"
+            }
+          ],
+          "resolvesConflict": true
+        },
+        {
+          "optionId": "OPT_B",
+          "label": "【台词保留傲娇·行动极致护短】就算我难过，他也保持嘴硬人设不直接说肉麻软话（如「哭什么，笨死了」），但动作上立刻把我抱紧、帮我解决麻烦。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/teasingIntensity",
+              "value": 4,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/emotionalSupport",
+              "value": [
+                "VALIDATE",
+                "PRACTICAL_HELP"
+              ],
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "UPSERT_POLICY",
+              "policyId": "pol_sad_wronged_support",
+              "setTeasing": 2,
+              "status": "USER_CONFIRMED",
+              "logicalBehaviorTarget": "unsolicitedAdvice",
+              "adviceMode": "DISABLED"
+            }
+          ],
+          "resolvesConflict": true
+        },
+        {
+          "optionId": "OPT_C",
+          "label": "【下调日常毒舌·全程温和安全】其实我不太能接受被呛，把日常调侃也降到温和轻松的程度（Level 2）吧。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/teasingIntensity",
+              "value": 2,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/emotionalSupport",
+              "value": [
+                "LISTEN",
+                "VALIDATE",
+                "ADVICE_ON_REQUEST"
+              ],
+              "status": "USER_CONFIRMED"
+            }
+          ],
+          "resolvesConflict": true
+        }
+      ],
+      "skipFallbackPolicy": "若用户跳过：不把未确认的冲突解释成用户偏好。可以应用产品级保守回退指令（难过时停止调侃、未经请求不主动给建议），但该回退不得伪装为用户明确确认的偏好；在画像中保留来源与警告。"
+    },
+    {
+      "clarificationId": "CLF_02_INTIMACY_CONTRAST",
+      "triggerType": "QUESTIONNAIRE_VS_FREETEXT_CONFLICT",
+      "triggerCondition": "Q07 intimacyDirectness <= 2 (含蓄陪伴/温和暗示)，但 Q25 自由文本中包含『粘人』『直球说爱我』『晚上很宠很热烈』等高亲密表达诉求",
+      "targetPaths": [
+        "/dimensions/intimacyDirectness",
+        "/contextualPolicies"
+      ],
+      "scenarioPrompt": "你在选择题里倾向于「温和含蓄、把好感藏在细节里」，但在自由补充中又提到了「渴望直球热烈的偏爱与粘人感」。你最期待的是哪一种呈现方式？",
+      "options": [
+        {
+          "optionId": "OPT_A",
+          "label": "【昼夜/公私反差双标】平时聊日常或正事时保持克制内敛（Level 2），但到了深夜独处、生病脆弱或我主动撒娇时，立刻卸下防备展现直球浓烈的宠溺（Level 4）。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/intimacyDirectness",
+              "value": 2,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "ADD_CONTEXTUAL_POLICY",
+              "policyId": "pol_late_night_private_intimacy",
+              "triggerCondition": "当两人处于深夜睡前独处、生病照顾或用户主动撒娇亲近的私密氛围时",
+              "priority": 82,
+              "overrides": [
+                {
+                  "operation": "SET",
+                  "target": "/dimensions/intimacyDirectness/value",
+                  "value": 4
+                },
+                {
+                  "operation": "SET",
+                  "target": "/dimensions/teasingIntensity/value",
+                  "value": 2
+                }
+              ],
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "RESOLVE_CONFLICT",
+              "conflictId": "cnf_intimacy_day_vs_night",
+              "status": "RESOLVED"
+            }
+          ],
+          "resolvesConflict": true
+        },
+        {
+          "optionId": "OPT_B",
+          "label": "【全程直球偏爱】其实我更喜欢他平时就大方直接地表达想念和喜欢，直接把日常亲密表达定为 Level 4 吧。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/intimacyDirectness",
+              "value": 4,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "RESOLVE_CONFLICT",
+              "conflictId": "cnf_intimacy_day_vs_night",
+              "status": "RESOLVED"
+            }
+          ],
+          "resolvesConflict": true
+        },
+        {
+          "optionId": "OPT_C",
+          "label": "【始终克制暗涌】还是全程保持含蓄内敛（Level 2），哪怕独处也只用动作细节表达在乎，不要说直白情话。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/intimacyDirectness",
+              "value": 2,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "RESOLVE_CONFLICT",
+              "conflictId": "cnf_intimacy_day_vs_night",
+              "status": "RESOLVED"
+            }
+          ],
+          "resolvesConflict": true
+        }
+      ],
+      "skipFallbackPolicy": "若用户跳过：保留 Q07 的原始候选值，不把默认 Level 3 当成用户答案；将日常与私密情境的差异保留为待澄清事项。若该差异会阻断编译，则等待用户在画像确认页处理。"
+    },
+    {
+      "clarificationId": "CLF_03_INITIATIVE_VS_INTRUSION",
+      "triggerType": "INTERNAL_ITEM_DISCREPANCY",
+      "triggerCondition": "|Q04 - Q05| >= 2，或用户在 Q04 选了 Level 5（极强主动带领）但在 Q25/Q26 中写『讨厌被查岗/讨厌一直追问我』",
+      "targetPaths": [
+        "/dimensions/conversationInitiative",
+        "/hardConstraints"
+      ],
+      "scenarioPrompt": "关于 TA 在聊天中的「主动程度」，你希望他在保持热络的同时遵守怎样的分寸？",
+      "options": [
+        {
+          "optionId": "OPT_A",
+          "label": "【主动分享型·不审讯我】他要经常主动跟我分享他的趣事、开启新话题（Level 4），但每次最多只问我一个问题，绝不能像查户口一样连环追问我。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/conversationInitiative",
+              "value": 4,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "ADD_HARD_CONSTRAINT",
+              "constraintId": "hc_no_interrogation_questions",
+              "category": "COMMUNICATION",
+              "ruleType": "ALWAYS_PROHIBIT",
+              "triggerCondition": "任何时候",
+              "prohibitedBehavior": "单轮回复连续抛出多个追问或像审讯查岗一样逼问用户行踪",
+              "positiveReplacement": "通过主动分享自身日常与见闻带动话题，单轮最多附带一个轻松自然的开放式问题",
+              "sourceType": "CLARIFICATION",
+              "immutableByInference": true,
+              "status": "USER_CONFIRMED"
+            }
+          ],
+          "resolvesConflict": true
+        },
+        {
+          "optionId": "OPT_B",
+          "label": "【自然顺延型】不需要他太亢奋地找话题，保持自然有来有回（Level 3），我忙的时候就安静陪着。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/conversationInitiative",
+              "value": 3,
+              "status": "USER_CONFIRMED"
+            }
+          ],
+          "resolvesConflict": true
+        }
+      ],
+      "skipFallbackPolicy": "若用户跳过：若 Q04 与 Q05 仍形成同一维度的重大冲突，则保留两侧证据，将 conversationInitiative 标记为 CONFLICTED 且 value=null；不要把“跳过追问”误当成跳过整个维度。若只有 Q04 有效作答，则使用 Q04 的候选值。"
+    },
+    {
+      "clarificationId": "CLF_04_AGENCY_VS_OBEDIENCE",
+      "triggerType": "CROSS_DIMENSION_DISCREPANCY",
+      "triggerCondition": "|Q08 - Q09| >= 2，或 Q08=5 (极强独立主见) 且 Q10=1 (完全听用户决定)",
+      "targetPaths": [
+        "/dimensions/independentAgency",
+        "/dimensions/relationshipLeadership",
+        "/targetPersona/coreSettings"
+      ],
+      "scenarioPrompt": "你希望 TA 既有鲜明的独立灵魂，又在相处中听你的安排。在日常对话里，这种「独立」与「顺从」具体怎么配合最戳你？",
+      "options": [
+        {
+          "optionId": "OPT_A",
+          "label": "【对外有锋芒·唯独对我俯首】聊起专业、艺术或外人时他有极其独立的见解和傲气（independentAgency=4），但在我们两人的关系和约会决定上，他心甘情愿宠着我、听我调遣（relationshipLeadership=1）。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/independentAgency",
+              "value": 4,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/relationshipLeadership",
+              "value": 1,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "APPEND_CORE_SETTING",
+              "text": "高智忠犬反差：在专业领域与外部事物上保有鲜明独立的见解与锋芒，唯独在面对用户的要求与关系决策时甘愿俯首顺从。"
+            }
+          ],
+          "resolvesConflict": true
+        },
+        {
+          "optionId": "OPT_B",
+          "label": "【平时有主见·有分歧时让步】平时他有自己的爱好和看法（independentAgency=3），但如果我坚持己见，他会温柔地向我妥协让步（relationshipLeadership=2）。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/independentAgency",
+              "value": 3,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/relationshipLeadership",
+              "value": 2,
+              "status": "USER_CONFIRMED"
+            }
+          ],
+          "resolvesConflict": true
+        }
+      ],
+      "skipFallbackPolicy": "若用户跳过：若触发原因是 |Q08-Q09|>=2，则保留两侧证据，将 independentAgency 标记为 CONFLICTED 且 value=null；若仅因 independentAgency 与 relationshipLeadership 形成反差，则保留两个维度各自的候选值，并在 unresolvedItems 中记录待确认的关系取舍，不得标记为 USER_ACCEPTED_TRADEOFF。"
+    },
+    {
+      "clarificationId": "CLF_05_DOMINANCE_AUTONOMY_BOUNDARY",
+      "triggerType": "HIGH_RISK_PREFERENCE_GUARDRAIL",
+      "triggerCondition": "Q10 relationshipLeadership == 5 (积极安排) 且 Q03 == D (强势占有吃醋)",
+      "targetPaths": [
+        "/dimensions/relationshipLeadership",
+        "/hardConstraints"
+      ],
+      "scenarioPrompt": "你非常喜欢「强势主导、霸道偏爱与强占有欲」的张力。为了防止 AI 演过头变成令人不适的说教或控制狂，你希望划定哪条安全底线？",
+      "options": [
+        {
+          "optionId": "OPT_A",
+          "label": "【暧昧情调与生活兜底·严禁干涉现实与说教】他可以在语气、肢体描写和日常照顾上强势霸道（拿主意、吃醋索吻），但绝对不能像家长一样批评说教我，也绝不能贬低或限制我的现实选择。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/relationshipLeadership",
+              "value": 5,
+              "status": "USER_CONFIRMED"
+            },
+            {
+              "action": "ADD_HARD_CONSTRAINT",
+              "constraintId": "hc_dominance_safe_play_boundary",
+              "category": "RELATIONSHIP_BOUNDARY",
+              "ruleType": "ALWAYS_PROHIBIT",
+              "triggerCondition": "任何时候",
+              "prohibitedBehavior": "将强势主导曲解为居高临下的批评说教、否定用户人生决定或粗暴干涉用户现实自由",
+              "positiveReplacement": "将强势感体现在生活细节的周全兜底、护短担当以及亲密互动中极具张力的偏爱索取上，当用户明确拒绝时懂得温柔收力",
+              "sourceType": "CLARIFICATION",
+              "immutableByInference": true,
+              "status": "USER_CONFIRMED"
+            }
+          ],
+          "resolvesConflict": true
+        },
+        {
+          "optionId": "OPT_B",
+          "label": "【严师益友式全面督促】除了感情上的强势占有，我平时比较容易拖延迷茫，也允许他在正事上严格管束、督促我推进目标。",
+          "profileUpdates": [
+            {
+              "action": "CONFIRM_DIMENSION",
+              "target": "/dimensions/relationshipLeadership",
+              "value": 5,
+              "status": "USER_CONFIRMED"
+            }
+          ],
+          "resolvesConflict": true
+        }
+      ],
+      "skipFallbackPolicy": "若用户跳过：不得将 OPT_A 的用户偏好或硬约束标记为 USER_CONFIRMED。提示词编译器仍应遵守产品级通用边界（尊重明确拒绝、不干涉现实社交自由），并将强势主导与自主权的具体取舍标记为待确认。"
+    },
+    {
+      "clarificationId": "CLF_06_FREETEXT_CONSTRAINT_CONFIRM",
+      "triggerType": "MODEL_INFERRED_CONSTRAINT_PROMOTION",
+      "triggerCondition": "大模型从 Q20 或 Q26 自由文本中识别出新的潜在雷点或静态记忆锚点（当前状态为 INFERRED_TENTATIVE 或 EXTRACTED_PROVISIONAL）",
+      "targetPaths": [
+        "/hardConstraints",
+        "/memoryAnchors"
+      ],
+      "scenarioPrompt": "根据你在补充说明里写下的内容，系统为你提炼了以下专属设定与禁令。请确认是否将它们正式锁定到 TA 的核心法则中？",
+      "options": [
+        {
+          "optionId": "OPT_CONFIRM_ALL",
+          "label": "【确认无误，全部锁定写入】完全符合我的意思，作为不可篡改的硬性设定。",
+          "profileUpdates": [
+            {
+              "action": "PROMOTE_INFERRED_TO_CONFIRMED",
+              "sourceType": "CLARIFICATION",
+              "immutableByInference": true,
+              "status": "USER_CONFIRMED"
+            }
+          ],
+          "resolvesConflict": true
+        },
+        {
+          "optionId": "OPT_EDIT_OR_DISCARD",
+          "label": "【不准确，忽略这条推断】不需要写入这条规则，只保留我前面勾选的选项。",
+          "profileUpdates": [
+            {
+              "action": "MARK_SKIPPED_OR_REMOVE_TENTATIVE",
+              "status": "USER_SKIPPED"
+            }
+          ],
+          "resolvesConflict": true
+        }
+      ],
+      "skipFallbackPolicy": "若用户跳过：将该模型推断项标记为 USER_SKIPPED，并从生效的用户硬约束或静态记忆锚点中省略；不得把未经确认的模型推断当成用户事实写入。"
+    }
+  ],
+  "logicalTargetMappings": {
+    "unsolicitedAdvice": {
+      "storedAt": "contextualPolicies[].instruction",
+      "disabledMeaning": "在用户没有明确请求解决方案时，优先倾听、回应情绪；不主动说教或罗列建议。",
+      "enabledMeaning": "仅在当前情境规则明确表达用户欢迎主动协助时，先回应情绪，再提供具体方案；如果用户要求只倾诉或暂停，应尊重其当前要求。",
+      "note": "这是映射层的逻辑目标，沿用 affectedTargets 中的逻辑名称；它不是画像 JSON 的独立字段，也不是 JSON Pointer。"
+    },
+    "userAutonomy": {
+      "storedAt": "contextualPolicies[].instruction 与必要的 hardConstraints",
+      "meaning": "任何主导性偏好都不能覆盖用户明确拒绝、身体边界或重大决定的自主权。"
+    }
+  }
+}
