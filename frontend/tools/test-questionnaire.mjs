@@ -41,4 +41,45 @@ test('Custom archetype and tone bounds are validated',()=>{
  a.customTexts={archetypePreset:'同行的虚构伴侣'};assert.deepEqual(M.validateAnswer(config.questions[0],a),[])
  const language=structuredClone(fixture.answers.Q22);language.selections.toneTags=['TONE_01','TONE_02','TONE_03','TONE_04'];language.customTexts={toneTags:'额外描述'};assert.ok(M.validateAnswer(config.questions[21],language).length)
 })
+test('Option labels include the eight value-based tone tags and ID fallback',()=>{
+ const options=config.questions.find(q=>q.questionId==='Q22').fields.find(f=>f.fieldId==='toneTags').options
+ assert.equal(options.length,8)
+ for(const o of options){assert.equal(M.optionText(o),o.value);assert.ok(M.optionText(o).trim());assert.notEqual(M.optionText(o),o.id)}
+ assert.equal(M.optionText({id:'test',label:'label',text:'text',value:'value'}),'label')
+ assert.equal(M.optionText({id:'test',text:'text',value:'value'}),'text')
+ assert.equal(M.optionText({id:'test'}),'test')
+})
+test('Optional text distinguishes unanswered, skipped, answered and invalid',()=>{
+ const q=config.questions.find(q=>q.questionId==='Q25')
+ for(const a of [undefined,{},M.initialAnswer(q),{text:''},{text:'  '}]){assert.equal(M.answerState(q,a),'UNANSWERED');assert.deepEqual(M.validateAnswer(q,a),[])}
+ assert.equal(M.answerState(q,{skipped:true}),'SKIPPED')
+ assert.equal(M.answerState(q,{text:' 有效内容 '}),'ANSWERED')
+ assert.equal(M.answerState(q,{text:'x'.repeat(4001)}),'INVALID')
+ assert.equal(M.answerState(q,{skipped:true,text:'仍有内容'}),'INVALID')
+})
+test('Blank anchors and untouched optional choices never count as answered',()=>{
+ const memory=config.questions.find(q=>q.questionId==='Q24'),anchors=Object.fromEntries(memory.slots.map(s=>[s.slotId,'  ']))
+ assert.equal(M.answerState(memory,{anchors}),'UNANSWERED')
+ anchors[memory.slots[1].slotId]='喜欢一起散步'
+ assert.equal(M.answerState(memory,{anchors}),'ANSWERED')
+ const optional=config.questions.find(q=>q.questionId==='Q03');assert.equal(M.answerState(optional,M.initialAnswer(optional)),'UNANSWERED')
+ const required=config.questions.find(q=>q.questionId==='Q04');assert.equal(M.answerState(required,{}),'INVALID');assert.equal(M.answerState(required,{skipped:true}),'INVALID')
+ assert.equal(M.answerState(config.questions[0],{fields:{personaName:'只有名字'}}),'INVALID')
+ assert.equal(M.answerState(config.questions[12],{subAnswers:{Q13_A:['A1']}}),'INVALID')
+})
+test('Review labels and overall processed progress share the same state definition',()=>{
+ const answers={Q03:{skipped:true},Q04:fixture.answers.Q04,Q24:{anchors:{anc_rel_origin:''}},Q25:{text:' '},Q26:{text:'已填写'}}
+ assert.equal(M.processedQuestionCount(config,answers),3)
+ assert.equal(M.answerStateText[M.answerState(config.questions[2],answers.Q03)],'已跳过')
+ assert.equal(M.answerStateText[M.answerState(config.questions[3],answers.Q04)],'已填写')
+ assert.equal(M.answerStateText[M.answerState(config.questions[23],answers.Q24)],'未填写')
+ assert.equal(M.answerStateText[M.answerState(config.questions[0],answers.Q01)],'待修正')
+ assert.equal(M.processedQuestionCount(config,fixture.answers),26)
+})
+test('Pending receipt total supports both current and cached legacy receipts',()=>{
+ const old={clarificationCount:25,blockers:['dimension:a','policy:b'],warnings:['unresolved:c']}
+ assert.equal(M.receiptPendingItemCount(old),3)
+ assert.equal(M.receiptPendingItemCount({...old,clarificationCount:1,pendingItemCount:3}),3)
+ assert.equal(M.receiptPendingItemCount({...old,pendingItemCount:0}),0)
+})
 console.log(`${count} questionnaire test groups passed.`)

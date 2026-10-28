@@ -13,7 +13,7 @@ public class QuestionnaireConfiguration {
     public final JsonNode questionnaire, mapping, clarificationBank, catalog, engine;
     private final ObjectMapper json;
     private final Map<String,JsonNode> questions=new LinkedHashMap<>();
-    private static final Set<String> DISPLAY=Set.of("questionnaireId","version","title","estimatedMinutes","totalQuestions","modules","questions","moduleId","description","questionIds","questionId","questionType","required","allowSkip","minSelections","maxSelections","options","id","text","label","fields","fieldId","placeholder","maxLength","type","defaultValue","minItems","maxItems","subQuestions","subId","prompt","slots","slotId","selectionRules","exclusiveOptionIds","exclusiveOptionsApplyToAllOtherOptions","message");
+    private static final Set<String> DISPLAY=Set.of("questionnaireId","version","title","estimatedMinutes","totalQuestions","modules","questions","moduleId","description","questionIds","questionId","questionType","required","allowSkip","minSelections","maxSelections","options","id","text","label","value","fields","fieldId","placeholder","maxLength","type","defaultValue","minItems","maxItems","subQuestions","subId","prompt","slots","slotId","selectionRules","exclusiveOptionIds","exclusiveOptionsApplyToAllOtherOptions","message");
     public QuestionnaireConfiguration(ObjectMapper json) throws IOException {
         this.json=json;
         questionnaire=read("questionnaire/paid-questionnaire-v1.json"); mapping=read("questionnaire/paid-scoring-mapping-v1.json");
@@ -33,7 +33,31 @@ public class QuestionnaireConfiguration {
         var allIds=new HashSet<>(questions.keySet());questions.values().forEach(q->q.path("subQuestions").forEach(s->allIds.add(s.path("subId").asText())));
         mapping.path("dimensionSynthesisRules").properties().forEach(e->{if(!dims.contains(e.getKey()))throw new IllegalStateException("Unknown mapped dimension");for(var ref:e.getValue().path("primaryQuestions"))if(!allIds.contains(ref.path("questionId").asText()))throw new IllegalStateException("Unknown source question");});
         for(var module:questionnaire.path("modules"))for(var id:module.path("questionIds"))if(!questions.containsKey(id.asText()))throw new IllegalStateException("Unknown module question");
+        var confirmation=engine.path("policyConfirmation");
+        requireConfirmation(confirmation.path("default").asText());
+        confirmation.path("byQuestionId").properties().forEach(e->{
+            if(!questions.containsKey(e.getKey()))throw new IllegalStateException("Unknown confirmation question");
+            requireConfirmation(e.getValue().asText());
+        });
+        for(var check:engine.path("boundaryCrossChecks")) {
+            requireSelection(check.path("when"));
+            if(!questions.containsKey(check.path("relatedQuestionId").asText())||check.path("requiredBoundaries").isEmpty()||check.path("reviewQuestion").asText().isBlank())throw new IllegalStateException("Invalid boundary cross-check");
+            for(var signal:check.path("conflictingSelections")){
+                requireSelection(signal);
+                var index=signal.path("boundaryIndex");
+                if(!index.isInt()||index.asInt()<0||index.asInt()>=check.path("requiredBoundaries").size()||!signal.path("targetPath").asText().startsWith("/")||signal.path("description").asText().isBlank())throw new IllegalStateException("Invalid boundary conflict signal");
+            }
+        }
     }
+    private void requireConfirmation(String value){if(!Set.of("EXTRACTED_PROVISIONAL","DIRECT_USER_CONFIRMED").contains(value))throw new IllegalStateException("Unknown confirmation policy: "+value);}
+    private void requireSelection(JsonNode ref){
+        var q=questions.get(ref.path("questionId").asText());if(q==null)throw new IllegalStateException("Unknown cross-check question");
+        JsonNode options=q.path("options");
+        if(ref.has("subQuestionId")){options=null;for(var sub:q.path("subQuestions"))if(sub.path("subId").equals(ref.path("subQuestionId")))options=sub.path("options");}
+        if(options!=null)for(var option:options)if(option.path("id").equals(ref.path("optionId")))return;
+        throw new IllegalStateException("Unknown cross-check option");
+    }
+    public boolean directlyConfirmsPolicy(String questionId){return engine.path("policyConfirmation").path("byQuestionId").path(questionId).asText(engine.path("policyConfirmation").path("default").asText()).equals("DIRECT_USER_CONFIRMED");}
     private JsonNode read(String path) throws IOException {try(var in=new ClassPathResource(path).getInputStream()){return json.readTree(in);}}
     public Collection<JsonNode> questions(){return questions.values();}
     public JsonNode question(String id){return questions.get(id);}

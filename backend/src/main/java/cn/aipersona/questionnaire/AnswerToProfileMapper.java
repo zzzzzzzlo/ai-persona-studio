@@ -113,8 +113,9 @@ public class AnswerToProfileMapper {
         void policy(JsonNode source,String qid,String trigger,String instruction){
             var p=policies.addObject();p.put("policyId",source.path("policyId").asText());p.put("triggerCondition",trigger);p.put("priority",source.path("priority").asInt());
             var targets=p.putArray("affectedTargets");for(var t:source.path("affectedTargets"))if(!t.asText().equals("USER_AUTONOMY"))targets.add(t.asText());
-            p.set("overrides",source.has("overrides")?source.path("overrides").deepCopy():json.createArrayNode());p.put("instruction",instruction);p.put("status","EXTRACTED_PROVISIONAL");
-            refs(p,proof(qid,"/contextualPolicies/"+(policies.size()-1),p,false,SourceType.QUESTIONNAIRE));
+            boolean confirmed=config.directlyConfirmsPolicy(qid);
+            p.set("overrides",source.has("overrides")?source.path("overrides").deepCopy():json.createArrayNode());p.put("instruction",instruction);p.put("status",confirmed?"USER_CONFIRMED":"EXTRACTED_PROVISIONAL");
+            refs(p,proof(qid,"/contextualPolicies/"+(policies.size()-1),p,confirmed,SourceType.QUESTIONNAIRE));
         }
         void constraint(JsonNode source,String qid){
             var c=constraints.addObject();for(String field:List.of("constraintId","category","ruleType","triggerCondition","prohibitedBehavior","positiveReplacement"))c.set(field,source.path(field).deepCopy());
@@ -143,6 +144,23 @@ public class AnswerToProfileMapper {
             }
         }
         void crossChecks(){
+            for(var check:config.engine.path("boundaryCrossChecks")) {
+                if(!isSelected(check.path("when")))continue;
+                String qid=check.path("when").path("questionId").asText(),path="/targetPersona/coreSettings";
+                var core=(ArrayNode)profile.at(path);int boundaryStart=core.size();
+                for(var boundary:check.path("requiredBoundaries")) {
+                    core.add(boundary.asText());proof(qid,path+"/"+(core.size()-1),boundary,true,SourceType.QUESTIONNAIRE);
+                }
+                // Absence of a Q19 prohibition never implies consent or a conflict.
+                pending(path,check.path("reviewQuestion").asText(),false);
+                for(var signal:check.path("conflictingSelections"))if(isSelected(signal)) {
+                    var conflict=conflicts.addObject();conflict.put("conflictId",check.path("checkId").asText()+"-"+conflicts.size());
+                    conflict.putArray("targetPaths").add(path+"/"+(boundaryStart+signal.path("boundaryIndex").asInt())).add(signal.path("targetPath").asText());
+                    conflict.put("description",qid+" 的最低边界与 "+signal.path("questionId").asText()+" 的明确选择冲突："+signal.path("description").asText());
+                    conflict.put("status","OPEN");conflict.putNull("resolution");
+                    proof(signal.path("questionId").asText(),"/conflicts/"+(conflicts.size()-1),conflict,false,SourceType.QUESTIONNAIRE);
+                }
+            }
             for(var check:config.engine.path("clarificationChecks")){
                 String qid=check.path("selectedQuestion").asText();var a=answer(qid);if(a==null||!a.selected().contains(check.path("selectedOption").asText()))continue;
                 boolean triggered=false;
@@ -150,6 +168,7 @@ public class AnswerToProfileMapper {
                 if(triggered){String path="/dimensions/"+check.path("dimension").asText();var d=(ObjectNode)profile.at(path);d.putNull("value");d.put("status","NEEDS_CLARIFICATION");pending(path,check.path("question").asText(),true);}
             }
         }
+        boolean isSelected(JsonNode ref){var a=answer(ref.path("questionId").asText());if(a==null)return false;return (ref.has("subQuestionId")?a.subValues().getOrDefault(ref.path("subQuestionId").asText(),List.of()):a.selected()).contains(ref.path("optionId").asText());}
     }
     static JsonNode find(JsonNode array,String key,String value){for(var n:array)if(n.path(key).asText().equals(value))return n;throw new IllegalStateException("Invalid validated reference "+key);}
     static String last(String path){return path.substring(path.lastIndexOf('/')+1);}

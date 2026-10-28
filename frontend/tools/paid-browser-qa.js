@@ -12,25 +12,36 @@ async(page)=>{
   await page.screenshot({path:'output/playwright/paid-intro.png',fullPage:true,animations:'disabled'})
   await page.getByRole('button',{name:'开始塑造 TA',exact:true}).click()
   await page.getByRole('button',{name:'下一题',exact:false}).click();assert(await page.getByRole('alert').count()>0,'Required validation missing')
-  const expectedAnswers={}
+  const expectedAnswers={};let toneLabels=[]
   for(let index=0;index<config.questions.length;index++){
     const q=config.questions[index]
     await page.locator('.paid-card h1').waitFor();assert(await page.locator('.paid-card h1').textContent()===q.title,'Question sequence '+q.questionId)
-    if(q.options){
+    if(q.options&&q.questionId!=='Q18'){
       const count=q.minSelections||1
       for(let i=0;i<count;i++){
-        await page.locator('[data-option="'+q.options[i].id+'"]').click()
+        await page.locator('[data-option="'+(q.questionId==='Q03'?'D':q.options[i].id)+'"]').click()
         if(q.questionId==='Q12'&&i===0){await page.getByRole('button',{name:'下一题',exact:false}).click();assert(await page.locator('.paid-field-errors').count()===1,'Multi minimum not validated')}
       }
     }else if(q.fields){
       for(const field of q.fields){
-        if(field.type?.startsWith('MULTI_'))await page.locator('.paid-chips button').first().click()
+        if(field.type?.startsWith('MULTI_')){
+          const buttons=page.locator('.paid-chips button');assert(await buttons.count()===8,'Expected all 8 tone tags')
+          for(let i=0;i<8;i++){const button=buttons.nth(i),text=(await button.innerText()).trim();assert(await button.isVisible()&&text.length>0,'Tone tag has no visible text '+i);assert(text===field.options[i].value,'Tone label changed '+i);toneLabels.push(text)}
+          await buttons.first().click();assert(await buttons.first().getAttribute('aria-pressed')==='true','Tone tag selection failed')
+          await page.screenshot({path:'output/playwright/paid-tone-tags.png',fullPage:true,animations:'disabled'})
+        }
         else if(field.options)await page.getByRole('combobox',{name:field.label,exact:true}).selectOption(field.defaultValue||field.options[0].id)
         else await page.getByRole('textbox',{name:field.label,exact:true}).fill(field.defaultValue|| (field.fieldId==='personaName'?'林间':field.fieldId.includes('Address')?'小林':'认识七年，喜欢散步和阅读的虚构伴侣。'))
       }
     }else if(q.subQuestions){for(let i=0;i<q.subQuestions.length;i++)await page.locator('.paid-subquestions section').nth(i).getByRole('button').first().click()}
-    else if(q.slots){for(const slot of q.slots)await page.getByRole('textbox',{name:slot.label,exact:true}).fill('相识七年，一起散步，尊重各自的生活。')}
-    else await page.getByRole('textbox',{name:q.title,exact:true}).fill('希望在我情绪低落时先倾听，不替我决定。')
+    else if(q.slots){
+      const progress=Number(await page.getByRole('progressbar').getAttribute('aria-valuenow'))
+      for(const slot of q.slots)await page.getByRole('textbox',{name:slot.label,exact:true}).fill('相识七年，一起散步，尊重各自的生活。')
+      assert(Number(await page.getByRole('progressbar').getAttribute('aria-valuenow'))===progress+1,'Filled anchors not counted')
+      for(const slot of q.slots)await page.getByRole('textbox',{name:slot.label,exact:true}).fill('')
+      assert(Number(await page.getByRole('progressbar').getAttribute('aria-valuenow'))===progress,'Empty anchors counted as completed')
+    }
+    else if(!q.options)await page.getByRole('textbox',{name:q.title,exact:true}).fill(q.questionId==='Q20'?'':'希望在我情绪低落时先倾听，不替我决定。')
     if(index===0||index===5||index===24){
       const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.startsWith('ai-persona:questionnaire-draft:')))))
       expectedAnswers[q.questionId]=saved.answers[q.questionId]
@@ -43,13 +54,25 @@ async(page)=>{
     if(index===24)await page.screenshot({path:'output/playwright/paid-text.png',fullPage:true,animations:'disabled'})
     const layout=await page.evaluate(()=>({width:innerWidth,doc:document.documentElement.scrollWidth}));assert(layout.doc<=layout.width,'Horizontal overflow '+q.questionId)
     assert(!requests.some(r=>r.method==='POST'),'Backend called before final submission')
-    await page.getByRole('button',{name:index===config.questions.length-1?'检查整份答卷':'下一题',exact:false}).click()
+    await page.getByRole('button',{name:q.questionId==='Q18'?'暂时跳过这题':index===config.questions.length-1?'检查整份答卷':'下一题',exact:false}).click()
   }
   await page.locator('.paid-review').waitFor()
+  const reviewStates=await page.locator('.paid-review small').evaluateAll(nodes=>nodes.map(n=>({state:n.dataset.answerState,text:n.innerText})))
+  assert(reviewStates.length===26,'Review missing questions')
+  for(let i=0;i<26;i++){const expected=i===17?['SKIPPED','已跳过']:[19,23].includes(i)?['UNANSWERED','未填写']:['ANSWERED','已填写'];assert(reviewStates[i].state===expected[0]&&reviewStates[i].text===expected[1],'Wrong review state Q'+(i+1))}
+  await page.screenshot({path:'output/playwright/paid-review-states.png',fullPage:true,animations:'disabled'})
   const savedDraft=await page.evaluate(()=>JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.startsWith('ai-persona:questionnaire-draft:')))))
+  await page.evaluate(d=>{const key=Object.keys(localStorage).find(k=>k.startsWith('ai-persona:questionnaire-draft:'));d.answers.Q04={};localStorage.setItem(key,JSON.stringify(d))},savedDraft)
+  await page.reload();await page.locator('.paid-review').waitFor();assert(await page.locator('.paid-review small').nth(3).innerText()==='待修正','Invalid required review label')
+  await page.getByTestId('submit').click();await page.locator('.paid-step').waitFor();assert(!requests.some(r=>r.method==='POST'),'Invalid review submitted')
+  await page.evaluate(d=>{localStorage.setItem(`ai-persona:questionnaire-draft:${d.questionnaireId}:${d.questionnaireVersion}`,JSON.stringify(d))},savedDraft)
+  await page.reload();await page.locator('.paid-review').waitFor()
+  await page.locator('.paid-review li button').last().click();assert(await page.getByRole('progressbar').getAttribute('aria-valuenow')==='24','Unanswered optional questions included in progress');await page.getByRole('button',{name:'检查整份答卷',exact:false}).click()
   const postStart=requests.filter(r=>r.method==='POST').length
+  const receiptResponse=page.waitForResponse(r=>r.url().endsWith('/api/v1/questionnaire-submissions')&&r.request().method()==='POST')
   await page.getByTestId('submit').dblclick()
   await page.locator('.paid-success').waitFor()
+  const receipt=await(await receiptResponse).json()
   assert(requests.filter(r=>r.method==='POST').length-postStart===1,'Duplicate normal submit')
   assert(await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('ai-persona:questionnaire-draft:')).length)===0,'Draft not cleared after success')
   const firstId=await page.getByTestId('profile-id').textContent()
@@ -58,8 +81,26 @@ async(page)=>{
   const evidence=await(await page.request.get('http://127.0.0.1:5180/api/v1/profiles/'+firstId+'/evidence')).json()
   assert(profile.currentVersion===1&&profile.current.profile.schemaVersion==='1.0.0','Stored profile invalid')
   assert(evidence.length>20,'Stored evidence missing')
+  const doc=profile.current.profile
+  assert(doc.linguisticConfig.tone.length===1&&doc.linguisticConfig.tone[0]===toneLabels[0],'Selected tone did not persist')
+  const crisis=doc.contextualPolicies.find(p=>p.policyId==='pol_conflict_angry_coax')
+  assert(crisis.status==='USER_CONFIRMED','Q16 confirmation incorrect')
+  assert(crisis.evidenceRefs.every(ref=>evidence.some(e=>e.evidenceId===ref&&e.sourceType==='QUESTIONNAIRE'&&e.status==='CONFIRMED')),'Q16 lacks confirmed user evidence')
+  const boundaries=['不限制现实社交。','不逼问现实行踪。','不无视用户身体边界；用户不愿意时不得强行靠近。']
+  assert(boundaries.every(b=>doc.targetPersona.coreSettings.includes(b)),'Q03 D minimum boundaries lost')
+  const coreReview=doc.unresolvedItems.find(i=>i.targetPath==='/targetPersona/coreSettings'&&i.status==='OPEN');assert(coreReview&&!coreReview.blocking,'Boundary review missing or blocks valid Q19 none')
+  const pointer=path=>path.split('/').slice(1).reduce((v,k)=>v?.[k.replace(/~1/g,'/').replace(/~0/g,'~')],doc)
+  for(const e of evidence)assert(e.targetFieldPath===''||pointer(e.targetFieldPath)!==undefined,'Evidence path missing '+e.targetFieldPath)
+  const walk=node=>{if(!node||typeof node!=='object')return;if(node.evidenceRefs){assert(node.evidenceRefs.every(ref=>evidence.some(e=>e.evidenceId===ref&&e.status!=='REJECTED')),'Unresolved evidence reference');if(node.status==='USER_CONFIRMED')assert(node.evidenceRefs.some(ref=>evidence.some(e=>e.evidenceId===ref&&e.status==='CONFIRMED'&&e.sourceType!=='MODEL_INFERENCE')),'Fake confirmation')}Object.values(node).forEach(walk)};walk(doc)
+  const validation=await(await page.request.post('http://127.0.0.1:5180/api/v1/profiles/validate',{data:{profile:doc}})).json();assert(validation.valid===true,'Official profile validation failed')
+  assert(receipt.pendingItemCount===receipt.blockers.length+receipt.warnings.length,'Pending count mismatch')
+  assert(receipt.clarificationCount===doc.unresolvedItems.filter(i=>i.status==='OPEN').length+doc.conflicts.filter(c=>c.status==='OPEN').length,'Clarification count mismatch')
+  assert(receipt.clarificationCount<receipt.pendingItemCount,'Provisional blockers counted as clarification questions')
+  assert((await page.locator('.paid-success dd').last().innerText())===receipt.pendingItemCount+' 项','UI uses wrong pending count')
   await page.screenshot({path:'output/playwright/paid-success.png',fullPage:true,animations:'disabled'})
   await page.reload();await page.locator('.paid-success').waitFor();assert(await page.getByTestId('profile-id').textContent()===firstId,'Success receipt lost on refresh')
+  await page.evaluate(()=>{const key=Object.keys(localStorage).find(k=>k.startsWith('ai-persona:questionnaire-receipt:')),r=JSON.parse(localStorage.getItem(key));delete r.pendingItemCount;r.clarificationCount=999;localStorage.setItem(key,JSON.stringify(r))})
+  await page.reload();await page.locator('.paid-success').waitFor();assert((await page.locator('.paid-success dd').last().innerText())===receipt.pendingItemCount+' 项','Legacy cached receipt fallback failed')
   // Failure/retry uses a real form-restorable draft and the actual submission API.
   const retryDraft=await page.evaluate(d=>{d.submissionId=crypto.randomUUID();d.attempted=false;d.stage='review';localStorage.setItem(`ai-persona:questionnaire-draft:${d.questionnaireId}:${d.questionnaireVersion}`,JSON.stringify(d));return d},savedDraft)
   await page.reload();await page.locator('.paid-review').waitFor()
@@ -83,5 +124,5 @@ async(page)=>{
   assert((await page.getByTestId('profile-id').textContent())===committed.profileId,'Lost-response retry created a different profile')
   await page.unroute('**/api/v1/questionnaire-submissions')
   assert(!errors.length,'Browser errors '+errors.join(';'))
-  return {passed:true,questions:26,draftKinds:['structured','multi','text'],normalPostCount:1,retryPostCount:3,retryStableId:true,lostResponseIdempotent:true,profileId:firstId,retryProfileId:committed.profileId,evidenceCount:evidence.length,noQuestionPosts:true,errors}
+  return {passed:true,questions:26,toneLabels,reviewStates,processedQuestions:24,officialSchemaValid:validation.valid,evidenceReferencesValid:true,q16Confirmed:true,q03Boundaries:boundaries,pendingItemCount:receipt.pendingItemCount,clarificationCount:receipt.clarificationCount,legacyReceiptCompatible:true,draftKinds:['structured','multi','text'],normalPostCount:1,retryPostCount:3,retryStableId:true,lostResponseIdempotent:true,profileId:firstId,retryProfileId:committed.profileId,evidenceCount:evidence.length,noQuestionPosts:true,errors}
 }

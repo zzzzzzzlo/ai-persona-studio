@@ -3,6 +3,7 @@ package cn.aipersona.questionnaire;
 import cn.aipersona.profile.application.ProfileService;
 import cn.aipersona.profile.api.ProfileDtos.*;
 import cn.aipersona.profile.domain.ProfileException;
+import cn.aipersona.profile.domain.ProfileDocument;
 import cn.aipersona.profile.persistence.*;
 import com.fasterxml.jackson.databind.*;
 import java.nio.charset.StandardCharsets;
@@ -32,8 +33,7 @@ public class QuestionnaireSubmissionService {
                 ProfileResponse saved=request.profileId()==null
                     ? profiles.create(new CreateProfileRequest(mapped.profile(),"付费问卷 "+request.questionnaireVersion()+" 提交",mapped.evidence(),null))
                     : profiles.addVersion(request.profileId(),new NewVersionRequest(request.expectedCurrentVersion(),mapped.profile(),"新的付费问卷答卷",mapped.evidence(),null));
-                var readiness=saved.current().profile().readiness();
-                var response=new SubmissionResponse(request.submissionId(),saved.profileId(),saved.currentVersion(),request.questionnaireVersion(),"COMPLETED",saved.status(),readiness.readyForCompilation(),readiness.blockers().size()+readiness.warnings().size(),readiness.blockers(),readiness.warnings(),Instant.now());
+                var response=receipt(request.submissionId(),saved.profileId(),saved.currentVersion(),request.questionnaireVersion(),saved.status(),saved.current().profile(),Instant.now());
                 row.profileId=saved.profileId();row.profileVersion=saved.currentVersion();row.processingStatus="COMPLETED";row.responseJson=encode(json.valueToTree(response));row.processedAt=response.processedAt();
                 if(submissions.updateById(row)!=1)throw new IllegalStateException("Submission write failed");return response;
             });
@@ -49,7 +49,17 @@ public class QuestionnaireSubmissionService {
     }
     private SubmissionResponse decode(QuestionnaireSubmissionEntity row){
         if(!"COMPLETED".equals(row.processingStatus))throw error(HttpStatus.CONFLICT,"SUBMISSION_IN_PROGRESS","提交仍在处理中，请使用相同 ID 重试","/submissionId");
-        try{return json.readValue(row.responseJson,SubmissionResponse.class);}catch(Exception e){throw new IllegalStateException("Stored receipt invalid",e);}
+        try{
+            var stored=json.readTree(row.responseJson);var response=json.treeToValue(stored,SubmissionResponse.class);
+            // Old receipts counted readiness notices as clarifications. Normalize from their own immutable snapshot.
+            if(!stored.has("pendingItemCount"))return receipt(response.submissionId(),response.profileId(),response.profileVersion(),response.questionnaireVersion(),response.profileStatus(),profiles.getVersion(row.profileId,row.profileVersion).profile(),response.processedAt());
+            return response;
+        }catch(Exception e){throw new IllegalStateException("Stored receipt invalid",e);}
+    }
+    private SubmissionResponse receipt(String submissionId,String profileId,int version,String questionnaireVersion,String status,ProfileDocument profile,Instant processedAt){
+        var readiness=profile.readiness();
+        int clarificationCount=Math.toIntExact(profile.unresolvedItems().stream().filter(i->i.status().equals("OPEN")).count()+profile.conflicts().stream().filter(c->c.status().equals("OPEN")).count());
+        return new SubmissionResponse(submissionId,profileId,version,questionnaireVersion,"COMPLETED",status,readiness.readyForCompilation(),clarificationCount,readiness.blockers().size()+readiness.warnings().size(),readiness.blockers(),readiness.warnings(),processedAt);
     }
     private String hash(SubmissionRequest request){try{return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(canonical(json.valueToTree(request)).getBytes(StandardCharsets.UTF_8)));}catch(Exception e){throw new IllegalStateException(e);}}
     private String canonical(JsonNode node){

@@ -28,7 +28,7 @@ public final class QuestionnaireDtos {
         @Pattern(regexp="[0-9a-fA-F-]{36}") String profileId,
         @Min(1) Integer expectedCurrentVersion) {}
     public record SubmissionResponse(String submissionId,String profileId,int profileVersion,String questionnaireVersion,
-        String processingStatus,String profileStatus,boolean readyForCompilation,int clarificationCount,
+        String processingStatus,String profileStatus,boolean readyForCompilation,int clarificationCount,int pendingItemCount,
         List<String> blockers,List<String> warnings,Instant processedAt) {}
     static ProfileException error(HttpStatus status,String code,String message,String path) {
         return new ProfileException(status,code,message,List.of(new FieldError(path,message)));

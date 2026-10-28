@@ -1,18 +1,32 @@
-export interface Option { id:string; text?:string; label?:string }
+export interface Option { id:string; text?:string; label?:string; value?:string }
+export const optionText=(o:Option)=>o.label||o.text||o.value||o.id
 export interface Field { fieldId:string; label:string; placeholder?:string; type?:string; required?:boolean; maxLength?:number; minItems?:number;maxItems?:number;defaultValue?:string;options?:Option[] }
 export interface SubQuestion { subId:string;prompt:string;options:Option[] }
 export interface Question { questionId:string;moduleId:string;title:string;questionType:string;required:boolean;allowSkip:boolean;minSelections?:number;maxSelections?:number;maxTextLength?:number;placeholder?:string;options?:Option[];fields?:Field[];subQuestions?:SubQuestion[];slots?:{slotId:string;label:string;placeholder?:string}[];selectionRules?:{exclusiveOptionIds:string[];message:string} }
 export interface Questionnaire {questionnaireId:string;version:string;title:string;estimatedMinutes:string;totalQuestions:number;modules:{moduleId:string;title:string;description:string;questionIds:string[]}[];questions:Question[]}
 export interface Answer {selectedOptionIds?:string[];text?:string;fields?:Record<string,string>;selections?:Record<string,string[]>;subAnswers?:Record<string,string[]>;customTexts?:Record<string,string>;anchors?:Record<string,string>;skipped?:boolean}
 export interface Draft {questionnaireId:string;questionnaireVersion:string;currentIndex:number;answers:Record<string,Answer>;updatedAt:string;submissionId:string;attempted:boolean;stage:'intro'|'question'|'review'}
-export interface Receipt {submissionId:string;profileId:string;profileVersion:number;questionnaireVersion:string;processingStatus:string;profileStatus:string;readyForCompilation:boolean;clarificationCount:number;blockers:string[];warnings:string[];processedAt:string}
+export interface Receipt {submissionId:string;profileId:string;profileVersion:number;questionnaireVersion:string;processingStatus:string;profileStatus:string;readyForCompilation:boolean;clarificationCount:number;pendingItemCount?:number;blockers:string[];warnings:string[];processedAt:string}
+export const receiptPendingItemCount=(r:Receipt)=>r.pendingItemCount??r.blockers.length+r.warnings.length
 export const id=()=>crypto.randomUUID()
 export const draftKey=(q:Questionnaire)=>`ai-persona:questionnaire-draft:${q.questionnaireId}:${q.version}`
 export const receiptKey=(q:Questionnaire)=>`ai-persona:questionnaire-receipt:${q.questionnaireId}:${q.version}`
 export function blankDraft(q:Questionnaire):Draft{return {questionnaireId:q.questionnaireId,questionnaireVersion:q.version,currentIndex:0,answers:{},updatedAt:new Date().toISOString(),submissionId:id(),attempted:false,stage:'intro'}}
 export function initialAnswer(q:Question):Answer{return {fields:Object.fromEntries((q.fields||[]).filter(f=>f.defaultValue).map(f=>[f.fieldId,f.defaultValue!])),selectedOptionIds:[],selections:{},subAnswers:{},customTexts:{},anchors:{}}}
+function hasAnswerInput(a:Answer):boolean{
+  return !!(a.selectedOptionIds?.length||a.text?.trim()||Object.values(a.fields||{}).some(v=>v.trim())||Object.values(a.customTexts||{}).some(v=>v.trim())||Object.values(a.anchors||{}).some(v=>v.trim())||Object.values(a.selections||{}).some(v=>v.length)||Object.values(a.subAnswers||{}).some(v=>v.length))
+}
+export type AnswerState='UNANSWERED'|'ANSWERED'|'SKIPPED'|'INVALID'
+export const answerStateText:Record<AnswerState,string>={UNANSWERED:'未填写',ANSWERED:'已填写',SKIPPED:'已跳过',INVALID:'待修正'}
+export function answerState(q:Question,a?:Answer):AnswerState{
+  if(validateAnswer(q,a).length)return 'INVALID'
+  if(a?.skipped===true)return 'SKIPPED'
+  return a&&hasAnswerInput(a)?'ANSWERED':'UNANSWERED'
+}
+export function processedQuestionCount(q:Questionnaire,answers:Record<string,Answer>):number{return q.questions.filter(question=>['ANSWERED','SKIPPED'].includes(answerState(question,answers[question.questionId]))).length}
 export function validateAnswer(q:Question,a?:Answer):string[]{
-  if(!a||a.skipped)return q.required||!q.allowSkip?['请完成此题']:[]
+  if(a?.skipped===true&&hasAnswerInput(a))return ['跳过不能同时包含答案']
+  if(!a||a.skipped===true||!hasAnswerInput(a))return q.required||!q.allowSkip?['请完成此题']:[]
   const errors:string[]=[]
   const choices=(values:string[],options:Option[],min:number,max:number)=>{if(values.length<min||values.length>max)errors.push(`请选择 ${min===max?min:`${min}–${max}`} 项`);if(new Set(values).size!==values.length||values.some(v=>!options.some(o=>o.id===v)))errors.push('含无效或重复选项')}
   const text=(value:string|undefined,required:boolean,max:number,label='内容')=>{if(required&&!value?.trim())errors.push(`请填写${label}`);if(value&&value.length>max)errors.push(`${label}超过 ${max} 字符`)}

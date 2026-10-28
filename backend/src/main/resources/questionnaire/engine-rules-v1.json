@@ -3,6 +3,10 @@
   "levelConflictGap": 2,
   "initialDimensionStatus": "EXTRACTED_PROVISIONAL",
   "importanceDefault": "MEDIUM",
+  "policyConfirmation": {
+    "default": "EXTRACTED_PROVISIONAL",
+    "byQuestionId": {"Q16": "DIRECT_USER_CONFIRMED"}
+  },
   "policyTriggers": {
     "Q14": "用户感到委屈、难过或需要情绪支持时",
     "Q15": "用户焦虑、压力过载或面对任务不知所措时",
@@ -17,6 +21,16 @@
   },
   "clarificationChecks": [
     {"dimension":"emotionalSupport", "selectedQuestion":"Q06", "selectedOption":"PRACTICAL_HELP", "anyOf":[{"question":"Q13","subQuestion":"Q13_A","option":"A1"},{"question":"Q19","option":"HC_OPT_02"}], "question":"日常实际帮助和不主动说教之间，你希望怎样划分情境？"}
+  ],
+  "boundaryCrossChecks": [
+    {
+      "checkId": "jealousy-real-world-boundaries",
+      "when": {"questionId": "Q03", "optionId": "D"},
+      "relatedQuestionId": "Q19",
+      "requiredBoundaries": ["不限制现实社交。", "不逼问现实行踪。", "不无视用户身体边界；用户不愿意时不得强行靠近。"],
+      "reviewQuestion": "在不限制现实社交、不逼问现实行踪且尊重身体边界的前提下，你希望吃醋表达在什么情况下停止或降温？",
+      "conflictingSelections": []
+    }
   ],
   "tradeoffOverrides": {
     "EMPATHY_OVERRIDES_OBJECTIVITY": [{"operation":"SET","target":"/dimensions/emotionalSupport/value","value":["LISTEN","VALIDATE"]}],
